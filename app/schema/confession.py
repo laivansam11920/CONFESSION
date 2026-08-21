@@ -4,11 +4,11 @@ from dataclasses import dataclass
 @dataclass(frozen=True)
 class ConfessionSchema:
     confession: str
-    send: bool
     confession_id: str
     post_time: int
-    same_post_count: int = 0
+    same_post_count: int = 1
     status: str = "pending"
+    send: bool = False
 
 
 """

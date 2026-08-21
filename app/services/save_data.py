@@ -1,13 +1,11 @@
 from app.database import Database as db
 from app.schema.confession import ConfessionSchema
 from app.utils.logger import logger
+from app.utils.check_similar import is_similar
 from configs import Config
 
-
 from dataclasses import asdict
-
-from pymongo import ReturnDocument
-
+from time import time
 
 class ConfessionManager:
     def __init__(self):
@@ -22,23 +20,31 @@ class SaveData(ConfessionManager):
 
             if Config.CHECK_SAME_DOCS:
 
-                confession_data_dict.pop("same_post_count", None)
-
-                self.db.docs.find_one_and_update(
-                    {"confession_id": confession_data.confession_id},
-                    {
-                        "$inc": {"same_post_count": 1},
-                        "$setOnInsert": confession_data_dict,
-                    },
-                    upsert=True,
-                    return_document=ReturnDocument.AFTER,
+                old_docs = (
+                    self.db.docs.find(
+                        {"post_time": {"$gte": int(time()) - Config.TIME_OUT_CONFESSION}}
+                    )
+                    .sort("_id", -1)
+                    .limit(100)
                 )
-                return True
+
+                matched_id = None
+
+                for doc in old_docs:
+                    if is_similar(confession_data.confession, doc.get("confession", "")):
+                        matched_id = doc["confession_id"]
+                        break
+
+                if matched_id:
+                    self.db.docs.update_one(
+                        {"confession_id": matched_id}, {"$inc": {"same_post_count": 1}}
+                    )
+                    return True
 
             self.db.docs.insert_one(confession_data_dict)
             return True
 
-        except Exception as e:
+        except (Exception, KeyError) as e:
             logger.error(e)
             return False
 
