@@ -48,7 +48,4 @@ class SaveData(ConfessionManager):
             logger.error(e)
             return False
 
-
-# TODO: VIỆC CHECK_SAME_DOCS CHỈ MANG MỤC ĐÍCH NGĂN CHẶN SPAM, KHÔNG CHẶN VIỆC MỘT CÂU CÓ CÙNG NGHĨA NHƯNG KHÁC CÁCH DIỄN ĐẠT.
-# ĐỀ XUẤT: SimHash
 # TODO: PHẢI LÀM SAO NẾU MỘT NGƯỜI SPAM NHIỀU CONFESSION NHƯNG KHÔNG THỂ XÁC NHẬN DANH TÍNH, CẦN SỰ DỤNG AI HOẶC CÁC CÔNG CỤ MẠNH, HOẶC NHỜ ĐẾN SỰ KIỂM DUYỆT CỦA CON NGƯỜI.
