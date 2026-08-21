@@ -10,7 +10,7 @@ __all__ = ["Database"]
 class Database:
 
     @staticmethod
-    def connet():
+    def connect():
         try:
             client = MongoClient(
                 Config.MONGO_URI,
