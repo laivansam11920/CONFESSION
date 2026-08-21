@@ -6,3 +6,4 @@ class ConfessionSchema:
     active: bool
     confession_id: str
     post_time: int
+    same_post_count: int = 0
