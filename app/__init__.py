@@ -5,7 +5,7 @@ def create_app():
 
     app = Flask(__name__)
 
-    @app.route('/')
+    @app.route("/")
     def index():
         return "hello"
 
