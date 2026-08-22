@@ -8,8 +8,6 @@ from dataclasses import asdict
 from time import time
 
 
-
-
 class SaveData(ConfessionManager):
 
     def save_to_db(self, confession_data: ConfessionSchema) -> bool:
@@ -39,20 +37,20 @@ class SaveData(ConfessionManager):
                         matched_id = doc["confession_id"]
                         break
 
-                if matched_id:
+                if matched_id is not None:
                     self.db.docs.update_one(
                         {"confession_id": matched_id}, {"$inc": {"same_post_count": 1}}
                     )
                     return True
 
-            cfs_number  = self.db.cfs_count.find_one(
-                {"id": "confession_id"}, {"_id": 0, "seq": 1},
-            ).get("seq", 1)
+            cfs_docs = self.db.cfs_count.find_one_and_update(
+                {"id": "confession_id"},
+                {"$inc": {"seq": 1}},
+                upsert=True,
+            )
 
             confession_data_dict = asdict(confession_data)
-
-            confession_data_dict["cfs"] = cfs_number
-
+            confession_data_dict["cfs"] = int((cfs_docs or {}).get("seq", 0))
             self.db.docs.insert_one(confession_data_dict)
             return True
 
