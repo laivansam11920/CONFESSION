@@ -47,7 +47,7 @@ class SaveData(ConfessionManager):
                     )
                     return {
                         "success": True,
-                        "msg": _("Đã tồn tại một confession tương tự trong hệ thống!"),
+                        "msg": _("Nội dung này có vẻ trùng với bài trước, hệ thống đã tự động cộng dồn lượt tương tự cho bạn rồi nhé!"),
                         "status": "success",
                     }
 
@@ -62,7 +62,7 @@ class SaveData(ConfessionManager):
             self.db.docs.insert_one(confession_data_dict)
             return {
                 "success": True,
-                "msg": _("Lưu confession thành công!."),
+                "msg": _("Lưu confession thành công rồi nhé!"),
                 "status": "success",
             }
 
@@ -70,7 +70,7 @@ class SaveData(ConfessionManager):
             logger.error(e)
             return {
                 "success": False,
-                "msg": _("Có một lỗi ngoài ý muốn khi lưu confession."),
+                "msg": _("Rất tiếc, có chút sự cố nhỏ khi lưu confession. Bạn thử lại giúp chúng mình nha."),
                 "status": "error",
             }
 
