@@ -3,7 +3,7 @@ from app.schema.confession import ConfessionSchema
 from app.services.save_data import SaveConfession
 from configs import Config
 
-from flask import request, flash, redirect, url_for
+from flask import request, flash, redirect, url_for, Response
 from flask_babel import Babel, gettext as _ #type: ignore
 
 import uuid
@@ -14,7 +14,7 @@ __all__ = ["get_data_web"]
 
 class GetDataWeb(GetData):
 
-    def get_data(self):
+    def get_data(self) -> Response:
 
         confession: str = request.form.get("confession", "")
         email: str = request.form.get("email", "anonymous")
