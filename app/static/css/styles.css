@@ -1,0 +1,114 @@
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #000000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+      border: 3px solid #000000;
+      padding: 30px;
+      background-color: #ffffff;
+      box-shadow: 8px 8px 0px #dddddd;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+      border-bottom: 3px solid #000000;
+      padding-bottom: 12px;
+    }
+
+    p.desc {
+      font-size: 0.85rem;
+      color: #555555;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      color: #000000;
+    }
+
+    textarea, input[type="email"] {
+      width: 100%;
+      background-color: #ffffff;
+      border: 2px solid #000000;
+      color: #000000;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      border-radius: 0px;
+      transition: all 0.15s ease;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    textarea:focus, input[type="email"]:focus {
+      border-color: #000000;
+      box-shadow: 4px 4px 0px #000000;
+    }
+
+    button {
+      width: 100%;
+      background-color: #000000;
+      color: #ffffff;
+      border: 2px solid #000000;
+      padding: 14px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      border-radius: 0px;
+      transition: all 0.15s ease;
+    }
+
+    button:hover {
+      background-color: #ffffff;
+      color: #000000;
+      box-shadow: 4px 4px 0px #000000;
+    }
+
+    button:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px #000000;
+    }
+
+    .status-msg {
+      margin-top: 18px;
+      padding: 12px;
+      border: 2px solid #000000;
+      background: #dddddd;
+      color: #000000;
+      font-size: 0.85rem;
+      display: none;
+      text-align: center;
+      font-weight: 600;
+    }
