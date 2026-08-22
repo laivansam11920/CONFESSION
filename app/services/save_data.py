@@ -62,7 +62,7 @@ class SaveData(ConfessionManager):
             self.db.docs.insert_one(confession_data_dict)
             return {
                 "success": True,
-                "msg": _("Lưu confession thành công :))."),
+                "msg": _("Lưu confession thành công!."),
                 "status": "success",
             }
 
