@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     CHECK_SAME_DOCS: bool = Field(True, alias="CHECK_SAME_DOCS")
     TIME_OUT_CONFESSION: int = Field(86400, alias="TIME_CONFESSION_MAX")
 
-    SIMILARITY_THRESHOLD: float = Field(default=0.64, alias="MAX_SAME_ALLOW")
+    SIMILARITY_THRESHOLD: float = Field(default=0.64, alias="SIMILARITY_THRESHOLD")
 
     model_config = SettingsConfigDict(populate_by_name=True)
 
