@@ -10,12 +10,13 @@ import time
 
 __all__ = ["get_data_web"]
 
+
 class GetDataWeb(GetData):
 
     def get_data(self):
 
-        confession: str = request.form.get('confession', "")
-        email: str = request.form.get('email', "anonymous")
+        confession: str = request.form.get("confession", "")
+        email: str = request.form.get("email", "anonymous")
 
         data = ConfessionSchema(
             confession=confession,
@@ -27,7 +28,14 @@ class GetDataWeb(GetData):
         res = SaveConfession.save_to_db(data)
 
         flash(res.get("msg", _("Đã xảy ra 1 lỗi nào đó")), res.get("status", "error"))
-        return redirect(url_for('main_route.index'))
+        return redirect(
+            url_for(
+                "main_route.index",
+                lang=request.args.get(
+                    "lang", request.accept_languages.best_match(["vi", "en"])
+                ),
+            )
+        )
 
 
 get_data_web: GetDataWeb = GetDataWeb()

@@ -6,6 +6,7 @@ from app.routes import register_blueprints
 from .utils.change_lang import get_locale
 from configs import Config
 
+
 def create_app():
 
     app = Flask(__name__)
