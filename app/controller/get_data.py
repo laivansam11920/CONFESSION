@@ -3,7 +3,7 @@ from app.schema.confession import ConfessionSchema
 from app.services.save_data import SaveConfession
 
 from flask import request, flash, redirect, url_for
-from flask_babel import Babel, gettext as _
+from flask_babel import Babel, gettext as _ #type: ignore
 
 import uuid
 import time
