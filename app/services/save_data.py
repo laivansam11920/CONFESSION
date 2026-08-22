@@ -1,7 +1,7 @@
 from app.schema.confession import ConfessionSchema
 from app.utils.logger import logger
 from app.utils.check_similar import is_similar
-from .base import ConfessionManager
+from base import ConfessionManager
 from configs import Config
 
 from dataclasses import asdict
