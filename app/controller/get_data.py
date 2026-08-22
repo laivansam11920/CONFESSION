@@ -1,8 +1,10 @@
-from abc import ABC, abstractmethod
+from base import GetData
+
+from flask import request
 
 
-class GetData(ABC):
+class GetDataWeb(GetData):
 
-    @abstractmethod
     def get_data(self):
+        data = request.get_json()
         pass

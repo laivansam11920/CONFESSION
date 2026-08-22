@@ -11,3 +11,9 @@ class AiServices(ABC):
 class ConfessionManager:
     def __init__(self):
         self.db = db.connect()
+
+class GetData(ABC):
+
+    @abstractmethod
+    def get_data(self):
+        pass
