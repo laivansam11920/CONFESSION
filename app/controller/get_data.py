@@ -4,7 +4,7 @@ from app.services.save_data import SaveConfession
 from configs import Config
 
 from flask import request, flash, redirect, url_for, Response
-from flask_babel import Babel, gettext as _ #type: ignore
+from flask_babel import _
 
 import uuid
 import time
