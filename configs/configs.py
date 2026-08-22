@@ -16,6 +16,9 @@ class Settings(BaseSettings):
     PORT: int = Field(default=2011, alias="PORT")
     DEBUG: bool = Field(False, alias="DEBUG")
 
+    BABEL_DEFAULT_LOCALE: str = "vi"
+    BABEL_TRANSLATION_DIRECTORIES: str = "translations"
+
     model_config = SettingsConfigDict(populate_by_name=True)
 
 

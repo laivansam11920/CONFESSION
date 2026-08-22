@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template
 
 from app.extensions.limiter import limiter
-from app.extensions.confession import get_data_web
 
 main_route: Blueprint = Blueprint("main_route", __name__)
 get_data: Blueprint = Blueprint("get_data", __name__)
@@ -13,5 +12,6 @@ def index():
 
 @get_data.post("/submit-confession")
 def get_confession():
+    from app.controller.get_data import get_data_web
     return get_data_web.get_data()
 
