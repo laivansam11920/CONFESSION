@@ -8,9 +8,11 @@ class AiServices(ABC):
     def check_confession(self, text: str) -> bool:
         pass
 
+
 class ConfessionManager:
     def __init__(self):
         self.db = db.connect()
+
 
 class GetData(ABC):
 
