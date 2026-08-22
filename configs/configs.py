@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     DEBUG: bool = Field(False, alias="DEBUG")
     SECRET_KEY: str = Field(..., alias="SECRET_KEY")
 
-    BABEL_DEFAULT_LOCALE: str = "vi"
+    BABEL_DEFAULT_LOCALE: str = "en"
     BABEL_TRANSLATION_DIRECTORIES: str = "translations"
 
     model_config = SettingsConfigDict(populate_by_name=True)

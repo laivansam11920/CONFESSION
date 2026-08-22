@@ -12,7 +12,6 @@ def create_app():
     app = Flask(__name__)
     babel = Babel()
     limiter.init_app(app)
-    app.secret_key = "1111111"
     app.config.from_object(Config)
     babel.init_app(app, locale_selector=get_locale)
     register_blueprints(app)
