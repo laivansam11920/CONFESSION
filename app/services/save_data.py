@@ -7,6 +7,7 @@ from configs import Config
 from dataclasses import asdict
 from time import time
 
+__all__ = ["SaveData"]
 
 class SaveData(ConfessionManager):
 
@@ -57,7 +58,5 @@ class SaveData(ConfessionManager):
         except Exception as e:
             logger.error(e)
             return {"success": False, "msg": "Có một lỗi ngoài ý muốn khi lưu confession.", "status": "error"}
-
-SaveConfession = SaveData()
 
 # TODO: PHẢI LÀM SAO NẾU MỘT NGƯỜI SPAM NHIỀU CONFESSION NHƯNG KHÔNG THỂ XÁC NHẬN DANH TÍNH, CẦN SỰ DỤNG AI HOẶC CÁC CÔNG CỤ MẠNH, HOẶC NHỜ ĐẾN SỰ KIỂM DUYỆT CỦA CON NGƯỜI.
