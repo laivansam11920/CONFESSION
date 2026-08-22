@@ -23,7 +23,8 @@ class SaveData(ConfessionManager):
                             "post_time": {
                                 "$gte": int(time()) - Config.TIME_OUT_CONFESSION
                             }
-                        }
+                        },
+                        {"_id": 1, "confession_id": 1, "confession": 1},
                     )
                     .sort("_id", -1)
                     .limit(100)
@@ -44,7 +45,15 @@ class SaveData(ConfessionManager):
                     )
                     return True
 
-            self.db.docs.insert_one(asdict(confession_data))
+            cfs_number  = self.db.cfs_count.find_one(
+                {"id": "confession_id"}, {"_id": 0, "seq": 1},
+            ).get("seq", 1)
+
+            confession_data_dict = asdict(confession_data)
+
+            confession_data_dict["cfs"] = cfs_number
+
+            self.db.docs.insert_one(confession_data_dict)
             return True
 
         except Exception as e:
