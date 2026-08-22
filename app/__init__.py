@@ -7,5 +7,6 @@ def create_app():
 
     app = Flask(__name__)
     limiter.init_app(app)
+    app.secret_key = "1111111"
     register_blueprints(app)
     return app

@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confession Box</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
 
+  <div class="container">
+    <h1>CONFESSION</h1>
+    <p class="desc">Gửi tâm tư ẩn danh. Nhập Gmail nếu og muốn nhận thông báo khi có phản hồi.</p>
+
+    <form id="confessionForm" action="/submit-confession" method="POST">
+      <div class="form-group">
+        <label for="confession">Nội dung Confession *</label>
+        <textarea id="confession" name="confession" placeholder="Viết điều og muốn chia sẻ ở đây..." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Gmail nhận thông báo (Không bắt buộc)</label>
+        <input type="email" id="email" name="email" placeholder="example@gmail.com">
+      </div>
+
+      <button type="submit">GỬI CONFESSION</button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="status-msg" style="display: block;">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
 </body>
 </html>

@@ -10,7 +10,7 @@ from time import time
 
 class SaveData(ConfessionManager):
 
-    def save_to_db(self, confession_data: ConfessionSchema) -> bool:
+    def save_to_db(self, confession_data: ConfessionSchema) -> dict:
         try:
 
             if Config.CHECK_SAME_DOCS:
@@ -41,7 +41,7 @@ class SaveData(ConfessionManager):
                     self.db.docs.update_one(
                         {"confession_id": matched_id}, {"$inc": {"same_post_count": 1}}
                     )
-                    return True
+                    return {"success": True, "msg": "Đã tồn tại một confession tương tự trong hệ thống!", "status": "success"}
 
             cfs_docs = self.db.cfs_count.find_one_and_update(
                 {"id": "confession_id"},
@@ -52,11 +52,12 @@ class SaveData(ConfessionManager):
             confession_data_dict = asdict(confession_data)
             confession_data_dict["cfs"] = int((cfs_docs or {}).get("seq", 0))
             self.db.docs.insert_one(confession_data_dict)
-            return True
+            return {"success": True, "msg": "Lưu confession thành công :)).", "status": "success"}
 
         except Exception as e:
             logger.error(e)
-            return False
+            return {"success": False, "msg": "Có một lỗi ngoài ý muốn khi lưu confession.", "status": "error"}
 
+SaveConfession = SaveData()
 
 # TODO: PHẢI LÀM SAO NẾU MỘT NGƯỜI SPAM NHIỀU CONFESSION NHƯNG KHÔNG THỂ XÁC NHẬN DANH TÍNH, CẦN SỰ DỤNG AI HOẶC CÁC CÔNG CỤ MẠNH, HOẶC NHỜ ĐẾN SỰ KIỂM DUYỆT CỦA CON NGƯỜI.
