@@ -1,4 +1,4 @@
-#docs: docs/ConfessionSchema.md
+# docs: docs/ConfessionSchema.md
 from dataclasses import dataclass
 
 
@@ -11,4 +11,3 @@ class ConfessionSchema:
     same_post_count: int = 0
     status: str = "pending"
     send: bool = False
-
