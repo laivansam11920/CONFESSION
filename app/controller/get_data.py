@@ -1,6 +1,7 @@
 from base import GetData
 from app.schema.confession import ConfessionSchema
 from app.services.save_data import SaveConfession
+from configs import Config
 
 from flask import request, flash, redirect, url_for
 from flask_babel import Babel, gettext as _ #type: ignore
@@ -37,5 +38,7 @@ class GetDataWeb(GetData):
             )
         )
 
-
-get_data_web: GetDataWeb = GetDataWeb()
+if Config.CHANGE_GET_DATA_BY_WEB:
+    get_data_web: GetDataWeb = GetDataWeb()
+else:
+    get_data_web: None = None

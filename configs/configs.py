@@ -16,6 +16,8 @@ class Settings(BaseSettings):
     DEBUG: bool = Field(False, alias="DEBUG")
     SECRET_KEY: str = Field(..., alias="SECRET_KEY")
 
+    CHANGE_GET_DATA_BY_WEB: bool = Field(True, alias="CHANGE_GET_DATA_BY_WEB")
+
     BABEL_DEFAULT_LOCALE: str = "en"
     BABEL_TRANSLATION_DIRECTORIES: str = "translations"
 
