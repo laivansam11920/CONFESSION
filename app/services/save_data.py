@@ -7,7 +7,7 @@ from configs import Config
 from dataclasses import asdict
 from time import time
 
-from flask_babel import _
+from flask_babel import Babel, gettext as _
 
 __all__ = ["SaveConfession"]
 

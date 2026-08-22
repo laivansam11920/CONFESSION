@@ -5,7 +5,7 @@ from app.utils.return_home import home
 from configs import Config
 
 from flask import request, flash, Response
-from flask_babel import _
+from flask_babel import Babel, gettext as _
 
 import uuid
 import time
@@ -21,7 +21,7 @@ class GetDataWeb(GetData):
         email: str = request.form.get("email", "anonymous")
 
         if not confession:
-            flash("Đã xãy ra 1 lỗi nào đó khiến conffession của bạn không tồn tại")
+            flash(_("Đã xãy ra 1 lỗi nào đó làm cho chúng tôi chưa nhận được confession của bạn."))
             return home()
 
         data = ConfessionSchema(

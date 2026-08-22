@@ -1,7 +1,7 @@
 from flask import request
 
 
-def get_locale():
+def get_locale() -> str | None:
     lang = request.args.get("lang")
     if lang in ["vi", "en"]:
         return lang
