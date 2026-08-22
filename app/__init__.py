@@ -1,18 +1,11 @@
 from flask import Flask
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
+from app.extensions.limiter import limiter
+from app.routes import register_blueprints
 
 def create_app():
 
     app = Flask(__name__)
-
-    limiter = Limiter(get_remote_address, default_limits=["200 per day", "50 per hour"], storage_uri="memory://",)
     limiter.init_app(app)
-
-
-    @app.route("/")
-    @limiter.limit("10/day")
-    def index():
-        return "hello"
-
+    register_blueprints(app)
     return app
+
