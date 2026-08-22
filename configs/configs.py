@@ -12,6 +12,10 @@ class Settings(BaseSettings):
 
     SIMILARITY_THRESHOLD: float = Field(default=0.64, alias="SIMILARITY_THRESHOLD")
 
+    HOST: str = Field(default="0.0.0.0", alias="HOST")
+    PORT: int = Field(default=2011, alias="PORT")
+    DEBUG: bool = Field(False, alias="DEBUG")
+
     model_config = SettingsConfigDict(populate_by_name=True)
 
 
