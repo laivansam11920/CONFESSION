@@ -1,11 +1,13 @@
 from app.base import AiServices
 from app.prompts.moderation import _return_prompt_from_list_cfs
 from app.utils.logger import logger
+from app.schema.confession import ConfessionModerationResponse
 from configs import Config
 
 from google import genai
 from google.genai.errors import ClientError, APIError
 
+from json import loads
 
 class GenAIModeration(AiServices):
 
@@ -20,10 +22,14 @@ class GenAIModeration(AiServices):
             interaction = self.client.models.generate_content(
                 model=self.model,
                 contents=contents_input,
+                config={
+                    "response_mime_type": "application/json",
+                    "response_schema": ConfessionModerationResponse,
+                },
             )
             if not interaction or not interaction.text:
                 return None
-            return interaction.text
+            return loads(interaction.text)
         except (Exception, ClientError, APIError) as e:
             logger.error(e)
 
