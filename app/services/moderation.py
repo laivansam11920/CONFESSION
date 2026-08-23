@@ -10,6 +10,8 @@ from google.genai.errors import ClientError, APIError
 from json import loads
 
 
+__all__ = ["moderation"]
+
 class GenAIModeration(AiServices):
 
     def __init__(self):
