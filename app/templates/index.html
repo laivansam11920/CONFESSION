@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Confession Box</title>
+    {% with name_groups =  config.NAME_GROUP_USE_PROJECT%}
+        {% if name_groups %}
+            <title>{{ name_groups }} confession</title>
+        {% else %}
+            <title>Confession Box</title>
+        {% endif %}
+    {% endwith %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>

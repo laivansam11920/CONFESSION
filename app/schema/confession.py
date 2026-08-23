@@ -1,5 +1,5 @@
 # docs: docs/ConfessionSchema.md
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass(frozen=True)
@@ -11,3 +11,4 @@ class ConfessionSchema:
     same_post_count: int = 0
     status: str = "pending"
     send: bool = False
+    ai_data: list = field(default_factory=list)
