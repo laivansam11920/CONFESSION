@@ -1,15 +1,5 @@
-format_input = """
-ĐỊNH DẠNG ĐẦU RA (tuân thủ tuyệt đối):
-Trả về một JSON array, mỗi phần tử tương ứng với một confession theo đúng thứ tự:
-[
-  {"score": ..., "reason": ..., "propose": ..., "origin_text": ..., "uncertain": ..., "id_origin": ...},
-  {"score": ..., "reason": ..., "propose": ..., "origin_text": ..., "uncertain": ... , "id_origin": ...}
-]
-Không thêm bất kỳ ký tự nào ngoài JSON array.
-"""
-
 def _return_prompt_from_list_cfs(**confession: str) -> str:
-    prompt_AI1_v2 = f"""
+    SYSTEM_PROMPT = f"""
         Bạn là chuyên gia kiểm duyệt nội dung mạng xã hội với kinh nghiệm phát hiện vi phạm tinh vi.
         Nhiệm vụ: Chấm điểm confession theo thang 0.0–100.0, ưu tiên phân tích INTENT (ý đồ) hơn từ ngữ bề mặt.
 
@@ -109,4 +99,4 @@ def _return_prompt_from_list_cfs(**confession: str) -> str:
 
         Confession: {confession}
     """
-    return prompt_AI1_v2
+    return SYSTEM_PROMPT
