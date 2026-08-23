@@ -7,7 +7,7 @@ from .utils.change_lang import get_locale
 from configs import Config
 
 
-def create_app():
+def create_app() -> Flask:
 
     app = Flask(__name__)
     babel = Babel()
