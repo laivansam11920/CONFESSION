@@ -1,5 +1,8 @@
 from app.base import ConfessionManager
 from app.utils.logger import logger
+from configs import Config
+
+from time import time
 
 __all__ = ['get_confession']
 
@@ -8,7 +11,12 @@ class GetConfession(ConfessionManager):
     def get(self):
         try:
             confession = self.db.docs.find(
-                {"status": "pending", "send": False}, #TODO: add $gte
+                {
+                    "post_time": {
+                        "$gte": int(time()) - Config.TIME_OUT_CONFESSION
+                    },
+                    "status": "pending",
+                    "send": False}, #TODO: add $gte
                 {"_id": 0, "confession": 1, "confession_id": 1},
             )
             list_confession = {}
