@@ -10,8 +10,9 @@ class AiServices(ABC):
         self.model = model
 
     @abstractmethod
-    def check_confession(self, **list_confession):
+    def get_response(self, contents_input: str) -> str | None:
         pass
+
 
 
 class ConfessionManager:

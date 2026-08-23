@@ -1,12 +1,14 @@
 from app.base import ConfessionManager
 from app.utils.logger import logger
 
+__all__ = ['get_confession']
+
 class GetConfession(ConfessionManager):
 
-    def get_confession(self):
+    def get(self):
         try:
             confession = self.db.docs.find(
-                {"status": "pending", "send": False},
+                {"status": "pending", "send": False}, #TODO: add $gte
                 {"_id": 0, "confession": 1, "confession_id": 1},
             )
             list_confession = {}
@@ -22,3 +24,5 @@ class GetConfession(ConfessionManager):
             return list_confession
         except Exception as e:
             logger.error(e)
+
+get_confession = GetConfession()
