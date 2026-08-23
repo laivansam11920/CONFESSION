@@ -36,7 +36,7 @@ class GenAIModeration(AiServices):
 
     def check_confession(self, list_confession: dict):
         try:
-            list_confession = _return_prompt_from_list_cfs(**list_confession)
+            list_confession = convert_confession_to_prompts(**list_confession)
 
             response = self.get_response(list_confession)
 
