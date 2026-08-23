@@ -1,5 +1,5 @@
 def convert_confession_to_prompts(**confession: str) -> str:
-    SYSTEM_PROMPT = f"""
+    return f"""
         Bạn là chuyên gia kiểm duyệt nội dung mạng xã hội với kinh nghiệm phát hiện vi phạm tinh vi.
         Nhiệm vụ: Chấm điểm confession theo thang 0.0–100.0, ưu tiên phân tích INTENT (ý đồ) hơn từ ngữ bề mặt.
 
@@ -99,4 +99,3 @@ def convert_confession_to_prompts(**confession: str) -> str:
 
         Confession: {confession}
     """
-    return SYSTEM_PROMPT
