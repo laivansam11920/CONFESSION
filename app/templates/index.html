@@ -29,13 +29,22 @@
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-        {% for category, message in messages %}
+        {% for _, message in messages %}
           <div class="status-msg" style="display: block;">
             {{ message }}
           </div>
         {% endfor %}
       {% endif %}
     {% endwith %}
+  <div class="footer">
+      <p>&copy; {{ _("2026 Lại Văn Sâm. Mọi bản quyền được bảo lưu.") }}</p>
+      {% with name_group = config.NAME_GROUP_USE_PROJECT %}
+          {% if name_group %}
+              <p>{{ _("Hệ thống được vận hành bởi") }} {{ name_group }}</p>
+          {% endif %}
+      {% endwith %}
+        <a href="#">{{ _("Điều khoản") }}</a> & <a href="#">{{ _("Bảo mật") }}</a>
+    </div>
   </div>
 </body>
 </html>

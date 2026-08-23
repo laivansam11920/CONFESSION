@@ -112,3 +112,28 @@
       text-align: center;
       font-weight: 600;
     }
+    .footer {
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 2px dashed #dddddd;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #555555;
+    }
+
+    .footer p {
+      margin-bottom: 5px;
+    }
+
+    .footer a {
+      color: #000000;
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.15s ease;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+      background-color: #000000;
+      color: #ffffff;
+    }
