@@ -1,7 +1,7 @@
 from app.base import AiServices
 from app.prompts.moderation import _return_prompt_from_list_cfs
 from app.utils.logger import logger
-from app.schema.confession import ConfessionModerationResponse
+from app.schema.ResponeSchema import ConfessionModerationResponse
 from configs import Config
 
 from google import genai
