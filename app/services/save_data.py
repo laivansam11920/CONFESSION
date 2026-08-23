@@ -24,9 +24,10 @@ class SaveData(ConfessionManager):
                         {
                             "post_time": {
                                 "$gte": int(time()) - Config.TIME_OUT_CONFESSION
-                            }
+                            },
+                            "send": False,
                         },
-                        {"_id": 1, "confession_id": 1, "confession": 1},
+                        {"_id": 1, "confession_id": 1, "confession": 1, "send": 1},
                     )
                     .sort("_id", -1)
                     .limit(100)
