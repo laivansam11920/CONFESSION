@@ -1,4 +1,4 @@
-def _return_prompt_from_list_cfs(**confession: str) -> str:
+def convert_confession_to_prompts(**confession: str) -> str:
     SYSTEM_PROMPT = f"""
         Bạn là chuyên gia kiểm duyệt nội dung mạng xã hội với kinh nghiệm phát hiện vi phạm tinh vi.
         Nhiệm vụ: Chấm điểm confession theo thang 0.0–100.0, ưu tiên phân tích INTENT (ý đồ) hơn từ ngữ bề mặt.
