@@ -24,10 +24,10 @@ class GetConfession(ConfessionManager):
             for docs in confession:
 
                 confession_id = docs.get("confession_id", None)
-                confession = docs.get("confession", None)
+                confession_text = docs.get("confession", None)
 
-                if confession_id and confession:
-                    list_confession[confession_id] = confession
+                if confession_id and confession_text:
+                    list_confession[confession_id] = confession_text
 
             return list_confession
         except Exception as e:

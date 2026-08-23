@@ -38,9 +38,8 @@ class GenAIModeration(AiServices):
 
     def check_confession(self, list_confession: dict):
         try:
-            list_confession = convert_confession_to_prompts(**list_confession)
 
-            response = self.get_response(list_confession)
+            response = self.get_response(convert_confession_to_prompts(**list_confession))
 
             return response
         except (Exception, ClientError, APIError) as e:
