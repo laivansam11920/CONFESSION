@@ -10,14 +10,22 @@
 
   <div class="container">
     <h1>CONFESSION</h1>
-    <p class="desc">{{ _("Gửi tâm tư ẩn danh. Nhập Gmail nếu og muốn nhận thông báo khi có phản hồi.") }}</p>
+    {% set _if_get_email = _("Gửi tâm tư ẩn danh. Nhập Gmail nếu og muốn nhận thông báo khi có phản hồi.") %}
+    {% set _else_if_dont_get_email = _("Gửi tâm tư ẩn danh. Chúng tôi luôn luôn tôn trọng bạn.") %}
+
+    {% if config.GET_EMAIL %}
+        <p class="desc">{{ _if_get_email }}</p>
+    {% else %}
+        <p class="desc">{{ _else_if_dont_get_email }}</p>
+    {% endif %}
+
 
     <form id="confessionForm" action="/submit-confession" method="POST">
       <div class="form-group">
         <label for="confession">{{ _("Nội dung Confession *") }}</label>
         <textarea id="confession" name="confession" placeholder="{{ _('Viết điều og muốn chia sẻ ở đây...') }}" required></textarea>
       </div>
-      {% if config.GET_EMAIL == True %}
+      {% if config.GET_EMAIL %}
           <div class="form-group">
             <label for="email">{{ _("Gmail nhận thông báo (Không bắt buộc)") }}</label>
             <input type="email" id="email" name="email" placeholder="example@gmail.com">
@@ -38,11 +46,10 @@
     {% endwith %}
   <div class="footer">
       <p>&copy; {{ _("2026 Lại Văn Sâm. Mọi bản quyền được bảo lưu.") }}</p>
-      {% with name_group = config.NAME_GROUP_USE_PROJECT %}
-          {% if name_group %}
-              <p>{{ _("Hệ thống được vận hành bởi") }} {{ name_group }}</p>
-          {% endif %}
-      {% endwith %}
+      {% set name_group = config.NAME_GROUP_USE_PROJECT %}
+      {% if name_group %}
+          <p>{{ _("Hệ thống được vận hành bởi") }} {{ name_group }}</p>
+      {% endif %}
         <a href="#">{{ _("Điều khoản") }}</a> & <a href="#">{{ _("Bảo mật") }}</a>
     </div>
   </div>
