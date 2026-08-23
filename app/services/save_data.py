@@ -48,7 +48,9 @@ class SaveData(ConfessionManager):
                     )
                     return {
                         "success": True,
-                        "msg": _("Nội dung này có vẻ trùng với bài trước, hệ thống đã tự động cộng dồn lượt tương tự cho bạn rồi nhé!"),
+                        "msg": _(
+                            "Nội dung này có vẻ trùng với bài trước, hệ thống đã tự động cộng dồn lượt tương tự cho bạn rồi nhé!"
+                        ),
                         "status": "success",
                     }
 
@@ -71,7 +73,9 @@ class SaveData(ConfessionManager):
             logger.error(e)
             return {
                 "success": False,
-                "msg": _("Rất tiếc, có chút sự cố nhỏ khi lưu confession. Bạn thử lại giúp chúng mình nha."),
+                "msg": _(
+                    "Rất tiếc, có chút sự cố nhỏ khi lưu confession. Bạn thử lại giúp chúng mình nha."
+                ),
                 "status": "error",
             }
 

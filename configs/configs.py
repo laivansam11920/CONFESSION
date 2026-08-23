@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     MONGO_MAIN_DB: str = Field(default="Confession", alias="MONGO_MAIN_DB")
 
     GOOGLE_AI_API_KEY: str = Field(..., alias="GOOGLE_AI_API_KEY")
+    MODEL_GOOGLE_AI: str = Field(default="gemma-4-31b-it", alias="MODEL_GOOGLE_AI")
 
     CHECK_SAME_DOCS: bool = Field(True, alias="CHECK_SAME_DOCS")
     TIME_OUT_CONFESSION: int = Field(86400, alias="TIME_CONFESSION_MAX")
@@ -23,7 +24,9 @@ class Settings(BaseSettings):
     NAME_GROUP_USE_PROJECT: str = Field(default="", alias="NAME_GROUP_USE_PROJECT")
 
     BABEL_DEFAULT_LOCALE: str = Field(default="en", alias="BABEL_DEFAULT_LOCALE")
-    BABEL_TRANSLATION_DIRECTORIES: str = Field(default="translations", alias="BABEL_TRANSLATION_DIRECTORIES")
+    BABEL_TRANSLATION_DIRECTORIES: str = Field(
+        default="translations", alias="BABEL_TRANSLATION_DIRECTORIES"
+    )
 
     model_config = SettingsConfigDict(populate_by_name=True)
 

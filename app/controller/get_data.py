@@ -21,7 +21,11 @@ class GetDataWeb(GetData):
         email: str = request.form.get("email", "anonymous")
 
         if not confession:
-            flash(_("Rất tiếc, hệ thống chưa nhận được nội dung confession của bạn. Vui lòng kiểm tra và gửi lại nhé!"))
+            flash(
+                _(
+                    "Rất tiếc, hệ thống chưa nhận được nội dung confession của bạn. Vui lòng kiểm tra và gửi lại nhé!"
+                )
+            )
             return home()
 
         data = ConfessionSchema(
@@ -33,7 +37,15 @@ class GetDataWeb(GetData):
 
         res = SaveConfession.save_to_db(data)
 
-        flash(res.get("msg", _("Rất tiếc, quá trình xử lý gặp chút sự cố. Bạn vui lòng thử lại sau nhé.")), res.get("status", "error"))
+        flash(
+            res.get(
+                "msg",
+                _(
+                    "Rất tiếc, quá trình xử lý gặp chút sự cố. Bạn vui lòng thử lại sau nhé."
+                ),
+            ),
+            res.get("status", "error"),
+        )
         return home()
 
 
