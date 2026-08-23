@@ -10,13 +10,14 @@
 
   <div class="container">
     <h1>CONFESSION</h1>
-    {% set _if_get_email = _("Gửi tâm tư ẩn danh. Nhập Gmail nếu og muốn nhận thông báo khi có phản hồi.") %}
-    {% set _else_if_dont_get_email = _("Gửi tâm tư ẩn danh. Chúng tôi luôn luôn tôn trọng bạn.") %}
-
     {% if config.GET_EMAIL %}
-        <p class="desc">{{ _if_get_email }}</p>
+        {% with _if_get_email = _("Gửi tâm tư ẩn danh. Nhập Gmail nếu og muốn nhận thông báo khi có phản hồi.") %}
+            <p class="desc">{{ _if_get_email }}</p>
+        {% endwith %}
     {% else %}
-        <p class="desc">{{ _else_if_dont_get_email }}</p>
+        {% with _else_if_dont_get_email = _("Gửi tâm tư ẩn danh. Chúng tôi luôn luôn tôn trọng bạn.") %}
+            <p class="desc">{{ _else_if_dont_get_email }}</p>
+        {% endwith %}
     {% endif %}
 
 
@@ -46,10 +47,11 @@
     {% endwith %}
   <div class="footer">
       <p>&copy; {{ _("2026 Lại Văn Sâm. Mọi bản quyền được bảo lưu.") }}</p>
-      {% set name_group = config.NAME_GROUP_USE_PROJECT %}
-      {% if name_group %}
-          <p>{{ _("Hệ thống được vận hành bởi") }} {{ name_group }}</p>
-      {% endif %}
+      {% with name_group = config.NAME_GROUP_USE_PROJECT %}
+          {% if name_group %}
+              <p>{{ _("Hệ thống được vận hành bởi") }} {{ name_group }}</p>
+          {% endif %}
+      {% endwith %}
         <a href="#">{{ _("Điều khoản") }}</a> & <a href="#">{{ _("Bảo mật") }}</a>
     </div>
   </div>
