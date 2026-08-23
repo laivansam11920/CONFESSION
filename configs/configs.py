@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str = Field(..., alias="SECRET_KEY")
 
     CHANGE_GET_DATA_BY_WEB: bool = Field(True, alias="CHANGE_GET_DATA_BY_WEB")
+    GET_EMAIL: bool = Field(True, alias="GET_EMAIL")
 
     BABEL_DEFAULT_LOCALE: str = "en"
     BABEL_TRANSLATION_DIRECTORIES: str = "translations"

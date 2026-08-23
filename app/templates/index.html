@@ -17,11 +17,12 @@
         <label for="confession">{{ _("Nội dung Confession *") }}</label>
         <textarea id="confession" name="confession" placeholder="{{ _('Viết điều og muốn chia sẻ ở đây...') }}" required></textarea>
       </div>
-
-      <div class="form-group">
-        <label for="email">{{ _("Gmail nhận thông báo (Không bắt buộc)") }}</label>
-        <input type="email" id="email" name="email" placeholder="example@gmail.com">
-      </div>
+      {% if config.GET_EMAIL == True %}
+          <div class="form-group">
+            <label for="email">{{ _("Gmail nhận thông báo (Không bắt buộc)") }}</label>
+            <input type="email" id="email" name="email" placeholder="example@gmail.com">
+          </div>
+      {% endif %}
 
       <button type="submit">{{ _("GỬI CONFESSION") }}</button>
     </form>
