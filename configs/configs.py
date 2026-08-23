@@ -19,10 +19,10 @@ class Settings(BaseSettings):
     SECRET_KEY: str = Field(..., alias="SECRET_KEY")
 
     CHANGE_GET_DATA_BY_WEB: bool = Field(True, alias="CHANGE_GET_DATA_BY_WEB")
-    GET_EMAIL: bool = Field(True, alias="GET_EMAIL")
+    GET_EMAIL: bool = Field(False, alias="GET_EMAIL")
 
-    BABEL_DEFAULT_LOCALE: str = "en"
-    BABEL_TRANSLATION_DIRECTORIES: str = "translations"
+    BABEL_DEFAULT_LOCALE: str = Field(default="en", alias="BABEL_DEFAULT_LOCALE")
+    BABEL_TRANSLATION_DIRECTORIES: str = Field(default="translations", alias="BABEL_TRANSLATION_DIRECTORIES")
 
     model_config = SettingsConfigDict(populate_by_name=True)
 
