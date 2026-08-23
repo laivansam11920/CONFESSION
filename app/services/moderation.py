@@ -9,6 +9,7 @@ from google.genai.errors import ClientError, APIError
 
 from json import loads
 
+
 class GenAIModeration(AiServices):
 
     def __init__(self):
@@ -42,5 +43,6 @@ class GenAIModeration(AiServices):
             return response
         except (Exception, ClientError, APIError) as e:
             logger.error(e)
+
 
 moderation = GenAIModeration()

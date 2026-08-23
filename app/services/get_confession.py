@@ -4,7 +4,8 @@ from configs import Config
 
 from time import time
 
-__all__ = ['get_confession']
+__all__ = ["get_confession"]
+
 
 class GetConfession(ConfessionManager):
 
@@ -12,11 +13,10 @@ class GetConfession(ConfessionManager):
         try:
             confession = self.db.docs.find(
                 {
-                    "post_time": {
-                        "$gte": int(time()) - Config.TIME_OUT_CONFESSION
-                    },
+                    "post_time": {"$gte": int(time()) - Config.TIME_OUT_CONFESSION},
                     "status": "pending",
-                    "send": False}, #TODO: add $gte
+                    "send": False,
+                },  # TODO: add $gte
                 {"_id": 0, "confession": 1, "confession_id": 1},
             )
             list_confession = {}
@@ -32,5 +32,6 @@ class GetConfession(ConfessionManager):
             return list_confession
         except Exception as e:
             logger.error(e)
+
 
 get_confession = GetConfession()
