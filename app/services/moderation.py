@@ -47,6 +47,9 @@ class GenAIModeration(AiServices):
     def check_confession(self, list_confession: dict):
         try:
 
+            if not Config.MODERATION_CONFESSION:
+                return None
+
             response = self.get_response(moderation_prompts(**list_confession))
 
             if not response:
@@ -55,6 +58,7 @@ class GenAIModeration(AiServices):
             for item in response.results:
                 print(item.score)
                 print(item.reason)
+                print(item.id_origin)
             return response
         except (Exception, ClientError, APIError) as e:
             logger.error(e)
