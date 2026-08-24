@@ -48,7 +48,7 @@ same_post_count: int = 0
 ```python
 status: str = "pending"
 ```
-**status**: khi ai quét (quét vi phạm cộng đồng, ...) sẽ trả về peding/approved, hệ thống sẽ dựa trên active để xem xét việc gửi confesion
+**status**: biến này chỉ xác nhận trạng thái ai đã kiểm tra hay chưa chứ không xác nhận việc có được đăng hay không
 
 ---
 ```python
