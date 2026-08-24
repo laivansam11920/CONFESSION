@@ -46,7 +46,7 @@ class GenAIModeration(AiServices, ConfessionManager):
         except (Exception, ClientError, APIError) as e:
             logger.error(e)
 
-    def update_confession(self, list_confession: dict):
+    def update_confession_moderation(self, list_confession: dict):
         try:
 
             if not Config.MODERATION_CONFESSION:
