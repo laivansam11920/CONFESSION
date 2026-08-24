@@ -3,6 +3,7 @@ import functools
 from flask import flash, request
 from email_validator import EmailNotValidError, validate_email
 from flask_babel import Babel, gettext as _
+from markupsafe import escape
 
 from app.utils.logger import logger
 from app.utils.return_home import home
@@ -16,6 +17,8 @@ def check_input_data(func):
         try:
             confession: str = request.form.get("confession", "")
             email: str = request.form.get("email", "anonymous")
+
+            confession = escape(confession)
 
             if not confession or not confession.strip():
                 flash(_("Confession không được để trống hoặc chỉ chứa khoảng trắng!"), "error")
