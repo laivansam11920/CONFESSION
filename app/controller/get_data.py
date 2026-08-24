@@ -1,4 +1,4 @@
-from base import GetData
+from app.base import GetData
 from app.schema.confession import ConfessionSchema
 from app.services.save_data import SaveConfession
 from app.utils.return_home import home
