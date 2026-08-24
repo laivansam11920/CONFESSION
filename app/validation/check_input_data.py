@@ -20,11 +20,9 @@ def check_input_data(func):
             if email != "anonymous":
                 validate_email(email, check_deliverability=False)
 
-            confession = escape(confession)
-
             if not confession or not confession.strip():
                 flash(
-                    _("Confession không được để trống hoặc chỉ chứa khoảng trắng!"),
+                    _("Rất tiếc, hệ thống chưa nhận được nội dung confession của bạn. Vui lòng kiểm tra và gửi lại nhé!"),
                     "error",
                 )
                 return home()

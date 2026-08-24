@@ -19,14 +19,6 @@ class GetDataWeb(GetData):
     @check_input_data
     def get_data(self, email="", confession="") -> Response:
 
-        if not confession:
-            flash(
-                _(
-                    "Rất tiếc, hệ thống chưa nhận được nội dung confession của bạn. Vui lòng kiểm tra và gửi lại nhé!"
-                )
-            )
-            return home()
-
         data = ConfessionSchema(
             confession=confession,
             email=email,
