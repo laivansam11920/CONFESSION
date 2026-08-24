@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     MODEL_GOOGLE_AI: str = Field(default="gemma-4-31b-it", alias="MODEL_GOOGLE_AI")
 
     CHECK_SAME_DOCS: bool = Field(True, alias="CHECK_SAME_DOCS")
-    TIME_OUT_CONFESSION: int = Field(86400, alias="TIME_CONFESSION_MAX")
+    TIME_OUT_CONFESSION: int = Field(86400, alias="")
     SIMILARITY_THRESHOLD: float = Field(default=0.64, alias="SIMILARITY_THRESHOLD")
 
     HOST: str = Field(default="0.0.0.0", alias="HOST")
@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     CHANGE_GET_DATA_BY_WEB: bool = Field(True, alias="CHANGE_GET_DATA_BY_WEB")
     GET_EMAIL: bool = Field(False, alias="GET_EMAIL")
     NAME_GROUP_USE_PROJECT: str = Field(default="", alias="NAME_GROUP_USE_PROJECT")
+    MODERATION_CONFESSION: bool = Field(False, alias="MODERATION_CONFESSION")
 
     BABEL_DEFAULT_LOCALE: str = Field(default="en", alias="BABEL_DEFAULT_LOCALE")
     BABEL_TRANSLATION_DIRECTORIES: str = Field(

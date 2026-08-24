@@ -1,7 +1,12 @@
 from pydantic import BaseModel, Field
+from dataclasses import dataclass, field
 from typing import List
 
-__all__ = ["ConfessionModerationResponse"]
+__all__ = [
+    "ConfessionModerationPayload",
+    "ConfessionModerationResponse",
+    "ConfessionItemResult",
+]
 
 
 class ConfessionItem(BaseModel):
@@ -19,5 +24,20 @@ class ConfessionItem(BaseModel):
     id_origin: str = Field(description="id gốc của confession chưa qua chỉnh sửa.")
 
 
-class ConfessionModerationResponse(BaseModel):
+class ConfessionModerationPayload(BaseModel):
     results: List[ConfessionItem]
+
+
+@dataclass(frozen=True, slots=True)
+class ConfessionItemResult:
+    score: float
+    reason: str
+    propose: str
+    origin_text: str
+    uncertain: bool
+    id_origin: str
+
+
+@dataclass(frozen=True, slots=True)
+class ConfessionModerationResponse:
+    results: List[ConfessionItemResult] = field(default_factory=list)

@@ -10,7 +10,7 @@ class AiServices(ABC):
         self.model = model
 
     @abstractmethod
-    def get_response(self, contents_input: str) -> str | None:
+    def get_response(self, contents_input: str):
         pass
 
 

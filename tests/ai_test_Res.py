@@ -1,4 +1,6 @@
 from app.services.moderation import moderation
 from app.services.get_confession import get_confession
+from dataclasses import asdict
 
-print(moderation.check_confession(get_confession.get()))
+res = moderation.check_confession(get_confession.get())
+print(asdict(res))

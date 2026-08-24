@@ -52,4 +52,4 @@ class GetDataWeb(GetData):
 if Config.CHANGE_GET_DATA_BY_WEB:
     get_data_web: GetDataWeb = GetDataWeb()
 else:
-    get_data_web: None = None #CHƯA PHÁT TRIỂN GET DATA BY GOOGLE SHEET
+    get_data_web: None = None  # CHƯA PHÁT TRIỂN GET DATA BY GOOGLE SHEET

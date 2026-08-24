@@ -61,7 +61,9 @@ class SaveData(ConfessionManager):
             )
 
             confession_data_dict = asdict(confession_data)
-            confession_data_dict["cfs"] = int((cfs_docs or {}).get("seq", 0)) #NÊN KIỂM DUYỆT BẰNG AI TRƯỚC KHI GẮN CFS NUMS
+            confession_data_dict["cfs"] = int(
+                (cfs_docs or {}).get("seq", 0)
+            )  # NÊN KIỂM DUYỆT BẰNG AI TRƯỚC KHI GẮN CFS NUMS
             self.db.docs.insert_one(confession_data_dict)
             return {
                 "success": True,
