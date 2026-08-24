@@ -10,7 +10,6 @@ from app.utils.return_home import home
 from configs import Config
 
 
-
 def check_input_data(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
@@ -18,21 +17,26 @@ def check_input_data(func):
             confession: str = request.form.get("confession", "")
             email: str = request.form.get("email", "anonymous")
 
+            if email != "anonymous":
+                validate_email(email, check_deliverability=False)
+
             confession = escape(confession)
 
             if not confession or not confession.strip():
-                flash(_("Confession không được để trống hoặc chỉ chứa khoảng trắng!"), "error")
+                flash(
+                    _("Confession không được để trống hoặc chỉ chứa khoảng trắng!"),
+                    "error",
+                )
                 return home()
 
             if len(confession) > Config.MAX_LEN_CONFESSION_ALLOW:
                 flash(_("Confession của bạn quá dài!"), "error")
                 return home()
 
-            validate_email(email, check_deliverability=False)
-
             return func(email=email, confession=confession, *args, **kwargs)
         except (EmailNotValidError, Exception) as e:
             logger.error(e)
             flash(_("Email của bạn không hợp lệ!"), "error")
             return home()
+
     return wrapper
