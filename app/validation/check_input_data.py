@@ -17,6 +17,10 @@ def check_input_data(func):
             confession: str = request.form.get("confession", "")
             email: str = request.form.get("email", "anonymous")
 
+            if not confession or not confession.strip():
+                flash(_("Confession không được để trống hoặc chỉ chứa khoảng trắng!"), "error")
+                return home()
+
             if len(confession) > Config.MAX_LEN_CONFESSION_ALLOW:
                 flash(_("Confession của bạn quá dài!"), "error")
                 return home()
