@@ -2,9 +2,10 @@ from base import GetData
 from app.schema.confession import ConfessionSchema
 from app.services.save_data import SaveConfession
 from app.utils.return_home import home
+from app.validation.check_input_data import check_input_data
 from configs import Config
 
-from flask import request, flash, Response
+from flask import flash, Response
 from flask_babel import Babel, gettext as _
 
 import uuid
@@ -15,10 +16,8 @@ __all__ = ["get_data_web"]
 
 class GetDataWeb(GetData):
 
-    def get_data(self) -> Response:
-
-        confession: str = request.form.get("confession", "")
-        email: str = request.form.get("email", "anonymous")
+    @check_input_data
+    def get_data(self, email, confession) -> Response:
 
         if not confession:
             flash(

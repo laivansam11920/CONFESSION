@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     GET_EMAIL: bool = Field(False, alias="GET_EMAIL")
     NAME_GROUP_USE_PROJECT: str = Field(default="", alias="NAME_GROUP_USE_PROJECT")
     MODERATION_CONFESSION: bool = Field(False, alias="MODERATION_CONFESSION")
+    MAX_LEN_CONFESSION_ALLOW: int = Field(default=500, alias="MAX_LEN_CONFESSION_ALLOW")
 
     BABEL_DEFAULT_LOCALE: str = Field(default="en", alias="BABEL_DEFAULT_LOCALE")
     BABEL_TRANSLATION_DIRECTORIES: str = Field(

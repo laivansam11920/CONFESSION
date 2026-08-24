@@ -22,5 +22,5 @@ class ConfessionManager:
 class GetData(ABC):
 
     @abstractmethod
-    def get_data(self):
+    def get_data(self, email, confession):
         pass
