@@ -9,7 +9,7 @@ __all__ = ["get_confession"]
 
 class GetConfession(ConfessionManager):
 
-    def get(self):
+    def get(self) -> dict:
         try:
             confession = self.db.docs.find(
                 {
