@@ -15,4 +15,5 @@ def create_app() -> Flask:
     app.config.from_object(Config)
     babel.init_app(app, locale_selector=get_locale)
     register_blueprints(app)
+
     return app
