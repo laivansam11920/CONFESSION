@@ -28,3 +28,4 @@ def check_input_data(func):
             logger.error(e)
             flash(_("Email của bạn không hợp lệ!"), "error")
             return home()
+    return wrapper
