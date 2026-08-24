@@ -27,7 +27,7 @@ class SaveData(ConfessionManager):
                             },
                             "send": False,
                         },
-                        {"_id": 1, "confession_id": 1, "confession": 1, "send": 1},
+                        {"_id": 1, "confession_id": 1, "confession": 1},
                     )
                     .sort("_id", -1)
                     .limit(100)

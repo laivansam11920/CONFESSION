@@ -28,7 +28,9 @@ class GetDataWeb(GetData):
 
         res = SaveConfession.save_to_db(data)
 
-        msg = res.get("msg") or _("Rất tiếc, quá trình xử lý gặp chút sự cố. Bạn vui lòng thử lại sau nhé.")
+        msg = res.get("msg") or _(
+            "Rất tiếc, quá trình xử lý gặp chút sự cố. Bạn vui lòng thử lại sau nhé."
+        )
 
         flash(msg, res.get("status", "error"))
         return home()

@@ -21,7 +21,9 @@ def check_input_data(func):
 
             if not confession or not confession.strip():
                 flash(
-                    _("Rất tiếc, hệ thống chưa nhận được nội dung confession của bạn. Vui lòng kiểm tra và gửi lại nhé!"),
+                    _(
+                        "Rất tiếc, hệ thống chưa nhận được nội dung confession của bạn. Vui lòng kiểm tra và gửi lại nhé!"
+                    ),
                     "error",
                 )
                 return home()
@@ -36,7 +38,12 @@ def check_input_data(func):
             return home()
         except Exception as e:
             logger.error(e)
-            flash(_("Rất tiếc, quá trình xử lý gặp chút sự cố. Bạn vui lòng thử lại sau nhé."), "error")
+            flash(
+                _(
+                    "Rất tiếc, quá trình xử lý gặp chút sự cố. Bạn vui lòng thử lại sau nhé."
+                ),
+                "error",
+            )
             return home()
 
     return wrapper

@@ -1,4 +1,4 @@
-from app.base import AiServices
+from app.base import AiServices, ConfessionManager
 from app.prompts.moderation import convert_confession_to_prompts as moderation_prompts
 from app.utils.logger import logger
 from app.schema.ResponeSchema import (
@@ -16,13 +16,15 @@ from json import loads
 __all__ = ["moderation"]
 
 
-class GenAIModeration(AiServices):
+class GenAIModeration(AiServices, ConfessionManager):
 
     def __init__(self):
-        super().__init__(
+        AiServices.__init__(
+            self,
             client=genai.Client(api_key=Config.GOOGLE_AI_API_KEY),
             model=Config.MODEL_GOOGLE_AI,
         )
+        ConfessionManager.__init__(self)
 
     def get_response(self, contents_input: str) -> ConfessionModerationResponse | None:
         try:
@@ -44,7 +46,7 @@ class GenAIModeration(AiServices):
         except (Exception, ClientError, APIError) as e:
             logger.error(e)
 
-    def check_confession(self, list_confession: dict):
+    def update_confession(self, list_confession: dict):
         try:
 
             if not Config.MODERATION_CONFESSION:
@@ -54,11 +56,23 @@ class GenAIModeration(AiServices):
 
             if not response:
                 return None
-
+            print(response.results)
             for item in response.results:
-                print(item.score)
-                print(item.reason)
-                print(item.id_origin)
+                self.db.docs.update_one(
+                    {"confession_id": item.id_origin},
+                    {
+                        "$set": {
+                            "ai_data": {
+                                "score": item.score,
+                                "reason": item.reason,
+                                "propose": item.propose,
+                                "uncertain": item.uncertain,
+                            },
+                            "is_moderation_post": True
+                        },
+                    },
+                )
+
             return response
         except (Exception, ClientError, APIError) as e:
             logger.error(e)
