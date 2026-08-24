@@ -65,7 +65,7 @@ class GenAIModeration(AiServices, ConfessionManager):
                                 "propose": item.propose,
                                 "uncertain": item.uncertain,
                             },
-                            "is_moderation_post": True
+                            "status": "approved",
                         },
                     },
                 )
