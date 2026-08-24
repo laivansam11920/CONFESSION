@@ -34,9 +34,12 @@ def check_input_data(func):
                 return home()
 
             return func(email=email, confession=confession, *args, **kwargs)
-        except (EmailNotValidError, Exception) as e:
-            logger.error(e)
+        except EmailNotValidError:
             flash(_("Email của bạn không hợp lệ!"), "error")
+            return home()
+        except Exception as e:
+            logger.error(e)
+            flash(_("Rất tiếc, quá trình xử lý gặp chút sự cố. Bạn vui lòng thử lại sau nhé."), "error")
             return home()
 
     return wrapper
