@@ -49,6 +49,12 @@ class GenAIModeration(AiServices):
 
             response = self.get_response(moderation_prompts(**list_confession))
 
+            if not response:
+                return None
+
+            for item in response.results:
+                print(item.score)
+                print(item.reason)
             return response
         except (Exception, ClientError, APIError) as e:
             logger.error(e)

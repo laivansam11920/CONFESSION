@@ -3,4 +3,3 @@ from app.services.get_confession import get_confession
 from dataclasses import asdict
 
 res = moderation.check_confession(get_confession.get())
-print(asdict(res))
