@@ -3,7 +3,6 @@ import functools
 from flask import flash, request
 from email_validator import EmailNotValidError, validate_email
 from flask_babel import Babel, gettext as _
-from markupsafe import escape
 
 from app.utils.logger import logger
 from app.utils.return_home import home
