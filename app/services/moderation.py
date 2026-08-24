@@ -1,15 +1,12 @@
 from app.base import AiServices, ConfessionManager
 from app.prompts.moderation import convert_confession_to_prompts as moderation_prompts
 from app.utils.logger import logger
-from app.schema.ResponeSchema import (
-    ConfessionModerationPayload,
-    ConfessionModerationResponse,
-    ConfessionItemResult,
-)
+from app.schema.ResponeSchema import *
 from configs import Config
 
 from google import genai
 from google.genai.errors import ClientError, APIError
+from pymongo.errors import PyMongoError
 
 from json import loads
 
@@ -46,16 +43,16 @@ class GenAIModeration(AiServices, ConfessionManager):
         except (Exception, ClientError, APIError) as e:
             logger.error(e)
 
-    def update_confession_moderation(self, list_confession: dict):
+    def update_confession_moderation(self, list_confession: dict) -> bool:
         try:
 
             if not Config.MODERATION_CONFESSION:
-                return None
+                return False
 
             response = self.get_response(moderation_prompts(**list_confession))
 
             if not response:
-                return None
+                return False
 
             for item in response.results:
                 self.db.docs.update_one(
@@ -73,9 +70,10 @@ class GenAIModeration(AiServices, ConfessionManager):
                     },
                 )
 
-            return response
-        except (Exception, ClientError, APIError) as e:
+            return True
+        except (Exception, PyMongoError) as e:
             logger.error(e)
+            return False
 
 
 moderation = GenAIModeration()
