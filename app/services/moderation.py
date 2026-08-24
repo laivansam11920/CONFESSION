@@ -56,7 +56,7 @@ class GenAIModeration(AiServices, ConfessionManager):
 
             if not response:
                 return None
-            print(response.results)
+
             for item in response.results:
                 self.db.docs.update_one(
                     {"confession_id": item.id_origin},
