@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     MODEL_GOOGLE_AI: str = Field(default="gemma-4-31b-it", alias="MODEL_GOOGLE_AI")
 
     CHECK_SAME_DOCS: bool = Field(True, alias="CHECK_SAME_DOCS")
-    TIME_OUT_CONFESSION: int = Field(86400, alias="")
+    TIME_OUT_CONFESSION: int = Field(86400, alias="TIME_OUT_CONFESSION")
     SIMILARITY_THRESHOLD: float = Field(default=0.64, alias="SIMILARITY_THRESHOLD")
 
     HOST: str = Field(default="0.0.0.0", alias="HOST")
