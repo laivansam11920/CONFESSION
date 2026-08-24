@@ -17,7 +17,7 @@
   <div class="container">
     <h1>CONFESSION</h1>
     {% if config.GET_EMAIL %}
-        {% with _if_get_email = _("Gửi tâm tư ẩn danh. Nhập Gmail nếu og muốn nhận thông báo khi có phản hồi.") %}
+        {% with _if_get_email = _("Gửi tâm tư ẩn danh. Nhập Gmail nếu bạn muốn nhận thông báo khi có phản hồi.") %}
             <p class="desc">{{ _if_get_email }}</p>
         {% endwith %}
     {% else %}
@@ -30,7 +30,7 @@
     <form id="confessionForm" action="/submit-confession" method="POST">
       <div class="form-group">
         <label for="confession">{{ _("Nội dung Confession *") }}</label>
-        <textarea id="confession" name="confession" placeholder="{{ _('Viết điều og muốn chia sẻ ở đây...') }}" required></textarea>
+        <textarea id="confession" name="confession" placeholder="{{ _('Viết điều bạn muốn chia sẻ ở đây...') }}" required></textarea>
       </div>
       {% if config.GET_EMAIL %}
           <div class="form-group">
