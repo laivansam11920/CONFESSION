@@ -2,6 +2,7 @@ from app.schema.confession import ConfessionSchema
 from app.utils.logger import logger
 from app.utils.check_similar import is_similar
 from app.base import ConfessionManager
+from .update_confession_moderation import ConfessionModeration
 from configs import Config
 
 from dataclasses import asdict
@@ -14,6 +15,7 @@ __all__ = ["SaveConfession"]
 
 class SaveData(ConfessionManager):
 
+    @ConfessionModeration.check_confession_moderation
     def save_to_db(self, confession_data: ConfessionSchema) -> dict:
         try:
 

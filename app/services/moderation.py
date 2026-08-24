@@ -49,6 +49,9 @@ class GenAIModeration(AiServices, ConfessionManager):
             if not Config.MODERATION_CONFESSION:
                 return False
 
+            if not list_confession or len(list_confession) == 0:
+                return False
+
             response = self.get_response(moderation_prompts(**list_confession))
 
             if not response:

@@ -32,6 +32,7 @@ class GetConfession(ConfessionManager):
             return list_confession
         except Exception as e:
             logger.error(e)
+            return {}
 
 
 get_confession = GetConfession()
