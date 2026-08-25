@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 
 from app.extensions.limiter import limiter
 
@@ -17,3 +17,10 @@ def get_confession():
     from app.controller.get_data import get_data_web
 
     return get_data_web.get_data()
+
+
+@main_route.before_request
+def get_info_user():
+    user_ip = request.remote_addr
+
+

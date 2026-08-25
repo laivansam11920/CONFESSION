@@ -1,1 +1,5 @@
-# kiểm tra giới hạn ký tự
+# mã hóa thông tin cá nhân của người dùng như ip, fingerprints khi admin bật chức năng thu nhập dữ liệu.
+# tính năng mới:
+mô tả: gắn mã uuid cho confession và trả về cho user(hoặc không). lần tiếp theo user vào trang web sẽ theo địa chỉ ip, session hoặc những thứ tương tự để đề ra thông báo vi phạm dựa trên cập nhật của AI.
+#thêm giới hạn bài gửi của 1 người/ngày, tránh tình trạng spam làm cạn token AI.
+# thêm fallback cho AI.

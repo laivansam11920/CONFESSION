@@ -6,6 +6,8 @@ from app.routes import register_blueprints
 from .utils.change_lang import get_locale
 from configs import Config
 
+from werkzeug.middleware.proxy_fix import ProxyFix
+
 
 def create_app() -> Flask:
 
@@ -15,5 +17,6 @@ def create_app() -> Flask:
     app.config.from_object(Config)
     babel.init_app(app, locale_selector=get_locale)
     register_blueprints(app)
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)
 
     return app
