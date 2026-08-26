@@ -1,3 +1,4 @@
+from utils.logger import console
 from .moderation import moderation
 from .get_confession import get_confession
 from app.extensions.threads import executor
@@ -13,17 +14,20 @@ class UpdateConfessionModeration:
     def check_confession_moderation(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
+            try:
 
-            result = func(*args, **kwargs)
+                result = func(*args, **kwargs)
 
-            if result.get("success", False):
-                executor.submit(
-                    lambda: moderation.update_confession_moderation(
-                        get_confession.get()
+                if result.get("success", False):
+                    executor.submit(
+                        lambda: moderation.update_confession_moderation(
+                            get_confession.get()
+                        )
                     )
-                )
 
-            return result
+                return result
+            except Exception as e:
+                console.error(e)
 
         return wrapper
 
