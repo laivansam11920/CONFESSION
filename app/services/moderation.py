@@ -1,6 +1,6 @@
 from app.base import AiServices, ConfessionManager
 from app.prompts.moderation import convert_confession_to_prompts as moderation_prompts
-from app.utils.logger import logger
+from app.utils.logger import console
 from app.schema.ResponeSchema import *
 from configs import Config
 
@@ -41,7 +41,7 @@ class GenAIModeration(AiServices, ConfessionManager):
             return ConfessionModerationResponse(results=items)
 
         except (Exception, ClientError, APIError) as e:
-            logger.error(e)
+            console.error(e)
 
     def update_confession_moderation(self, list_confession: dict) -> bool:
         try:
@@ -75,7 +75,7 @@ class GenAIModeration(AiServices, ConfessionManager):
 
             return True
         except (Exception, PyMongoError) as e:
-            logger.error(e)
+            console.error(e)
             return False
 
 

@@ -1,5 +1,5 @@
 from app.schema.confession import ConfessionSchema
-from app.utils.logger import logger
+from app.utils.logger import console
 from app.utils.check_similar import is_similar
 from app.base import ConfessionManager
 from .update_confession_moderation import ConfessionModeration
@@ -84,7 +84,7 @@ class SaveData(ConfessionManager):
             }
 
         except Exception as e:
-            logger.error(e)
+            console.error(e)
             return {
                 "success": False,
                 "msg": _(

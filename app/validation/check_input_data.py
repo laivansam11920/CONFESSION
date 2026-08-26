@@ -4,7 +4,7 @@ from flask import flash, request
 from email_validator import EmailNotValidError, validate_email
 from flask_babel import Babel, gettext as _
 
-from app.utils.logger import logger
+from app.utils.logger import console
 from app.utils.return_home import home
 from configs import Config
 
@@ -37,7 +37,7 @@ def check_input_data(func):
             flash(_("Email của bạn không hợp lệ!"), "error")
             return home()
         except Exception as e:
-            logger.error(e)
+            console.error(e)
             flash(
                 _(
                     "Rất tiếc, quá trình xử lý gặp chút sự cố. Bạn vui lòng thử lại sau nhé."

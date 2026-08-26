@@ -2,7 +2,7 @@ from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError
 
 from configs import Config
-from app.utils.logger import logger
+from app.utils.logger import console
 
 __all__ = ["Database"]
 
@@ -21,7 +21,7 @@ class Database:
             client.admin.command("ping")
             return client[Config.MONGO_MAIN_DB]
         except (ConnectionFailure, ServerSelectionTimeoutError, Exception) as e:
-            logger.error(e)
+            console.error(e)
 
     @staticmethod
     def create_index():

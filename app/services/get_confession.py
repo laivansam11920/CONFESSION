@@ -1,5 +1,5 @@
 from app.base import ConfessionManager
-from app.utils.logger import logger
+from app.utils.logger import console
 from configs import Config
 
 from time import time
@@ -31,7 +31,7 @@ class GetConfession(ConfessionManager):
 
             return list_confession
         except Exception as e:
-            logger.error(e)
+            console.error(e)
             return {}
 
 
