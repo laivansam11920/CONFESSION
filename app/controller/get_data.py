@@ -17,7 +17,7 @@ __all__ = ["get_data_web"]
 class GetDataWeb(GetData):
 
     @check_input_data
-    def get_data(self, email="", confession="") -> Response:
+    def get_data(self, email: str="", confession: str="") -> Response:
 
         data = ConfessionSchema(
             confession=confession,
