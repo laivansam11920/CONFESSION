@@ -6,6 +6,7 @@ import functools
 
 __all__ = ["ConfessionModeration"]
 
+
 class UpdateConfessionModeration:
 
     @staticmethod
@@ -16,9 +17,14 @@ class UpdateConfessionModeration:
             result = func(*args, **kwargs)
 
             if result.get("success", False):
-                executor.submit(lambda: moderation.update_confession_moderation(get_confession.get()))
+                executor.submit(
+                    lambda: moderation.update_confession_moderation(
+                        get_confession.get()
+                    )
+                )
 
             return result
+
         return wrapper
 
 

@@ -3,6 +3,7 @@ from app.utils.logger import logger
 from app.utils.check_similar import is_similar
 from app.base import ConfessionManager
 from .update_confession_moderation import ConfessionModeration
+from .get_user_tracking import tracking_service
 from configs import Config
 
 from dataclasses import asdict
@@ -15,6 +16,7 @@ __all__ = ["SaveConfession"]
 
 class SaveData(ConfessionManager):
 
+    @tracking_service.save_user_tracking
     @ConfessionModeration.check_confession_moderation
     def save_to_db(self, confession_data: ConfessionSchema) -> dict:
         try:
@@ -54,6 +56,9 @@ class SaveData(ConfessionManager):
                             "Nội dung này có vẻ trùng với bài trước, hệ thống đã tự động cộng dồn lượt tương tự cho bạn rồi nhé!"
                         ),
                         "status": "success",
+                        "data": {
+                            "confession_id": matched_id,
+                        },
                     }
 
             cfs_docs = self.db.cfs_count.find_one_and_update(
@@ -71,6 +76,9 @@ class SaveData(ConfessionManager):
                 "success": True,
                 "msg": _("Lưu confession thành công rồi nhé!"),
                 "status": "success",
+                "data": {
+                    "confession_id": confession_data_dict["confession_id"],
+                },
             }
 
         except Exception as e:
@@ -81,6 +89,7 @@ class SaveData(ConfessionManager):
                     "Rất tiếc, có chút sự cố nhỏ khi lưu confession. Bạn thử lại giúp chúng mình nha."
                 ),
                 "status": "error",
+                "data": {},
             }
 
 

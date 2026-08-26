@@ -24,11 +24,14 @@ class Settings(BaseSettings):
     NAME_GROUP_USE_PROJECT: str = Field(default="", alias="NAME_GROUP_USE_PROJECT")
     MODERATION_CONFESSION: bool = Field(False, alias="MODERATION_CONFESSION")
     MAX_LEN_CONFESSION_ALLOW: int = Field(default=500, alias="MAX_LEN_CONFESSION_ALLOW")
+    TRACKING_USER: bool = Field(False, alias="TRACKING_USER")
 
     BABEL_DEFAULT_LOCALE: str = Field(default="en", alias="BABEL_DEFAULT_LOCALE")
     BABEL_TRANSLATION_DIRECTORIES: str = Field(
         default="translations", alias="BABEL_TRANSLATION_DIRECTORIES"
     )
+
+    MAX_THREADPOOLEXECUTOR_WORKER: int = Field(default=5, alias="MAX_THREADPOOLEXECUTOR_WORKER")
 
     model_config = SettingsConfigDict(populate_by_name=True)
 

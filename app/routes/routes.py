@@ -22,5 +22,3 @@ def get_confession():
 @main_route.before_request
 def get_info_user():
     user_ip = request.remote_addr
-
-
