@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     MODERATION_CONFESSION: bool = Field(False, alias="MODERATION_CONFESSION")
     MAX_LEN_CONFESSION_ALLOW: int = Field(default=500, alias="MAX_LEN_CONFESSION_ALLOW")
     TRACKING_USER: bool = Field(False, alias="TRACKING_USER")
+    TOPIC_COLOR: str = Field(default="#000000", alias="TOPIC_COLOR")
 
     BABEL_DEFAULT_LOCALE: str = Field(default="en", alias="BABEL_DEFAULT_LOCALE")
     BABEL_TRANSLATION_DIRECTORIES: str = Field(

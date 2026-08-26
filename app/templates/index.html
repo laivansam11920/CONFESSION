@@ -11,6 +11,11 @@
         {% endif %}
     {% endwith %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        :root {
+            --main-color: {{ config.TOPIC_COLOR }};
+        }
+    </style>
 </head>
 <body>
 
