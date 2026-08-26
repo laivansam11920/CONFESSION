@@ -23,7 +23,7 @@ class TrackingService(ConfessionManager):
                 return res
 
             user_ip = request.remote_addr
-            user_fingerprint_id = request.form.get("user_fingerprint_id", None)
+            user_fingerprint_id = request.form.get("user_fingerprint_id")
 
             user_tracking_data: dict[str, Any] = {
                 "ip": user_ip,
