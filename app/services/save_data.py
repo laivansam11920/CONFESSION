@@ -10,6 +10,7 @@ from dataclasses import asdict
 from time import time
 
 from flask_babel import Babel, gettext as _
+from pymongo import ReturnDocument
 
 __all__ = ["SaveConfession"]
 
@@ -64,12 +65,13 @@ class SaveData(ConfessionManager):
             cfs_docs = self.db.cfs_count.find_one_and_update(
                 {"id": "confession_id"},
                 {"$inc": {"seq": 1}},
+                return_document=ReturnDocument.AFTER,
                 upsert=True,
             )
 
             confession_data_dict = asdict(confession_data)
             confession_data_dict["cfs"] = int(
-                (cfs_docs or {}).get("seq", 0)
+                (cfs_docs or {}).get("seq", 1)
             )  # NÊN KIỂM DUYỆT BẰNG AI TRƯỚC KHI GẮN CFS NUMS
             self.db.docs.insert_one(confession_data_dict)
             return {
