@@ -32,7 +32,9 @@ class Settings(BaseSettings):
         default="translations", alias="BABEL_TRANSLATION_DIRECTORIES"
     )
 
-    MAX_THREADPOOLEXECUTOR_WORKER: int = Field(default=5, alias="MAX_THREADPOOLEXECUTOR_WORKER")
+    MAX_THREADPOOLEXECUTOR_WORKER: int = Field(
+        default=5, alias="MAX_THREADPOOLEXECUTOR_WORKER"
+    )
 
     model_config = SettingsConfigDict(populate_by_name=True)
 

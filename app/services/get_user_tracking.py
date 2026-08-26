@@ -46,4 +46,5 @@ class TrackingService(ConfessionManager):
 
         return wrapper
 
+
 tracking_service = TrackingService()
