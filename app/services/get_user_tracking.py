@@ -1,5 +1,6 @@
 from app.database import db
 from app.utils.logger import console
+from app.schema.ReturnSchema import ReturnSchema
 from configs import Config
 
 import functools
@@ -30,7 +31,7 @@ class TrackingService:
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             try:
-                res = func(*args, **kwargs)
+                res: ReturnSchema = func(*args, **kwargs)
 
                 if not Config.TRACKING_USER:
                     return res
@@ -43,8 +44,8 @@ class TrackingService:
                     "fingerprint": user_fingerprint_id,
                 }
 
-                if res.get("success", False):
-                    confession_id = res["data"]["confession_id"] or None
+                if res.success:
+                    confession_id = res.data.get("confession_id")
                     if confession_id is None:
                         return res
                     executor.submit(

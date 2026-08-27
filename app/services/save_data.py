@@ -1,4 +1,5 @@
 from app.schema.confession import ConfessionSchema
+from app.schema.ReturnSchema import ReturnSchema
 from app.utils.logger import console
 from app.utils.check_similar import is_similar
 from app.database import db
@@ -19,8 +20,8 @@ class SaveConfession:
 
     @staticmethod
     @TrackingService.save_user_tracking
-    @ConfessionModeration.check_confession_moderation
-    def save(confession_data: ConfessionSchema) -> dict:
+    @ConfessionModeration.update_cfs_moderation
+    def save_cfs(confession_data: ConfessionSchema) -> ReturnSchema:
         try:
 
             if Config.CHECK_SAME_DOCS:
@@ -52,16 +53,17 @@ class SaveConfession:
                     db.docs.update_one(
                         {"confession_id": matched_id}, {"$inc": {"same_post_count": 1}}
                     )
-                    return {
-                        "success": True,
-                        "msg": _(
+
+                    return ReturnSchema(
+                        success=True,
+                        msg=_(
                             "Nội dung này có vẻ trùng với bài trước, hệ thống đã tự động cộng dồn lượt tương tự cho bạn rồi nhé!"
                         ),
-                        "status": "success",
-                        "data": {
+                        status="success",
+                        data={
                             "confession_id": matched_id,
                         },
-                    }
+                    )
 
             cfs_docs = db.cfs_count.find_one_and_update(
                 {"id": "confession_id"},
@@ -75,25 +77,19 @@ class SaveConfession:
                 (cfs_docs or {}).get("seq", 1)
             )  # NÊN KIỂM DUYỆT BẰNG AI TRƯỚC KHI GẮN CFS NUMS
             db.docs.insert_one(confession_data_dict)
-            return {
-                "success": True,
-                "msg": _("Lưu confession thành công rồi nhé!"),
-                "status": "success",
-                "data": {
+
+            return ReturnSchema(
+                success=True,
+                msg=_("Lưu confession thành công rồi nhé!"),
+                status="success",
+                data={
                     "confession_id": confession_data_dict["confession_id"],
                 },
-            }
+            )
 
         except Exception as e:
             console.error(e)
-            return {
-                "success": False,
-                "msg": _(
-                    "Rất tiếc, có chút sự cố nhỏ khi lưu confession. Bạn thử lại giúp chúng mình nha."
-                ),
-                "status": "error",
-                "data": {},
-            }
+            return ReturnSchema()
 
 
 # TODO: PHẢI LÀM SAO NẾU MỘT NGƯỜI SPAM NHIỀU CONFESSION NHƯNG KHÔNG THỂ XÁC NHẬN DANH TÍNH, CẦN SỰ DỤNG AI HOẶC CÁC CÔNG CỤ MẠNH, HOẶC NHỜ ĐẾN SỰ KIỂM DUYỆT CỦA CON NGƯỜI.

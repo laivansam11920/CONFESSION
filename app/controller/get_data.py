@@ -3,10 +3,10 @@ from app.schema.confession import ConfessionSchema
 from app.services.save_data import SaveConfession as Confession
 from app.utils.return_home import home
 from app.validation.check_input_data import check_input_data
+from app.schema.ReturnSchema import ReturnSchema
 from configs import Config
 
 from flask import flash, Response
-from flask_babel import Babel, gettext as _
 
 import uuid
 import time
@@ -26,13 +26,10 @@ class GetDataWeb(GetData):
             post_time=int(time.time()),
         )
 
-        res = Confession.save(data)
 
-        msg = res.get("msg") or _(
-            "Rất tiếc, quá trình xử lý gặp chút sự cố. Bạn vui lòng thử lại sau nhé."
-        )
+        res: ReturnSchema = Confession.save_cfs(data)
 
-        flash(msg, res.get("status", "error"))
+        flash(res.msg, res.status)
         return home()
 
 

@@ -2,34 +2,32 @@ from utils.logger import console
 from .moderation import moderation
 from .get_confession import GetConfession as Confession
 from app.extensions.threads import executor
+from app.schema.ReturnSchema import ReturnSchema
 
 import functools
 
 __all__ = ["ConfessionModeration"]
 
 
-class UpdateConfessionModeration:
+class ConfessionModeration:
 
     @staticmethod
-    def check_confession_moderation(func):
+    def update_cfs_moderation(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             try:
 
-                result = func(*args, **kwargs)
+                res: ReturnSchema = func(*args, **kwargs)
 
-                if result.get("success", False):
+                if res.success:
                     executor.submit(
                         lambda: moderation.update_confession_moderation(
                             Confession.get()
                         )
                     )
 
-                return result
+                return res
             except Exception as e:
                 console.error(e)
 
         return wrapper
-
-
-ConfessionModeration = UpdateConfessionModeration()
