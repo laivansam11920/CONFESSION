@@ -1,3 +1,5 @@
+from typing import Any
+
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError
 
