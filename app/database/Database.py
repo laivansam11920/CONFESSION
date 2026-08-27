@@ -12,7 +12,7 @@ class Database:
     @staticmethod
     def connect():
         try:
-            client = MongoClient(
+            client: MongoClient[Any] = MongoClient(
                 Config.MONGO_URI,
                 timeoutMS=5000,
                 serverSelectionTimeoutMS=5000,
