@@ -38,6 +38,10 @@ class Settings(BaseSettings):
         default=5, alias="MAX_THREADPOOLEXECUTOR_WORKER"
     )
 
+    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_HTTPONLY = True
+
     model_config = SettingsConfigDict(populate_by_name=True)
 
 
