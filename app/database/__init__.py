@@ -1,1 +1,1 @@
-from .Database import DatabaseCfs
+from .Database import db

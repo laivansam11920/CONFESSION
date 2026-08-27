@@ -1,17 +1,18 @@
-from app.base import ConfessionManager
 from app.utils.logger import console
 from configs import Config
+from app.database import db
 
 from time import time
 
-__all__ = ["get_confession"]
+__all__ = ["GetConfession"]
 
 
-class GetConfession(ConfessionManager):
+class GetConfession:
 
-    def get(self) -> dict:
+    @staticmethod
+    def get() -> dict:
         try:
-            confession = self.db.docs.find(
+            confession = db.docs.find(
                 {
                     "post_time": {"$gte": int(time()) - Config.TIME_OUT_CONFESSION},
                     "status": "pending",
@@ -33,6 +34,3 @@ class GetConfession(ConfessionManager):
         except Exception as e:
             console.error(e)
             return {}
-
-
-get_confession = GetConfession()

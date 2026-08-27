@@ -1,6 +1,6 @@
 from app.base import GetData
 from app.schema.confession import ConfessionSchema
-from app.services.save_data import SaveConfession
+from app.services.save_data import SaveConfession as Confession
 from app.utils.return_home import home
 from app.validation.check_input_data import check_input_data
 from configs import Config
@@ -26,7 +26,7 @@ class GetDataWeb(GetData):
             post_time=int(time.time()),
         )
 
-        res = SaveConfession.save_to_db(data)
+        res = Confession.save(data)
 
         msg = res.get("msg") or _(
             "Rất tiếc, quá trình xử lý gặp chút sự cố. Bạn vui lòng thử lại sau nhé."

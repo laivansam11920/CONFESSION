@@ -1,5 +1,3 @@
-from app.database import DatabaseCfs as db
-
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -12,11 +10,6 @@ class AiServices(ABC):
     @abstractmethod
     def get_response(self, contents_input: str):
         pass
-
-
-class ConfessionManager:
-    def __init__(self):
-        self.db = db.connect()
 
 
 class GetData(ABC):

@@ -1,6 +1,6 @@
 from utils.logger import console
 from .moderation import moderation
-from .get_confession import get_confession
+from .get_confession import GetConfession as Confession
 from app.extensions.threads import executor
 
 import functools
@@ -21,7 +21,7 @@ class UpdateConfessionModeration:
                 if result.get("success", False):
                     executor.submit(
                         lambda: moderation.update_confession_moderation(
-                            get_confession.get()
+                            Confession.get()
                         )
                     )
 

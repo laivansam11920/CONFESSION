@@ -1,4 +1,5 @@
-from app.base import AiServices, ConfessionManager
+from app.database import db
+from app.base import AiServices
 from app.prompts.moderation import convert_confession_to_prompts as moderation_prompts
 from app.utils.logger import console
 from app.schema.ResponeSchema import *
@@ -13,7 +14,7 @@ from json import loads
 __all__ = ["moderation"]
 
 
-class GenAIModeration(AiServices, ConfessionManager):
+class GenAIModeration(AiServices):
 
     def __init__(self):
         AiServices.__init__(
@@ -21,7 +22,6 @@ class GenAIModeration(AiServices, ConfessionManager):
             client=genai.Client(api_key=Config.GOOGLE_AI_API_KEY),
             model=Config.MODEL_GOOGLE_AI,
         )
-        ConfessionManager.__init__(self)
 
     def get_response(self, contents_input: str) -> ConfessionModerationResponse | None:
         try:
@@ -58,7 +58,7 @@ class GenAIModeration(AiServices, ConfessionManager):
                 return False
 
             for item in response.results:
-                self.db.docs.update_one(
+                db.docs.update_one(
                     {"confession_id": item.id_origin},
                     {
                         "$set": {

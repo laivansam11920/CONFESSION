@@ -1,4 +1,4 @@
-from app.base import ConfessionManager
+from app.database import db
 from app.utils.logger import console
 from configs import Config
 
@@ -8,10 +8,10 @@ from typing import Any
 from flask import request
 from app.extensions.threads import executor
 
-__all__ = ["tracking_service"]
+__all__ = ["TrackingService"]
 
 
-def save_tracking_id(db, **kwargs):
+def save_tracking_id(**kwargs):
     db.docs.update_one(
         {"confession_id": kwargs["confession_id"]},
         {
@@ -23,9 +23,10 @@ def save_tracking_id(db, **kwargs):
     )
 
 
-class TrackingService(ConfessionManager):
+class TrackingService:
 
-    def save_user_tracking(self, func):
+    @staticmethod
+    def save_user_tracking(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             try:
@@ -48,7 +49,6 @@ class TrackingService(ConfessionManager):
                         return res
                     executor.submit(
                         lambda: save_tracking_id(
-                            self.db,
                             confession_id=confession_id,
                             data=user_tracking_data,
                         )
@@ -59,6 +59,3 @@ class TrackingService(ConfessionManager):
                 console.error(e)
 
         return wrapper
-
-
-tracking_service = TrackingService()

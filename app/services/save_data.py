@@ -1,9 +1,9 @@
 from app.schema.confession import ConfessionSchema
 from app.utils.logger import console
 from app.utils.check_similar import is_similar
-from app.base import ConfessionManager
+from app.database import db
 from .update_confession_moderation import ConfessionModeration
-from .get_user_tracking import tracking_service
+from .get_user_tracking import TrackingService
 from configs import Config
 
 from dataclasses import asdict
@@ -15,17 +15,18 @@ from pymongo import ReturnDocument
 __all__ = ["SaveConfession"]
 
 
-class SaveData(ConfessionManager):
+class SaveConfession:
 
-    @tracking_service.save_user_tracking
+    @staticmethod
+    @TrackingService.save_user_tracking
     @ConfessionModeration.check_confession_moderation
-    def save_to_db(self, confession_data: ConfessionSchema) -> dict:
+    def save(confession_data: ConfessionSchema) -> dict:
         try:
 
             if Config.CHECK_SAME_DOCS:
 
                 old_docs = (
-                    self.db.docs.find(
+                    db.docs.find(
                         {
                             "post_time": {
                                 "$gte": int(time()) - Config.TIME_OUT_CONFESSION
@@ -48,7 +49,7 @@ class SaveData(ConfessionManager):
                         break
 
                 if matched_id is not None:
-                    self.db.docs.update_one(
+                    db.docs.update_one(
                         {"confession_id": matched_id}, {"$inc": {"same_post_count": 1}}
                     )
                     return {
@@ -62,7 +63,7 @@ class SaveData(ConfessionManager):
                         },
                     }
 
-            cfs_docs = self.db.cfs_count.find_one_and_update(
+            cfs_docs = db.cfs_count.find_one_and_update(
                 {"id": "confession_id"},
                 {"$inc": {"seq": 1}},
                 return_document=ReturnDocument.AFTER,
@@ -73,7 +74,7 @@ class SaveData(ConfessionManager):
             confession_data_dict["cfs"] = int(
                 (cfs_docs or {}).get("seq", 1)
             )  # NÊN KIỂM DUYỆT BẰNG AI TRƯỚC KHI GẮN CFS NUMS
-            self.db.docs.insert_one(confession_data_dict)
+            db.docs.insert_one(confession_data_dict)
             return {
                 "success": True,
                 "msg": _("Lưu confession thành công rồi nhé!"),
@@ -93,9 +94,6 @@ class SaveData(ConfessionManager):
                 "status": "error",
                 "data": {},
             }
-
-
-SaveConfession: SaveData = SaveData()
 
 
 # TODO: PHẢI LÀM SAO NẾU MỘT NGƯỜI SPAM NHIỀU CONFESSION NHƯNG KHÔNG THỂ XÁC NHẬN DANH TÍNH, CẦN SỰ DỤNG AI HOẶC CÁC CÔNG CỤ MẠNH, HOẶC NHỜ ĐẾN SỰ KIỂM DUYỆT CỦA CON NGƯỜI.

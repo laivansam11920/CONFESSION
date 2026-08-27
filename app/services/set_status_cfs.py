@@ -1,15 +1,16 @@
-from app.base import ConfessionManager
+from app.database import db
 
 import functools
 
 
-class UpdateStatusModerationCfs(ConfessionManager):
+class UpdateStatusModerationCfs:
 
-    def update_cfs_moderation(self, func):
+    @staticmethod
+    def update_cfs_moderation(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
 
-            data = self.db.find(
+            data = db.docs.find(
                 {"status": "approved", "send": False},
                 {"_id": 0, "ai_data": 1},
             )
