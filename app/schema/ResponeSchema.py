@@ -17,7 +17,6 @@ class ConfessionItem(BaseModel):
     propose: str = Field(
         description="propose: 'Nêu đề xuất chỉnh sửa dựa trên câu gốc'"
     )
-    origin_text: str = Field(description="bản gốc chưa qua chỉnh sửa của confession")
     uncertain: bool = Field(
         description="Nếu không chắc chắn với kết quả, đầu ra sẽ là True và ngược lại, nếu hoàn toàn chắc chắn với kết quả thì đầu ra là False"
     )
@@ -33,7 +32,6 @@ class ConfessionItemResult:
     score: float
     reason: str
     propose: str
-    origin_text: str
     uncertain: bool
     id_origin: str
 
