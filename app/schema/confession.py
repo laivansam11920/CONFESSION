@@ -1,6 +1,7 @@
 # docs: docs/ConfessionSchema.md
 from dataclasses import dataclass, field
 
+__all__ = ["ConfessionSchema"]
 
 @dataclass(frozen=True, slots=True)
 class IpSchema:
