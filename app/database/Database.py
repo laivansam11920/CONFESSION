@@ -2,17 +2,18 @@ from typing import Any
 
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError
+from pymongo.synchronous.database import Database
 
 from configs import Config
 from app.utils.logger import console
 
-__all__ = ["Database"]
+__all__ = ["DatabaseCfs"]
 
 
-class Database:
+class DatabaseCfs:
 
     @staticmethod
-    def connect():
+    def connect() -> Database[Any] | None:
         try:
             client: MongoClient[Any] = MongoClient(
                 Config.MONGO_URI,

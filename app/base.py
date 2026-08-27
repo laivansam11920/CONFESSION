@@ -1,4 +1,4 @@
-from app.database import Database as db
+from app.database import DatabaseCfs as db
 
 from abc import ABC, abstractmethod
 from typing import Any
