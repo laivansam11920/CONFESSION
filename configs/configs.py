@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     HOST: str = Field(default="0.0.0.0", alias="HOST")
     PORT: int = Field(default=2011, alias="PORT")
     DEBUG: bool = Field(False, alias="DEBUG")
+    TEST: bool = Field(False, alias="TEST")
     SECRET_KEY: str = Field(..., alias="SECRET_KEY")
 
     CHANGE_GET_DATA_BY_WEB: bool = Field(True, alias="CHANGE_GET_DATA_BY_WEB")

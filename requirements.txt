@@ -60,3 +60,4 @@ wrapt==2.3.0
 gunicorn
 email-validator
 flask-wtf
+flask-talisman
