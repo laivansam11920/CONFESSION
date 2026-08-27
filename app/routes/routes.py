@@ -13,6 +13,7 @@ def index():
 
 
 @get_data.post("/submit-confession")
+@limiter.limit("10/day")
 def get_confession():
     from app.controller.get_data import get_data_web
 
