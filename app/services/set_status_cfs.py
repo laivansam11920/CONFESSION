@@ -1,4 +1,5 @@
 from app.database import db
+from configs import Config
 
 import functools
 
@@ -10,14 +11,33 @@ class UpdateStatusModerationCfs:
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
 
+            res = func(*args, **kwargs)
+
+            if not Config.MODERATION_CONFESSION:
+                return res
+
             data = db.docs.find(
                 {"status": "approved", "send": False},
-                {"_id": 0, "ai_data": 1},
+                {"_id": 0, "ai_data": 1, "confession_id": 1},
             )
 
             for docs in data:
-                ...
 
-            return func(*args, **kwargs)
+                flag = False
+
+                ai_data = docs["ai_data"]
+                if ai_data["score"] <= Config.MAX_MODERATION_SCORE:
+                    flag = True
+
+                db.docs.update_one(
+                    {"confession_id": docs["confession_id"]},
+                    {
+                        "$set": {
+                            "safe_to_post": flag,
+                        }
+                    },
+                )
+
+            return res
 
         return wrapper

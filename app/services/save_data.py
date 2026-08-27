@@ -65,19 +65,20 @@ class SaveConfession:
                         },
                     )
 
-            cfs_docs = db.cfs_count.find_one_and_update(
-                {"id": "confession_id"},
-                {"$inc": {"seq": 1}},
-                return_document=ReturnDocument.AFTER,
-                upsert=True,
-            )
-
             confession_data_dict = asdict(confession_data)
-            confession_data_dict["cfs"] = int(
-                (cfs_docs or {}).get("seq", 1)
-            )  # NÊN KIỂM DUYỆT BẰNG AI TRƯỚC KHI GẮN CFS NUMS
+
+            if not Config.MODERATION_CONFESSION:
+                cfs_docs = db.cfs_count.find_one_and_update(
+                    {"id": "confession_id"},
+                    {"$inc": {"seq": 1}},
+                    return_document=ReturnDocument.AFTER,
+                    upsert=True,
+                )
+                confession_data_dict["cfs"] = (cfs_docs or {}).get("seq", 1)
+
             db.docs.insert_one(confession_data_dict)
 
+            # NÊN KIỂM DUYỆT BẰNG AI TRƯỚC KHI GẮN CFS NUMS
             return ReturnSchema(
                 success=True,
                 msg=_("Lưu confession thành công rồi nhé!"),

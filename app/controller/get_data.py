@@ -26,7 +26,6 @@ class GetDataWeb(GetData):
             post_time=int(time.time()),
         )
 
-
         res: ReturnSchema = Confession.save_cfs(data)
 
         flash(res.msg, res.status)
