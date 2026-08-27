@@ -1,6 +1,5 @@
 from app.base import ConfessionManager
 from app.utils.logger import console
-from .save_tracking_data import save_tracking_id
 from configs import Config
 
 import functools
@@ -10,6 +9,18 @@ from flask import request
 from app.extensions.threads import executor
 
 __all__ = ["tracking_service"]
+
+
+def save_tracking_id(db, **kwargs):
+    db.docs.update_one(
+        {"confession_id": kwargs["confession_id"]},
+        {
+            "$addToSet": {
+                "user_tracking_data.ip": kwargs["data"]["ip"],
+                "user_tracking_data.fingerprint": kwargs["data"]["fingerprint"],
+            }
+        },
+    )
 
 
 class TrackingService(ConfessionManager):
