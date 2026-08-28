@@ -37,12 +37,12 @@ class TrackingService:
                 if not Config.TRACKING_USER:
                     return res
 
-                user_ip = get_client_ip()
-                user_fingerprint_id = request.form.get("user_fingerprint_id")
+                user_ip: str = get_client_ip()
+                fingerprint_id: str | None = request.form.get("fingerprint_id")
 
                 user_tracking_data: dict[str, Any] = {
                     "ip": user_ip,
-                    "fingerprint": user_fingerprint_id,
+                    "fingerprint": fingerprint_id,
                 }
 
                 if res.success:
