@@ -66,6 +66,8 @@
         <a href="https://www.termsfeed.com/live/48040e84-5587-4147-a8ab-fd3918c0f1a2">{{ _("Điều khoản") }}</a> & <a href="https://www.termsfeed.com/live/48040e84-5587-4147-a8ab-fd3918c0f1a2">{{ _("Bảo mật") }}</a>
     </div>
   </div>
-  <script type="module" src="{{ url_for('static', filename='js/get_fingerprint.js') }}"></script>
+  {% if config.TRACKING_USER %}
+      <script type="module" src="{{ url_for('static', filename='js/get_fingerprint.js') }}"></script>
+  {% endif %}
 </body>
 </html>

@@ -3,6 +3,7 @@ from app.base import AiServices
 from app.prompts.moderation import convert_confession_to_prompts as moderation_prompts
 from app.utils.logger import console
 from app.schema.ResponeSchema import *
+from app.schema.confession import ConfessionSchema
 from configs import Config
 
 from google import genai
@@ -23,55 +24,57 @@ class GenAIModeration(AiServices):
             model=Config.MODEL_GOOGLE_AI,
         )
 
-    def get_response(self, contents_input: str) -> ConfessionModerationResponse | None:
+    def get_response(self, contents_input: str) -> ConfessionItemResult:
         try:
             interaction = self.client.models.generate_content(
                 model=self.model,
                 contents=contents_input,
                 config={
                     "response_mime_type": "application/json",
-                    "response_schema": ConfessionModerationPayload,
+                    "response_schema": ConfessionItem,
                 },
             )
             if not interaction or not interaction.text:
-                return None
+                return ConfessionItemResult()
 
             res = loads(interaction.text)
-            items = [ConfessionItemResult(**item) for item in res.get("results", [])]
-            return ConfessionModerationResponse(results=items)
+
+            return ConfessionItemResult(**res)
 
         except (Exception, ClientError, APIError) as e:
             console.error(e)
+            return ConfessionItemResult()
 
-    def update_confession_moderation(self, list_confession: dict) -> bool:
+    def update_confession_moderation(self, cfs: ConfessionSchema) -> bool:
         try:
 
             if not Config.MODERATION_CONFESSION:
                 return False
 
-            if not list_confession or len(list_confession) == 0:
+            if not cfs.confession_id or not cfs.confession:
                 return False
 
-            response = self.get_response(moderation_prompts(**list_confession))
+            response: ConfessionItemResult = self.get_response(
+                moderation_prompts(cfs.confession)
+            )
 
-            if not response:
+            if not response or response.score is None or not (response.reason and response.propose):
                 return False
 
-            for item in response.results:
-                db.docs.update_one(
-                    {"confession_id": item.id_origin},
-                    {
-                        "$set": {
-                            "ai_data": {
-                                "score": item.score,
-                                "reason": item.reason,
-                                "propose": item.propose,
-                                "uncertain": item.uncertain,
-                            },
-                            "status": "approved",
+            db.docs.update_one(
+                {"confession_id": cfs.confession_id},
+                {
+                    "$set": {
+                        "ai_data": {
+                            "score": response.score,
+                            "reason": response.reason,
+                            "propose": response.propose,
+                            "uncertain": response.uncertain,
                         },
+                        "status": "approved",
                     },
-                )
+                },
+            )
 
             return True
         except (Exception, PyMongoError) as e:

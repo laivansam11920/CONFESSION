@@ -1,11 +1,9 @@
 from pydantic import BaseModel, Field
-from dataclasses import dataclass, field
-from typing import List
+from dataclasses import dataclass
 
 __all__ = [
-    "ConfessionModerationPayload",
-    "ConfessionModerationResponse",
     "ConfessionItemResult",
+    "ConfessionItem",
 ]
 
 
@@ -20,22 +18,12 @@ class ConfessionItem(BaseModel):
     uncertain: bool = Field(
         description="Nếu không chắc chắn với kết quả, đầu ra sẽ là True và ngược lại, nếu hoàn toàn chắc chắn với kết quả thì đầu ra là False"
     )
-    id_origin: str = Field(description="id gốc của confession chưa qua chỉnh sửa.")
-
-
-class ConfessionModerationPayload(BaseModel):
-    results: List[ConfessionItem]
 
 
 @dataclass(frozen=True, slots=True)
 class ConfessionItemResult:
-    score: float
-    reason: str
-    propose: str
-    uncertain: bool
-    id_origin: str
+    score: float = 0
+    reason: str = ""
+    propose: str = ""
+    uncertain: bool = False
 
-
-@dataclass(frozen=True, slots=True)
-class ConfessionModerationResponse:
-    results: List[ConfessionItemResult] = field(default_factory=list)

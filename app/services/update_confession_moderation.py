@@ -22,7 +22,7 @@ class ConfessionModeration:
                 if res.success:
                     executor.submit(
                         lambda: moderation.update_confession_moderation(
-                            Confession.get()
+                            Confession.get(res.data.get("confession_id")),
                         )
                     )
 
