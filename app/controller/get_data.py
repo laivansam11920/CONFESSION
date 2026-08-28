@@ -1,6 +1,6 @@
 from app.base import GetData
 from app.schema.confession import ConfessionSchema
-from services.save_cfs.save_data import SaveConfession as Confession
+from app.services.save_cfs.save_cfs import SaveConfession as Confession
 from app.utils.return_home import home
 from app.validation.check_input_data import check_input_data
 from app.schema.ReturnSchema import ReturnSchema

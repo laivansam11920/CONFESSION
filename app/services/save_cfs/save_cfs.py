@@ -3,7 +3,7 @@ from app.schema.ReturnSchema import ReturnSchema
 from app.utils.logger import console
 from app.utils.check_similar import is_similar
 from app.database import db
-from app.services.moderation.update_confession_moderation import ConfessionModeration
+from app.services.moderation.update_cfs_moderation import ConfessionModeration
 from app.services.tracking_user.get_user_tracking import TrackingService
 from configs import Config
 

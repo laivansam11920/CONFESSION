@@ -1,4 +1,4 @@
-from services.save_cfs.save_data import SaveData
+from services.save_cfs.save_cfs import SaveData
 from app.schema.confession import ConfessionSchema
 from time import time
 from uuid import uuid4
