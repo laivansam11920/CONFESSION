@@ -26,6 +26,11 @@ class UpdateStatusModerationCfs:
                 flag = False
 
                 ai_data = docs["ai_data"]
+
+
+                if ai_data["uncertain"]:
+                    ...
+
                 if ai_data["score"] <= Config.MAX_MODERATION_SCORE:
                     flag = True
 

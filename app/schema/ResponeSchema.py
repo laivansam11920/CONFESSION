@@ -8,7 +8,7 @@ __all__ = [
 
 
 class ConfessionItem(BaseModel):
-    score: int = Field(description="số điểm [số thập phân, ví dụ: 12.5]")
+    score: float = Field(description="số điểm [số thập phân, ví dụ: 12.5]")
     reason: str = Field(
         description="lý do [1–2 câu, nêu rõ vi phạm hoặc lý do được điểm cao, không dài hơn 30 từ]"
     )
