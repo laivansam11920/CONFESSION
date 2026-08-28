@@ -1,10 +1,10 @@
 from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
+from app.utils.get_client_ip import get_client_ip
 
 __all__ = ["limiter"]
 
 limiter = Limiter(
-    get_remote_address,
+    key_func=get_client_ip,
     default_limits=["500 per day", "100 per hour"],
     storage_uri="memory://",
 )

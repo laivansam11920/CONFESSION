@@ -1,6 +1,7 @@
 from app.database import db
 from app.utils.logger import console
 from app.schema.ReturnSchema import ReturnSchema
+from app.utils.get_client_ip import get_client_ip
 from configs import Config
 
 import functools
@@ -36,7 +37,7 @@ class TrackingService:
                 if not Config.TRACKING_USER:
                     return res
 
-                user_ip = request.remote_addr
+                user_ip = get_client_ip()
                 user_fingerprint_id = request.form.get("user_fingerprint_id")
 
                 user_tracking_data: dict[str, Any] = {
