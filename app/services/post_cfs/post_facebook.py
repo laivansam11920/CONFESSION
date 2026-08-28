@@ -2,8 +2,6 @@ from configs import Config
 from app.database import db
 from app.utils.logger import console
 
-from flask_babel import gettext as _
-
 from requests import post
 
 
@@ -35,7 +33,7 @@ class PostFacebook:
             if not data:
                 return False
 
-            post_text: str = _("DANH SÁCH CONFESSION HÔM NAY\n")
+            post_text: str = Config.TOPIC_SENTENCE
 
             for docs in data:
 

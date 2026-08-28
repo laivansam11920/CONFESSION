@@ -1,5 +1,7 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
+from datetime import datetime
+from flask_babel import gettext as _
 
 
 class Settings(BaseSettings):
@@ -28,6 +30,10 @@ class Settings(BaseSettings):
     TRACKING_USER: bool = Field(False, alias="TRACKING_USER")
     TOPIC_COLOR: str = Field(default="#000000", alias="TOPIC_COLOR")
     MAX_MODERATION_SCORE: float = Field(default=55, alias="MAX_MODERATION_SCORE")
+    TOPIC_SENTENCE: str = Field(
+        default=f"{_("Tổng hợp Confession ngày")} {datetime.now().strftime("%d/%m/%Y")}\n",
+        alias="TOPIC_SENTENCE",
+    )
 
     BABEL_DEFAULT_LOCALE: str = Field(default="en", alias="BABEL_DEFAULT_LOCALE")
     BABEL_TRANSLATION_DIRECTORIES: str = Field(
