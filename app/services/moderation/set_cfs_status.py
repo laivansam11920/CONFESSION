@@ -27,7 +27,6 @@ class UpdateStatusModerationCfs:
 
                 ai_data = docs["ai_data"]
 
-
                 if ai_data["uncertain"]:
                     ...
 

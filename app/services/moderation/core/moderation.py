@@ -58,7 +58,11 @@ class GenAIModeration(AiServices):
                 moderation_prompts(cfs.confession)
             )
 
-            if not response or response.score is None or not (response.reason and response.propose):
+            if (
+                not response
+                or response.score is None
+                or not (response.reason and response.propose)
+            ):
                 return False
 
             db.docs.update_one(

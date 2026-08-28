@@ -26,4 +26,3 @@ class ConfessionItemResult:
     reason: str = ""
     propose: str = ""
     uncertain: bool = False
-
