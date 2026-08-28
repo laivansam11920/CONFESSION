@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_babel import Babel
 from flask_wtf.csrf import CSRFProtect
-from flask_talisman import Talisman
 
 from app.extensions.limiter import limiter
 from app.routes import register_blueprints
@@ -19,7 +18,6 @@ def create_app() -> Flask:
     limiter.init_app(app)
     app.config.from_object(Config)
     CSRFProtect(app)
-    Talisman(app, force_https=Config.TEST)
     babel.init_app(app, locale_selector=get_locale)
     register_blueprints(app)
 
