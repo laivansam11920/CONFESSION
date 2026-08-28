@@ -47,6 +47,9 @@ class PostFacebook:
 
                 post_text += f"#{cfs_count}: {confession_text}\n"
 
+            if g_name := Config.NAME_GROUP_USE_PROJECT:
+                post_text += f"\nMaintain: {g_name}\n"
+
             payload = {"message": post_text, "access_token": self.page_access_token}
 
             res = post(self.url, data=payload, timeout=5)
