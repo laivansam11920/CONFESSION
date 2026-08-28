@@ -1,5 +1,5 @@
 from app.utils.logger import console
-from app.services.moderation.moderation import moderation
+from app.services.moderation.core.moderation import moderation
 from app.services.get_cfs.get_confession import GetConfession as Confession
 from app.extensions.threads import executor
 from app.schema.ReturnSchema import ReturnSchema
