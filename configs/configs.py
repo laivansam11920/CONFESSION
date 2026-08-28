@@ -38,9 +38,9 @@ class Settings(BaseSettings):
         default=5, alias="MAX_THREADPOOLEXECUTOR_WORKER"
     )
 
-    SESSION_COOKIE_SECURE = True
-    SESSION_COOKIE_SAMESITE = 'Lax'
-    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SECURE: bool = Field(default=True, alias="SESSION_COOKIE_SECURE")
+    SESSION_COOKIE_SAMESITE: str = Field(default="Lax", alias="SESSION_COOKIE_SAMESITE")
+    SESSION_COOKIE_HTTPONLY: bool = Field(default=True, alias="SESSION_COOKIE_HTTPONLY")
 
     model_config = SettingsConfigDict(populate_by_name=True)
 
