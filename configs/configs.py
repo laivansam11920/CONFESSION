@@ -42,6 +42,9 @@ class Settings(BaseSettings):
     SESSION_COOKIE_SAMESITE: str = Field(default="Lax", alias="SESSION_COOKIE_SAMESITE")
     SESSION_COOKIE_HTTPONLY: bool = Field(default=True, alias="SESSION_COOKIE_HTTPONLY")
 
+    FACEBOOK_PAGE_ID: str = Field(..., alias="FACEBOOK_PAGE_ID")
+    FACEBOOK_PAGE_ACCESS_TOKEN: str = Field(..., alias="FACEBOOK_PAGE_ACCESS_TOKEN")
+
     model_config = SettingsConfigDict(populate_by_name=True)
 
 
