@@ -3,14 +3,14 @@ from app.schema.ReturnSchema import ReturnSchema
 from app.utils.logger import console
 from app.utils.check_similar import is_similar
 from app.database import db
-from .update_confession_moderation import ConfessionModeration
-from .get_user_tracking import TrackingService
+from app.services.moderation.update_confession_moderation import ConfessionModeration
+from app.services.tracking_user.get_user_tracking import TrackingService
 from configs import Config
 
 from dataclasses import asdict
 from time import time
 
-from flask_babel import Babel, gettext as _
+from flask_babel import gettext as _
 from pymongo import ReturnDocument
 
 __all__ = ["SaveConfession"]
