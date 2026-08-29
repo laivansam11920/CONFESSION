@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint
 
 from app.extensions.limiter import limiter
 
@@ -9,6 +9,8 @@ get_data: Blueprint = Blueprint("get_data", __name__)
 @main_route.route("/")
 @limiter.limit("10/day")
 def index():
+    from flask import render_template
+
     return render_template("index.html")  # type: ignore
 
 
