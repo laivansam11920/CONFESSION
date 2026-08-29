@@ -2,6 +2,7 @@ from app.schema.confession import ConfessionSchema
 from app.schema.ReturnSchema import ReturnSchema
 from app.utils.logger import console
 from app.utils.check_similar import is_similar
+from app.utils.get_cfs_count import cfs_nums
 from app.database import db
 from app.services.moderation.update_cfs_moderation import ConfessionModeration
 from app.services.tracking_user.get_user_tracking import TrackingService
@@ -68,13 +69,7 @@ class SaveConfession:
             confession_data_dict = asdict(confession_data)
 
             if not Config.MODERATION_CONFESSION:
-                cfs_docs = db.cfs_count.find_one_and_update(
-                    {"id": "confession_id"},
-                    {"$inc": {"seq": 1}},
-                    return_document=ReturnDocument.AFTER,
-                    upsert=True,
-                )
-                confession_data_dict["cfs"] = (cfs_docs or {}).get("seq", 1)
+                confession_data_dict["cfs"] = cfs_nums()
 
             db.docs.insert_one(confession_data_dict)
 

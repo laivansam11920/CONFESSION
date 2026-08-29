@@ -1,5 +1,6 @@
 from app.database import db
 from app.schema.ReturnSchema import ReturnSchema
+from app.utils.get_cfs_count import cfs_nums
 from configs import Config
 
 import functools
@@ -47,12 +48,6 @@ class UpdateStatusModerationCfs:
             if score and score <= Config.MAX_MODERATION_SCORE:
                 flag = True
 
-            cfs_docs = db.cfs_count.find_one_and_update(
-                {"id": "confession_id"},
-                {"$inc": {"seq": 1}},
-                return_document=ReturnDocument.AFTER,
-                upsert=True,
-            )
 
             db.docs.update_one(
                 {"confession_id": res.data.get("confession_id")},
@@ -60,7 +55,7 @@ class UpdateStatusModerationCfs:
                     "$set": {
                         "safe_to_post": flag,
                         "set_status_moderation": True,
-                        "cfs": (cfs_docs or {}).get("seq", 1),
+                        "cfs": cfs_nums(),
                     }
                 },
             )
