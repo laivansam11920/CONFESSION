@@ -6,13 +6,14 @@ from time import sleep
 from requests import get
 
 def self_ping():
+    sleep(10)
     while True:
-        sleep(10 * 60)
         if Config.RENDER_EXTERNAL_URL:
             try:
                 get(f"{Config.RENDER_EXTERNAL_URL}/ping", timeout=10)
             except Exception as e:
                 console.error(e)
+        sleep(10 * 60)
 
 def my_daily_task():
     try:
