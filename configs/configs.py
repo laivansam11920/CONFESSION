@@ -51,6 +51,8 @@ class Settings(BaseSettings):
     FACEBOOK_PAGE_ID: str = Field(..., alias="FACEBOOK_PAGE_ID")
     FACEBOOK_PAGE_ACCESS_TOKEN: str = Field(..., alias="FACEBOOK_PAGE_ACCESS_TOKEN")
 
+    RENDER_EXTERNAL_URL: str = Field(default="", alias="RENDER_EXTERNAL_URL")
+
     model_config = SettingsConfigDict(populate_by_name=True)
 
 

@@ -4,6 +4,7 @@ from app.utils.logger import console
 
 from requests import post
 
+__all__ = ["Facebook"]
 
 class PostFacebook:
 
