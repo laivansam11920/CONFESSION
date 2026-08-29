@@ -5,6 +5,7 @@ from app.utils.logger import console
 from app.schema.ResponeSchema import *
 from app.schema.confession import ConfessionSchema
 from app.schema.ReturnSchema import ReturnSchema
+from app.services.moderation.set_cfs_status import UpdateStatusModerationCfs as Cfs
 from configs import Config
 
 from google import genai
@@ -46,6 +47,7 @@ class GenAIModeration(AiServices):
             console.error(e)
             return ConfessionItemResult()
 
+    @Cfs.update_cfs_moderation
     def update_confession_moderation(self, cfs: ConfessionSchema) -> ReturnSchema:
         try:
 

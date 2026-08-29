@@ -43,9 +43,8 @@ class UpdateStatusModerationCfs:
                 # In process
                 ...
 
-            if score and score <= Config.MAX_MODERATION_SCORE:
+            if score and score > Config.MAX_MODERATION_SCORE:
                 flag = True
-
 
             db.docs.update_one(
                 {"confession_id": res.data.get("confession_id")},

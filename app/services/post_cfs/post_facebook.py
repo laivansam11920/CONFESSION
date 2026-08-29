@@ -22,7 +22,6 @@ class PostFacebook:
                 db.docs.find(
                     {
                         "safe_to_post": True,
-                        "status": "approved",
                         "send": False,
                     },
                     {"_id": 0, "confession": 1, "cfs": 1},
