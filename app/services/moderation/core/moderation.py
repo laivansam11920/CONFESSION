@@ -4,6 +4,7 @@ from app.prompts.moderation import convert_confession_to_prompts as moderation_p
 from app.utils.logger import console
 from app.schema.ResponeSchema import *
 from app.schema.confession import ConfessionSchema
+from app.schema.ReturnSchema import ReturnSchema
 from configs import Config
 
 from google import genai
@@ -45,14 +46,14 @@ class GenAIModeration(AiServices):
             console.error(e)
             return ConfessionItemResult()
 
-    def update_confession_moderation(self, cfs: ConfessionSchema) -> bool:
+    def update_confession_moderation(self, cfs: ConfessionSchema) -> ReturnSchema:
         try:
 
             if not Config.MODERATION_CONFESSION:
-                return False
+                return ReturnSchema()
 
             if not cfs.confession_id or not cfs.confession:
-                return False
+                return ReturnSchema()
 
             response: ConfessionItemResult = self.get_response(
                 moderation_prompts(cfs.confession)
@@ -63,7 +64,7 @@ class GenAIModeration(AiServices):
                 or response.score is None
                 or not (response.reason and response.propose)
             ):
-                return False
+                return ReturnSchema()
 
             db.docs.update_one(
                 {"confession_id": cfs.confession_id},
@@ -80,10 +81,10 @@ class GenAIModeration(AiServices):
                 },
             )
 
-            return True
+            return ReturnSchema(success=True, data={"confession_id": cfs.confession_id})
         except (Exception, PyMongoError) as e:
             console.error(e)
-            return False
+            return ReturnSchema()
 
 
 moderation = GenAIModeration()

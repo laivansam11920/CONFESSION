@@ -20,6 +20,7 @@ class ConfessionSchema:
     confession_id: str
     post_time: int
     email: str
+    set_status_moderation: bool = False
     safe_to_post: bool = False
     same_post_count: int = 0
     status: str = "pending"
