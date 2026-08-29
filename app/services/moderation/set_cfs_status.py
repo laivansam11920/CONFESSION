@@ -5,8 +5,6 @@ from configs import Config
 
 import functools
 
-from pymongo import ReturnDocument
-
 
 class UpdateStatusModerationCfs:
 
