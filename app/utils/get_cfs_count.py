@@ -1,6 +1,7 @@
 from app.database import db
 from pymongo import ReturnDocument
 
+
 def cfs_nums() -> int:
     cfs_docs = db.cfs_count.find_one_and_update(
         {"id": "confession_id"},

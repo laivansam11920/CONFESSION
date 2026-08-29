@@ -6,6 +6,7 @@ from requests import post
 
 __all__ = ["Facebook"]
 
+
 class PostFacebook:
 
     page_id: str
@@ -53,7 +54,7 @@ class PostFacebook:
             res = post(self.url, data=payload, timeout=5)
             fb_data = res.json()
 
-            if not res.status_code == 200:
+            if res.status_code != 200:
                 console.warning(
                     f"Facebook post failed: {fb_data.get('error', {}).get('message')}"
                 )
@@ -69,5 +70,6 @@ class PostFacebook:
         except Exception as e:
             console.error(e)
             return False
+
 
 Facebook = PostFacebook()

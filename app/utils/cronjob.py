@@ -5,6 +5,7 @@ from app.services.post_cfs.post_facebook import Facebook
 from time import sleep
 from requests import get
 
+
 def self_ping():
     sleep(10)
     while True:
@@ -14,6 +15,7 @@ def self_ping():
             except Exception as e:
                 console.error(e)
         sleep(10 * 60)
+
 
 def my_daily_task():
     try:

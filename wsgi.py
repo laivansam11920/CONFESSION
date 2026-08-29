@@ -9,7 +9,7 @@ app = create_app()
 
 if Config.RENDER_EXTERNAL_URL:
     Thread(target=self_ping, daemon=True).start()
-    scheduler.add_job(my_daily_task, 'cron', hour=Config.HOUR, minute=Config.MINUTE)
+    scheduler.add_job(my_daily_task, "cron", hour=Config.HOUR, minute=Config.MINUTE)
     scheduler.start()
 
 if __name__ == "__main__":

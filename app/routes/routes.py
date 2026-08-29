@@ -6,8 +6,9 @@ main_route: Blueprint = Blueprint("main_route", __name__)
 get_data: Blueprint = Blueprint("get_data", __name__)
 ping: Blueprint = Blueprint("ping", __name__)
 
+
 @main_route.route("/")
-@limiter.limit("10/day")
+@limiter.exempt
 def index():
     from flask import render_template
 
@@ -15,12 +16,13 @@ def index():
 
 
 @get_data.post("/submit-confession")
-@limiter.limit("10/day")
 def get_confession():
     from app.controller.get_data import get_data_web
 
     return get_data_web.get_data()  # type: ignore
 
+
 @ping.route("/ping")
+@limiter.exempt
 def ping_route():
     return {"success": True}
