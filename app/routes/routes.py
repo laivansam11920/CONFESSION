@@ -22,6 +22,5 @@ def get_confession():
     return get_data_web.get_data()  # type: ignore
 
 @ping.route("/ping")
-def ping():
-    print("1", flush=True)
+def ping_route():
     return {"success": True}
