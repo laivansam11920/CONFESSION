@@ -20,7 +20,9 @@ def save_tracking_id(**kwargs):
         {
             "$addToSet": {
                 "user_tracking_data.ip": str(encrypt_data(kwargs["data"]["ip"])),
-                "user_tracking_data.fingerprint": str(encrypt_data(kwargs["data"]["fingerprint"])),
+                "user_tracking_data.fingerprint": str(
+                    encrypt_data(kwargs["data"]["fingerprint"])
+                ),
             }
         },
     )

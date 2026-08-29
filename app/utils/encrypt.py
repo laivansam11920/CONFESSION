@@ -5,6 +5,7 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 from configs import Config
 
+
 def encrypt_data(plaintext: str) -> bytes:
 
     if not plaintext:
@@ -19,9 +20,9 @@ def encrypt_data(plaintext: str) -> bytes:
         salt=salt,
         iterations=600_000,
     )
-    key = kdf.derive(Config.SECRET_KEY.encode('utf-8'))
+    key = kdf.derive(Config.SECRET_KEY.encode("utf-8"))
 
     aesgcm = AESGCM(key)
-    ciphertext = aesgcm.encrypt(iv, plaintext.encode('utf-8'), associated_data=None)
+    ciphertext = aesgcm.encrypt(iv, plaintext.encode("utf-8"), associated_data=None)
 
     return salt + iv + ciphertext
