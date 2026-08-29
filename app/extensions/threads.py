@@ -1,4 +1,4 @@
 from concurrent.futures import ThreadPoolExecutor
 from configs import Config
 
-executor = ThreadPoolExecutor(max_workers=Config.MAX_THREADPOOLEXECUTOR_WORKER)
+executor = ThreadPoolExecutor(max_workers=Config.MAX_THREADPOOL_EXECUTOR_WORKER)

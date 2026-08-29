@@ -40,7 +40,7 @@ class Settings(BaseSettings):
         default="translations", alias="BABEL_TRANSLATION_DIRECTORIES"
     )
 
-    MAX_THREADPOOLEXECUTOR_WORKER: int = Field(
+    MAX_THREADPOOL_EXECUTOR_WORKER: int = Field(
         default=5, alias="MAX_THREADPOOLEXECUTOR_WORKER"
     )
 
