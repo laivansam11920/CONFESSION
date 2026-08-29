@@ -12,7 +12,6 @@ from dataclasses import asdict
 from time import time
 
 from flask_babel import gettext as _
-from pymongo import ReturnDocument
 
 __all__ = ["SaveConfession"]
 
@@ -73,7 +72,6 @@ class SaveConfession:
 
             db.docs.insert_one(confession_data_dict)
 
-            # NÊN KIỂM DUYỆT BẰNG AI TRƯỚC KHI GẮN CFS NUMS
             return ReturnSchema(
                 success=True,
                 msg=_("Lưu confession thành công rồi nhé!"),
