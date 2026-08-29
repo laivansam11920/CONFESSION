@@ -1,7 +1,8 @@
 from app.database import db
-from app.utils.logger import console
 from app.schema.ReturnSchema import ReturnSchema
+from app.utils.logger import console
 from app.utils.get_client_ip import get_client_ip
+from app.utils.encrypt import encrypt_data
 from configs import Config
 
 import functools
@@ -18,8 +19,8 @@ def save_tracking_id(**kwargs):
         {"confession_id": kwargs["confession_id"]},
         {
             "$addToSet": {
-                "user_tracking_data.ip": kwargs["data"]["ip"],
-                "user_tracking_data.fingerprint": kwargs["data"]["fingerprint"],
+                "user_tracking_data.ip": str(encrypt_data(kwargs["data"]["ip"])),
+                "user_tracking_data.fingerprint": str(encrypt_data(kwargs["data"]["fingerprint"])),
             }
         },
     )
@@ -38,7 +39,7 @@ class TrackingService:
                     return res
 
                 user_ip: str = get_client_ip()
-                fingerprint_id: str | None = request.form.get("fingerprint_id")
+                fingerprint_id: str = request.form.get("fingerprint_id", "")
 
                 user_tracking_data: dict[str, Any] = {
                     "ip": user_ip,
