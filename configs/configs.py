@@ -3,6 +3,8 @@ from pydantic import Field, computed_field
 from datetime import datetime
 from flask_babel import gettext as _
 
+from app.utils.fb_page_id import get_facebook_page_info as get_id
+
 
 class Settings(BaseSettings):
 
@@ -53,7 +55,7 @@ class Settings(BaseSettings):
     def MAX_CONTENT_LENGTH(self) -> int:
         return (self.MAX_LEN_CONFESSION_ALLOW * 9) + 2048
 
-    FACEBOOK_PAGE_ID: str = Field(..., alias="FACEBOOK_PAGE_ID")
+    FACEBOOK_PAGE_ID: str = Field(default=get_id(), alias="FACEBOOK_PAGE_ID")
     FACEBOOK_PAGE_ACCESS_TOKEN: str = Field(..., alias="FACEBOOK_PAGE_ACCESS_TOKEN")
 
     RENDER_EXTERNAL_URL: str = Field(default="", alias="RENDER_EXTERNAL_URL")
