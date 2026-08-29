@@ -51,7 +51,7 @@ class Settings(BaseSettings):
     FACEBOOK_PAGE_ID: str = Field(..., alias="FACEBOOK_PAGE_ID")
     FACEBOOK_PAGE_ACCESS_TOKEN: str = Field(..., alias="FACEBOOK_PAGE_ACCESS_TOKEN")
 
-    RENDER_EXTERNAL_URL: str = Field(default="http://127.0.0.1:5000", alias="RENDER_EXTERNAL_URL")
+    RENDER_EXTERNAL_URL: str = Field(default="", alias="RENDER_EXTERNAL_URL")
 
     HOUR: int = Field(default=11, alias="HOUR")
     MINUTE: int = Field(default=30, alias="MINUTE")
