@@ -42,7 +42,7 @@ class PostFacebook:
                 if not confession_text:
                     continue
 
-                post_text += f"#{cfs_count}: {confession_text}\n"
+                post_text += f"#cfs{cfs_count} : {confession_text}\n"
 
             if g_name := Config.NAME_GROUP_USE_PROJECT:
                 post_text += f"\nMaintain: {g_name}\n"
@@ -68,3 +68,5 @@ class PostFacebook:
         except Exception as e:
             console.error(e)
             return False
+
+Facebook = PostFacebook()
