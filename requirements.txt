@@ -61,3 +61,4 @@ gunicorn
 email-validator
 flask-wtf
 flask-talisman
+apscheduler
