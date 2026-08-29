@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import Field
+from pydantic import Field, computed_field
 from datetime import datetime
 from flask_babel import gettext as _
 
@@ -47,6 +47,11 @@ class Settings(BaseSettings):
     SESSION_COOKIE_SECURE: bool = Field(default=True, alias="SESSION_COOKIE_SECURE")
     SESSION_COOKIE_SAMESITE: str = Field(default="Lax", alias="SESSION_COOKIE_SAMESITE")
     SESSION_COOKIE_HTTPONLY: bool = Field(default=True, alias="SESSION_COOKIE_HTTPONLY")
+
+    @computed_field
+    @property
+    def MAX_CONTENT_LENGTH(self) -> int:
+        return (self.MAX_LEN_CONFESSION_ALLOW * 9) + 2048
 
     FACEBOOK_PAGE_ID: str = Field(..., alias="FACEBOOK_PAGE_ID")
     FACEBOOK_PAGE_ACCESS_TOKEN: str = Field(..., alias="FACEBOOK_PAGE_ACCESS_TOKEN")
