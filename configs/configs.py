@@ -32,6 +32,7 @@ class Settings(BaseSettings):
     TRACKING_USER: bool = Field(False, alias="TRACKING_USER")
     TOPIC_COLOR: str = Field(default="#000000", alias="TOPIC_COLOR")
     MAX_MODERATION_SCORE: float = Field(default=55, alias="MAX_MODERATION_SCORE")
+    MAX_DOCS_GET: int = Field(default=100, alias="MAX_DOCS_GET")
     TOPIC_SENTENCE: str = Field(
         default=f"{_("Tổng hợp Confession ngày")} {datetime.now().strftime("%d/%m/%Y")}\n",
         alias="TOPIC_SENTENCE",

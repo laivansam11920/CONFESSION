@@ -37,7 +37,7 @@ class SaveConfession:
                         {"_id": 1, "confession_id": 1, "confession": 1},
                     )
                     .sort("_id", -1)
-                    .limit(100)
+                    .limit(Config.MAX_DOCS_GET)
                 )
 
                 matched_id = None
