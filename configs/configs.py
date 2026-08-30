@@ -59,7 +59,7 @@ class Settings(BaseSettings):
 
     @computed_field
     @property
-    def FACEBOOK_PAGE_ID(self):
+    def FACEBOOK_PAGE_ID(self) -> str:
         return get_id(self.FACEBOOK_PAGE_ACCESS_TOKEN)
 
     RENDER_EXTERNAL_URL: str = Field(default="", alias="RENDER_EXTERNAL_URL")

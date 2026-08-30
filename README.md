@@ -1,280 +1,106 @@
-# CONFESSION (Python) — Google Form → Ping Server → Server đọc Google Sheet → MongoDB → Facebook Page
+# Hệ Thống Confession Ẩn Danh (Anonymous Confession Box)
 
-Dự án này chạy theo đúng luồng sau:
+[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-Web%20Framework-lightgrey.svg)](https://flask.palletsprojects.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Database-green.svg)](https://www.mongodb.com/)
+[![Google Gemini](https://img.shields.io/badge/AI-Google%20Gemini-orange.svg)](https://aistudio.google.com/)
 
-**(1) Người dùng bấm gửi Google Form**  
-→ **(2) Form lưu câu trả lời vào Google Sheet**  
-→ **(3) Apps Script Trigger chạy `onFormSubmit(e)` chỉ để “bắn 1 request” về server** (KHÔNG gửi nội dung confession)  
-→ **(4) Server nhận ping**  
-→ **(5) Server dùng Google Sheets API đọc dữ liệu mới nhất từ Google Sheet**  
-→ **(6) Server lưu vào MongoDB**  
-→ **(7) (Tuỳ chọn) Server đăng lên Facebook Page bằng Graph API**
+*(Bilingual README: Scroll down for English version | Kéo xuống để xem bản tiếng Anh)*
 
 ---
 
-## 0) Checklist nhanh (ông làm theo thứ tự này)
+## 🇻🇳 TIẾNG VIỆT
 
-- [ ] Tạo Google Form và liên kết với Google Sheet
-- [ ] Tạo Apps Script + Trigger “On form submit” để ping server
-- [ ] Tạo Google Cloud Project
-- [ ] Bật **Google Sheets API** và **Google Drive API**
-- [ ] Tạo **Service Account** và tải **credentials.json**
-- [ ] Share Google Sheet cho email của Service Account
-- [ ] Setup `.env` cho server (MongoDB, Facebook, Sheet info)
-- [ ] Chạy server + public URL (ngrok/VPS)
-- [ ] Test: submit form → server log nhận ping → server đọc sheet → lưu DB → đăng FB
+### Giới thiệu
+Dự án là một ứng dụng web cho phép mọi người gửi tâm sự (confession) hoàn toàn ẩn danh. Hệ thống được xây dựng trên môi trường local (máy cá nhân) sau đó có thể dễ dàng triển khai (deploy) lên [Render.com](https://render.com) hoặc các nền tảng đám mây tương tự. Điểm nhấn của dự án là khả năng tự động kiểm duyệt bằng AI (Google Gemini) và tự động đăng bài lên Facebook.
 
----
+### Tính năng & Trạng thái cấu hình
+Dưới đây là các tính năng chính và trạng thái bật/tắt mặc định (có thể tinh chỉnh lại trong file `configs.py` hoặc môi trường `.env`):
 
-## 1) Yêu cầu hệ thống
+- **Kiểm duyệt bằng AI (AI Moderation):** Sử dụng mô hình `gemma-4-31b-it` để đánh giá an toàn, chấm điểm (0-100) dựa trên ngữ cảnh tinh vi.
+  - *Trạng thái:* **Tùy chọn** (Mặc định: `TẮT` / `MODERATION_CONFESSION = False`).
+- **Nhận diện chống Spam/Trùng lặp:** Phát hiện bài viết giống nhau (độ tương đồng > 64%) trong vòng 24 giờ.
+  - *Trạng thái:* **Bật sẵn** (Mặc định: `BẬT` / `CHECK_SAME_DOCS = True`).
+- **Gửi Confession Ẩn Danh & Lấy Email:** Cho phép nhận email phản hồi nếu người dùng muốn.
+  - *Trạng thái:* **Tùy chọn** (Mặc định: `TẮT` / `GET_EMAIL = False`).
+- **Theo dõi người dùng (Tracking):** Lưu IP và Browser Fingerprint (mã hóa an toàn) để chống lạm dụng.
+  - *Trạng thái:* **Tùy chọn** (Mặc định: `TẮT` / `TRACKING_USER = False`).
+- **Tự động đăng bài Facebook:** Tự động tổng hợp các confession đã duyệt và đăng qua Graph API. Tính năng này đi kèm cơ chế `self_ping` giúp web không bị ngủ đông trên các nền tảng cloud miễn phí.
 
-- Ubuntu (Khuyên dùng)
-- Python >= 3.8
-- pip
-- (Tuỳ chọn) MongoDB Atlas / MongoDB local
-- (Tuỳ chọn) Facebook Page + quyền quản lý Page để lấy token
+### Cài đặt & Khởi chạy
 
----
+Dự án tối ưu hóa cho môi trường phát triển trên Windows và sử dụng `gunicorn` *(hiểu đơn giản là một "người quản lý" xịn xò giúp trang web không bị sập khi có nhiều người truy cập cùng lúc)* để chạy thực tế.
 
-## 2) Cài đặt server (Ubuntu)
-
-### 2.1 Clone repo
+**Cách 1: Cài đặt tự động (Đang phát triển)**
 ```bash
-git clone https://github.com/laivansam11920/CONFESSION.git
-cd CONFESSION
+python install.py
 ```
+*(Tính năng này sẽ tự động thiết lập môi trường ảo và cài thư viện. Hiện tại đang trong giai đoạn hoàn thiện).*
 
-### 2.2 Tạo môi trường ảo
+**Cách 2: Cài đặt thủ công (Khuyên dùng)**
+1. **Clone dự án & Tạo môi trường ảo (Windows):**
+   ```bash
+   git clone <repository_url>
+   cd <project_name>
+   python -m venv venv
+   venv\Scripts\activate
+   ```
+2. **Cài đặt thư viện:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. **Cấu hình:** Cập nhật thông tin vào file `.env` (như `MONGO_URI`, `GOOGLE_AI_API_KEY`, `FACEBOOK_PAGE_ACCESS_TOKEN`, v.v.).
+4. **Khởi chạy bằng Gunicorn (cho môi trường Render/Cloud):**
+   ```bash
+   gunicorn -w 4 -b 0.0.0.0:2011 "app:app"
+   ```
+   *(Lệnh này gọi 4 "nhân viên" - worker - để cùng lúc xử lý yêu cầu, giúp web mượt hơn rất nhiều).*
+
+---
+
+## 🇬🇧 ENGLISH
+
+### Introduction
+This is an anonymous confession web application designed to be developed locally and deployed to cloud platforms like [Render.com](https://render.com). It features an automated AI-driven moderation system (Google Gemini) and Facebook Graph API integration for automatic publishing.
+
+### Features & Default Configurations
+- **AI Moderation:** Uses the `gemma-4-31b-it` model to deeply analyze intent and score content safety (0-100). 
+  - *Status:* **Optional** (Default: `OFF` / `MODERATION_CONFESSION = False`).
+- **Anti-Spam / Duplicate Detection:** Detects and merges similar posts (>64% similarity) within 24 hours.
+  - *Status:* **Enabled** (Default: `ON` / `CHECK_SAME_DOCS = True`).
+- **Email Collection:** Option for users to leave their email for notifications.
+  - *Status:* **Optional** (Default: `OFF` / `GET_EMAIL = False`).
+- **User Tracking (Security):** Encrypts and stores IP addresses and browser fingerprints to prevent abuse.
+  - *Status:* **Optional** (Default: `OFF` / `TRACKING_USER = False`).
+- **Facebook Auto-Posting:** Automatically posts approved confessions via Graph API. Includes a `self_ping` mechanism to keep free-tier cloud servers alive.
+
+### Setup & Run
+
+The project is actively developed in a Windows environment. It utilizes `gunicorn` for production deployment.
+
+**Method 1: Auto-Installer (In Development)**
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
+python install.py
 ```
 
-### 2.3 Cài dependencies
-Nếu có `requirements.txt`:
-```bash
-pip install -r requirements.txt
-```
-
-Nếu chưa có, tối thiểu thường cần:
-```bash
-pip install flask requests python-dotenv pymongo google-api-python-client google-auth google-auth-oauthlib
-```
-
+**Method 2: Manual Setup (Recommended)**
+1. **Clone & Virtual Environment (Windows):**
+   ```bash
+   git clone <repository_url>
+   cd <project_name>
+   python -m venv venv
+   venv\Scripts\activate
+   ```
+2. **Install Dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. **Environment Setup:** Provide `.env` variables (`MONGO_URI`, API keys, etc.).
+4. **Run with Gunicorn (Production/Render):**
+   ```bash
+   gunicorn -w 4 -b 0.0.0.0:2011 "app:app"
+   ```
 ---
-
-## 3) Biến môi trường (.env)
-
-Tạo file `.env` trong thư mục server (thư mục chạy app):
-
-```env
-# Database
-MONGO_URI=
-
-# Facebook (nếu muốn auto đăng)
-ACCESS_TOKEN=
-PAGE_ID=
-
-# Xác thực ping từ Apps Script (khuyên dùng)
-YOUR_KEY=
-
-# Google Sheet
-SHEET_NAME=Confession_app
-
-# Tên câu hỏi trong Google Form (PHẢI KHỚP 100% ký tự)
-CONFESSION_QUESTION=Confession của bạn là gì?
-EMAIL_QUESTION=Gmail liên hệ của bạn là gì?
-
-# Format message (tuỳ code)
-TOTAL_MES=DANH SÁCH CONFESSION MỚI NHẤT\n\n
-
-# Đường dẫn credentials.json trên Ubuntu
-GOOGLE_APPLICATION_CREDENTIALS=/confession_app/credentials.json
-```
-
-### Giải thích các biến “quan trọng thật”
-- `SHEET_NAME`: tên tab sheet chứa câu trả lời (ví dụ `Confession_app`)
-- `GOOGLE_APPLICATION_CREDENTIALS`: đường dẫn file credentials.json (service account key)
-- `YOUR_KEY`: khoá để server từ chối ping giả mạo
-
----
-
-## 4) Google Form + Google Sheet
-
-### 4.1 Tạo Google Form
-Tạo đúng câu hỏi (để server bóc dữ liệu theo tên câu hỏi):
-- `Confession của bạn là gì?`
-- `Gmail liên hệ của bạn là gì?`
-
-### 4.2 Liên kết Form với Sheet
-Google Form → tab **Câu trả lời** → “Liên kết với Trang tính” → tạo Sheet.
-
----
-
-## 5) Apps Script: chỉ ping server khi có submit
-
-### 5.1 Mở Apps Script
-Mở Google Sheet → **Extensions (Tiện ích mở rộng)** → **Apps Script**
-
-### 5.2 Code `onFormSubmit(e)` (chỉ ping)
-> Lưu ý: ở luồng này, ông không cần gửi `e.namedValues` (vì server tự đọc Sheet).  
-> Nhưng giữ lại cũng được để debug. README này viết đúng theo yêu cầu “chỉ ping”.
-
-```javascript
-function onFormSubmit(e) {
-  try {
-    var url = "https://inundatory-unpigmented-patsy.ngrok-free.dev/submit";
-
-    if (!e) {
-      console.log("e bị rỗng, hàm này cần được chạy bởi Trigger!");
-      return;
-    }
-
-    var payload = {
-      "event": "form_submit",
-      "your_key": "GIÁ_TRỊ_TRÙNG_VỚI_YOUR_KEY_TRONG_.env",
-      "ts": new Date().toISOString()
-      // Không gửi confession ở đây. Server sẽ tự đọc Sheet.
-    };
-
-    var options = {
-      "method": "post",
-      "contentType": "application/json",
-      "payload": JSON.stringify(payload),
-      "muteHttpExceptions": true
-    };
-
-    var res = UrlFetchApp.fetch(url, options);
-    console.log("Ping server xong! Status: " + res.getResponseCode());
-    console.log(res.getContentText());
-
-  } catch (err) {
-    console.log("Lỗi xảy ra: " + err.toString());
-  }
-}
-```
-
-### 5.3 Tạo Trigger
-Apps Script → **Triggers (Kích hoạt)** → Add Trigger:
-- Function: `onFormSubmit`
-- Event source: From spreadsheet
-- Event type: On form submit
-- Save và cấp quyền.
-
----
-
-## 6) Lấy `credentials.json` trong Google Cloud Console (Sheets API + Drive API)
-
-Mục tiêu: có file key JSON đặt tại:
-`/home/laivansam/confession_app/credentials.json`
-
-### 6.1 Tạo Google Cloud Project
-1. Vào Google Cloud Console
-2. Chọn **Select a project** → **New Project**
-3. Đặt tên, tạo project.
-
-### 6.2 Bật API cần thiết
-Vào **APIs & Services** → **Library**:
-- Tìm và bật **Google Sheets API**
-- Tìm và bật **Google Drive API**
-
-> Vì sao cần Drive API?  
-> - Nhiều trường hợp ông cần Drive API để truy cập file theo quyền, tìm file, đọc metadata, hoặc thao tác liên quan file sheet.  
-> - Nếu ông chỉ đọc values, đôi khi Sheets API là đủ, nhưng bật Drive API giúp khỏi “đụng tường” khi mở rộng.
-
-### 6.3 Tạo Service Account
-1. Vào **IAM & Admin** → **Service Accounts**
-2. **Create Service Account**
-3. Đặt tên, Create & Continue
-4. Role: (đơn giản) có thể để trống, vì quyền truy cập sheet chủ yếu đến từ việc share file.  
-   (Nếu bạn biết rõ, có thể cấp thêm role tối thiểu. Nhưng share file vẫn là bước bắt buộc.)
-
-### 6.4 Tạo Key JSON và tải về (đây chính là credentials.json)
-1. Chọn service account vừa tạo
-2. Tab **Keys**
-3. **Add Key** → **Create new key**
-4. Chọn **JSON** → Create → Tải file về máy
-
-File tải về có dạng: `xxxxx-xxxxx.json`  
-=> Đó chính là `credentials.json` (service account key).
-
-### 6.5 Đưa file về đúng path trên Ubuntu
-Giả sử file tải về nằm trong `~/Downloads/`:
-
-```bash
-mkdir -p /home/laivansam/confession_app
-mv ~/Downloads/*.json /home/laivansam/confession_app/credentials.json
-chmod 600 /confession_app/credentials.json
-```
-
-Kiểm tra:
-```bash
-ls -l /confession_app/credentials.json
-```
-
-### 6.6 Share Google Sheet cho Service Account (BẮT BUỘC)
-1. Mở file Google Sheet (nơi chứa responses)
-2. Bấm **Share**
-3. Copy email của Service Account (dạng: `xxx@xxx.iam.gserviceaccount.com`)
-4. Add email đó vào share với quyền:
-   - **Viewer** (chỉ đọc) là đủ nếu server chỉ đọc
-   - **Editor** nếu server cần ghi/chỉnh
-
-Nếu không share, server sẽ báo kiểu “The caller does not have permission”.
-
-## 7) Public URL cho server (ngrok/VPS)
-
-### 7.1 Ngrok (nhanh để test)
-Chạy server local (ví dụ port 5000) rồi:
-```bash
-ngrok http 5000
-```
-
-Copy domain `https://xxxxx.ngrok-free.dev`  
-Dán vào Apps Script:
-`https://xxxxx.ngrok-free.dev/submit`
-
-> Nhưng! Ngrok free thường đổi domain khi restart → ông phải update lại URL.
-
-### 7.2 Deploy server (dùng lâu dài)
-Deploy lên VPS/Render/Railway/Fly.io để có domain cố định.
-
----
-
-## 8) Facebook Graph API (tuỳ chọn)
-
-### 8.1 ACCESS_TOKEN
-- Token dùng để đăng bài lên Page.
-- Token có thể hết hạn → nên dùng loại token dài hạn nếu chạy lâu.
-
-### 8.2 PAGE_ID
-ID của page ông muốn đăng.
-
----
-
-## 9) Troubleshooting
-
-### 9.1 `e bị rỗng`
-Bạn chạy script bằng nút Run trong Apps Script editor.  
-`onFormSubmit(e)` chỉ có `e` khi chạy từ Trigger (form submit).
-
-### 9.2 Server nhận ping nhưng không đọc được sheet
-- Quên share sheet cho service account
-- Sai `SPREADSHEET_ID` / sai `SHEET_NAME`
-- Sai đường dẫn `GOOGLE_APPLICATION_CREDENTIALS`
-
-### 9.3 File credentials.json bị lộ
-- Không commit lên GitHub
-- `chmod 600`
-- Đừng gửi file lên chat/public
-
----
-
-## 10) Gợi ý endpoint /submit nên làm gì (để đúng luồng)
-- Xác thực `your_key`
-- Gọi Sheets API đọc dòng mới nhất trong `SHEET_NAME`
-- Parse confession/email theo `CONFESSION_QUESTION` và `EMAIL_QUESTION`
-- Lưu MongoDB
-- Đăng Facebook (nếu bật)
-
----
+### Tác giả / Author
+**Lại Văn Sâm**
+&copy; 2026. Mọi bản quyền được bảo lưu.
