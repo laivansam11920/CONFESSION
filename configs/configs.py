@@ -16,7 +16,7 @@ class Settings(BaseSettings):
 
     CHECK_SAME_DOCS: bool = Field(True, alias="CHECK_SAME_DOCS")
     TIME_OUT_CONFESSION: int = Field(86400, alias="TIME_OUT_CONFESSION")
-    SIMILARITY_THRESHOLD: float = Field(default=0.64, alias="SIMILARITY_THRESHOLD")
+    SIMILARITY_THRESHOLD: float = Field(default=64, alias="SIMILARITY_THRESHOLD")
 
     HOST: str = Field(default="0.0.0.0", alias="HOST")
     PORT: int = Field(default=2011, alias="PORT")

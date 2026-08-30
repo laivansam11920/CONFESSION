@@ -63,3 +63,4 @@ flask-wtf
 flask-talisman
 apscheduler
 questionary
+rapidfuzz

@@ -1,5 +1,5 @@
-from difflib import SequenceMatcher
 import re
+from rapidfuzz import fuzz
 
 from configs import Config
 
@@ -11,5 +11,5 @@ def normalize_text(text: str) -> str:
 
 
 def is_similar(text1: str, text2: str) -> bool:
-    ratio = SequenceMatcher(None, normalize_text(text1), normalize_text(text2)).ratio()
-    return ratio >= Config.SIMILARITY_THRESHOLD
+    score = fuzz.ratio(normalize_text(text1), normalize_text(text2))
+    return score >= Config.SIMILARITY_THRESHOLD
