@@ -51,7 +51,11 @@ class SaveConfession:
 
                 if matched_id is not None:
                     db.docs.update_one(
-                        {"confession_id": matched_id}, {"$inc": {"same_post_count": 1}}
+                        {"confession_id": matched_id},
+                        {
+                            "$inc": {"same_post_count": 1},
+                            "$addToSet": {"email": confession_data.email[0]},
+                        },
                     )
 
                     return ReturnSchema(

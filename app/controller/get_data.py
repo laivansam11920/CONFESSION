@@ -21,7 +21,9 @@ class GetDataWeb(GetData):
 
         data = ConfessionSchema(
             confession=confession,
-            email=email,
+            email=[
+                email,
+            ],
             confession_id=str(uuid.uuid4()),
             post_time=int(time.time()),
         )
