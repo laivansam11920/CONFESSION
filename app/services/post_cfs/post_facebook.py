@@ -26,7 +26,7 @@ class PostFacebook:
                         "safe_to_post": True,
                         "send": False,
                     },
-                    {"_id": 0, "confession": 1, "cfs": 1},
+                    {"_id": 0, "confession": 1, "cfs": 1, "admin_comment": 1},
                 )
                 or {}
             )
@@ -40,11 +40,12 @@ class PostFacebook:
 
                 cfs_count: str = docs.get("cfs") or "?"
                 confession_text: str | None = docs.get("confession")
+                admin_comment: str = docs.get("admin_comment", "")
 
                 if not confession_text:
                     continue
 
-                post_text += f"#cfs{cfs_count} : {confession_text}\n"
+                post_text += f"#cfs{cfs_count} : {confession_text}\n{f"-> {admin_comment}\n" if admin_comment else ""}"
 
             if g_name := Config.NAME_GROUP_USE_PROJECT:
                 post_text += f"\nMaintain: {g_name}\n"

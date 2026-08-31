@@ -11,6 +11,7 @@ class ConfessionSchema:
     post_time: int
     email: str
     set_status_moderation: bool = False
+    admin_comment: str = ""
     safe_to_post: bool = False
     same_post_count: int = 0
     status: str = "pending"
