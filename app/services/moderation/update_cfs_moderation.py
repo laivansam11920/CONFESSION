@@ -16,16 +16,14 @@ class ConfessionModeration:
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             try:
-
                 res: ReturnSchema = func(*args, **kwargs)
 
-                if res.success:
+                if res.success and res.data.get("matched") is None:
                     executor.submit(
                         lambda: moderation.update_confession_moderation(
                             Confession.get(res.data.get("confession_id")),
                         )
                     )
-
                 return res
             except Exception as e:
                 console.error(e)
