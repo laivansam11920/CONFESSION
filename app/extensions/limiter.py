@@ -1,9 +1,9 @@
 from flask_limiter import Limiter
-from app.utils.get_client_ip import get_client_ip
+from app.utils.get_client_tracking import get_client_tracking
 
 limiter = Limiter(
-    key_func=get_client_ip,
-    default_limits=["10 per day", "3 per hour"],
+    key_func=get_client_tracking,
+    default_limits=["10 per 10 minutes"],
     storage_uri="memory://",
 )
 __all__ = ["limiter"]

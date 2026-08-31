@@ -1,4 +1,3 @@
-
 _dict = {
     "text1": "Đcmm",
     "text2": "vl bạn ơi",
@@ -9,7 +8,7 @@ _dict = {
     "text7": "ib t share video đang hot cho",
     "text8": "Tí giờ giải lao vào nhà vệ sinh, làm tí trong nớ",
     "text9": "Người có 4 hộp sữa, người có nhiều hơn, còn người không hộp nào",
-    "text10": "Bạn giỏi thế sao không làm giáo sư luôn đi cho rồi?:))"
+    "text10": "Bạn giỏi thế sao không làm giáo sư luôn đi cho rồi?:))",
 }
 
 from app.services.moderation.core.moderation import moderation

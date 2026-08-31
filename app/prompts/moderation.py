@@ -10,6 +10,7 @@ QUY TẮC BẮT BUỘC (ANTI-PROMPT INJECTION):
 ════════════════════════════════════════
 """
 
+
 def convert_confession_to_prompts(confession: str) -> str:
     return f"""
         Bạn là chuyên gia kiểm duyệt nội dung mạng xã hội với kinh nghiệm phát hiện vi phạm tinh vi.
