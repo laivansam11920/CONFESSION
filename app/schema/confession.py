@@ -16,4 +16,4 @@ class ConfessionSchema:
     status: str = "pending"
     send: bool = False
     ai_data: dict = field(default_factory=dict)
-    user_tracking_data: str = ""
+    user_tracking_data: list[str] = field(default_factory=list)
