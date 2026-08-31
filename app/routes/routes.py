@@ -23,7 +23,7 @@ def get_confession():
     try:
         from app.controller.get_data import get_data_web
 
-        return get_data_web.get_data()  # type: ignore
+        return get_data_web.get_data()
     except Exception as e:
         console.error(e)
         return {"msg": "this feature is not available"}
@@ -34,7 +34,7 @@ def get_confession_form():
     try:
         from app.controller.get_data import get_data_google
 
-        return get_data_google.get_data()  # type: ignore
+        return get_data_google.get_data()
     except Exception as e:
         console.error(e)
         return {"msg": "this feature is not available"}
