@@ -3,24 +3,26 @@ from app.schema.ReturnSchema import ReturnSchema
 from app.utils.logger import console
 from app.utils.get_client_tracking import get_client_tracking
 from app.utils.encrypt import encrypt_data
+from app.extensions.threads import executor
 from configs import Config
 
 import functools
 
-from app.extensions.threads import executor
-
 __all__ = ["TrackingService"]
 
 
-def save_tracking_id(**kwargs):
-    db.docs.update_one(
-        {"confession_id": kwargs["confession_id"]},
-        {
-            "$push": {
-                "user_tracking_data": str(encrypt_data(kwargs["user_tracking"])),
-            }
-        },
-    )
+def save_tracking_id(confession_id: str, user_tracking: str) -> None:
+    try:
+        db.docs.update_one(
+            {"confession_id": confession_id},
+            {
+                "$push": {
+                    "user_tracking_data": str(encrypt_data(user_tracking)),
+                }
+            },
+        )
+    except Exception as e:
+        console.error(e)
 
 
 class TrackingService:
@@ -36,13 +38,16 @@ class TrackingService:
                     return res
 
                 if res.success:
-                    confession_id = res.data.get("confession_id")
-                    if confession_id is None:
+                    confession_id = res.data.get("confession_id") or ""
+                    if not confession_id:
                         return res
+
+                    tracking_data = get_client_tracking()
+
                     executor.submit(
                         lambda: save_tracking_id(
                             confession_id=confession_id,
-                            user_tracking=get_client_tracking(),
+                            user_tracking=tracking_data,
                         )
                     )
                     return res
