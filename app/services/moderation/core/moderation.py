@@ -2,6 +2,7 @@ from app.database import db
 from app.base import AiServices
 from app.prompts.moderation import convert_confession_to_prompts as moderation_prompts
 from app.utils.logger import console
+from app.extensions.threads import executor
 from app.schema.ResponeSchema import *
 from app.schema.confession import ConfessionSchema
 from app.schema.ReturnSchema import ReturnSchema
@@ -25,6 +26,32 @@ class GenAIModeration(AiServices):
             client=genai.Client(api_key=Config.GOOGLE_AI_API_KEY),
             model=Config.MODEL_GOOGLE_AI,
         )
+        self.default_res = ConfessionItemResult()
+
+    @staticmethod
+    def _save_confession_moderation(
+        cfs: ConfessionSchema, response: ConfessionItemResult
+    ) -> None:
+        def update():
+            try:
+                db.docs.update_one(
+                    {"confession_id": cfs.confession_id},
+                    {
+                        "$set": {
+                            "ai_data": {
+                                "score": response.score,
+                                "reason": response.reason,
+                                "propose": response.propose,
+                                "uncertain": response.uncertain,
+                            },
+                            "status": "approved",
+                        },
+                    },
+                )
+            except PyMongoError as e:
+                console.error(e)
+
+        executor.submit(update)
 
     def get_response(self, contents_input: str) -> ConfessionItemResult:
         try:
@@ -37,11 +64,9 @@ class GenAIModeration(AiServices):
                 },
             )
             if not interaction or not interaction.text:
-                return ConfessionItemResult()
+                return self.default_res
 
-            res = loads(interaction.text)
-
-            return ConfessionItemResult(**res)
+            return ConfessionItemResult(**loads(interaction.text))
 
         except (Exception, ClientError, APIError) as e:
             console.error(e)
@@ -51,10 +76,12 @@ class GenAIModeration(AiServices):
     def update_confession_moderation(self, cfs: ConfessionSchema) -> ReturnSchema:
         try:
 
-            if not Config.MODERATION_CONFESSION:
-                return ReturnSchema()
-
-            if not cfs.confession_id or not cfs.confession:
+            if (
+                not Config.MODERATION_CONFESSION
+                or not cfs.confession_id
+                or not cfs.confession
+            ):
+                self._save_confession_moderation(cfs, self.default_res)
                 return ReturnSchema()
 
             response: ConfessionItemResult = self.get_response(
@@ -66,22 +93,10 @@ class GenAIModeration(AiServices):
                 or response.score is None
                 or not (response.reason and response.propose)
             ):
+                self._save_confession_moderation(cfs, self.default_res)
                 return ReturnSchema()
 
-            db.docs.update_one(
-                {"confession_id": cfs.confession_id},
-                {
-                    "$set": {
-                        "ai_data": {
-                            "score": response.score,
-                            "reason": response.reason,
-                            "propose": response.propose,
-                            "uncertain": response.uncertain,
-                        },
-                        "status": "approved",
-                    },
-                },
-            )
+            self._save_confession_moderation(cfs, response)
 
             return ReturnSchema(success=True, data={"confession_id": cfs.confession_id})
         except (Exception, PyMongoError) as e:
