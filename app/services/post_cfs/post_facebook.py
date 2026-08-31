@@ -26,7 +26,13 @@ class PostFacebook:
                         "safe_to_post": True,
                         "send": False,
                     },
-                    {"_id": 0, "confession": 1, "cfs": 1, "admin_comment": 1, "confession_id": 1},
+                    {
+                        "_id": 0,
+                        "confession": 1,
+                        "cfs": 1,
+                        "admin_comment": 1,
+                        "confession_id": 1,
+                    },
                 )
                 or {}
             )
@@ -35,9 +41,9 @@ class PostFacebook:
                 return False
 
             post_text: str = Config.TOPIC_SENTENCE
-            
+
             ignore_cfs_id = []
-            
+
             for docs in data:
 
                 cfs_count: str = docs.get("cfs") or "?"
@@ -69,7 +75,7 @@ class PostFacebook:
                 {
                     "safe_to_post": True,
                     "send": False,
-                    "confession_id": {"$nin": ignore_cfs_id}
+                    "confession_id": {"$nin": ignore_cfs_id},
                 },
                 {"$set": {"send": True}},
             )
