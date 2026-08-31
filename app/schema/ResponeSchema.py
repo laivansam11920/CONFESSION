@@ -22,7 +22,7 @@ class ConfessionItem(BaseModel):
 
 @dataclass(frozen=True, slots=True)
 class ConfessionItemResult:
-    score: float| None = None
+    score: float | None = None
     reason: str = ""
     propose: str = ""
     uncertain: bool = True

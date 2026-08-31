@@ -15,9 +15,6 @@ class UpdateStatusModerationCfs:
 
             res: ReturnSchema = func(*args, **kwargs)
 
-            if not Config.MODERATION_CONFESSION:
-                return res
-
             if not res.success:
                 return res
 

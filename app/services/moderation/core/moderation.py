@@ -70,17 +70,16 @@ class GenAIModeration(AiServices):
 
         except (Exception, ClientError, APIError) as e:
             console.error(e)
-            return ConfessionItemResult()
+            return self.default_res
 
     @Cfs.update_cfs_moderation
     def update_confession_moderation(self, cfs: ConfessionSchema) -> ReturnSchema:
         try:
 
-            if (
-                not Config.MODERATION_CONFESSION
-                or not cfs.confession_id
-                or not cfs.confession
-            ):
+            if not cfs.confession_id:
+                return ReturnSchema()
+
+            if not Config.MODERATION_CONFESSION or not cfs.confession:
                 self._save_confession_moderation(cfs, self.default_res)
                 return ReturnSchema()
 
