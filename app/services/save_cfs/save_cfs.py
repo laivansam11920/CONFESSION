@@ -3,6 +3,7 @@ from app.schema.ReturnSchema import ReturnSchema
 from app.utils.logger import console
 from app.utils.check_similar import is_similar
 from app.utils.get_cfs_count import cfs_nums
+from app.utils.del_docs import del_docs
 from app.database import db
 from app.services.moderation.update_cfs_moderation import ConfessionModeration
 from app.services.tracking_user.get_user_tracking import TrackingService
@@ -19,6 +20,7 @@ __all__ = ["SaveConfession"]
 class SaveConfession:
 
     @staticmethod
+    @del_docs
     @TrackingService.save_user_tracking
     @ConfessionModeration.update_cfs_moderation
     def save_cfs(confession_data: ConfessionSchema) -> ReturnSchema:

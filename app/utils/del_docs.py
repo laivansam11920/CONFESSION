@@ -14,7 +14,10 @@ def del_docs(func):
             {
                 "ai_data.uncertain": False,
                 "post_time": {"$lt": one_week_ago},
-                "$or": [{"send": True}, {"send": False, "safe_to_post": False}],
+                "$or": [
+                    {"send": True},
+                    {"send": False, "safe_to_post": False}
+                ],
             }
         )
 
