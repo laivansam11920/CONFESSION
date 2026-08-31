@@ -25,7 +25,6 @@ class UpdateStatusModerationCfs:
                         "confession_id": res.data.get("confession_id"),
                         "send": False,
                         "status": "approved",
-                        "set_status_moderation": False,
                     },
                     {"_id": 0, "ai_data": 1},
                 )
@@ -46,7 +45,6 @@ class UpdateStatusModerationCfs:
 
             update_data: dict[str, Any] = {
                 "safe_to_post": flag,
-                "set_status_moderation": True,
             }
 
             if flag:

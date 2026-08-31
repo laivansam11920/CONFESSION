@@ -10,7 +10,6 @@ class ConfessionSchema:
     confession_id: str
     post_time: int
     email: list
-    set_status_moderation: bool = False
     admin_comment: str = ""
     safe_to_post: bool = False
     same_post_count: int = 0
