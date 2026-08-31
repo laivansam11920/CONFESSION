@@ -19,7 +19,7 @@ class ConfessionModeration:
                 res: ReturnSchema = func(*args, **kwargs)
 
                 if res.success and res.data:
-                    #Chỉ lấy những dữ liệu mới và không trùng lặp
+                    # Chỉ lấy những dữ liệu mới và không trùng lặp
                     executor.submit(
                         lambda: moderation.update_confession_moderation(
                             Confession.get(res.data.get("confession_id")),

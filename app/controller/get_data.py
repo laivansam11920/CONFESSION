@@ -33,10 +33,24 @@ class GetDataWeb(GetData):
         flash(res.msg, res.status)
         return home()
 
+
 class GetDataGoogleForm(GetData):
 
     @check_input_data
-    def get_data(self, email: str = "", confession: str = "") -> Response: ...
+    def get_data(self, email: str = "", confession: str = "") -> dict:
+
+        data = ConfessionSchema(
+            confession=confession,
+            email=[
+                email,
+            ],
+            confession_id=str(uuid.uuid4()),
+            post_time=int(time.time()),
+        )
+
+        Confession.save_cfs(data)
+
+        return {"success": True}
 
 
 if Config.CHANGE_GET_DATA_BY_WEB:

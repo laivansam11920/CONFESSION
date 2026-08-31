@@ -25,7 +25,9 @@ class Settings(BaseSettings):
     SECRET_KEY: str = Field(..., alias="SECRET_KEY")
 
     CHANGE_GET_DATA_BY_WEB: bool = Field(default=True, alias="CHANGE_GET_DATA_BY_WEB")
-    CHANGE_GET_DATA_BY_GOOGLE_FORM: bool = Field(default=False, alias="CHANGE_GET_DATA_BY_GOOGLE_FORM")
+    CHANGE_GET_DATA_BY_GOOGLE_FORM: bool = Field(
+        default=False, alias="CHANGE_GET_DATA_BY_GOOGLE_FORM"
+    )
     GET_EMAIL: bool = Field(default=False, alias="GET_EMAIL")
     NAME_GROUP_USE_PROJECT: str = Field(default="", alias="NAME_GROUP_USE_PROJECT")
     MODERATION_CONFESSION: bool = Field(default=False, alias="MODERATION_CONFESSION")

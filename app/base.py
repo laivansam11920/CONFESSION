@@ -15,5 +15,5 @@ class AiServices(ABC):
 class GetData(ABC):
 
     @abstractmethod
-    def get_data(self, email, confession):
+    def get_data(self, email: str, confession: str):
         pass

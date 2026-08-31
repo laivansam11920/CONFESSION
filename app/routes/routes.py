@@ -8,6 +8,7 @@ get_data: Blueprint = Blueprint("get_data", __name__)
 ping: Blueprint = Blueprint("ping", __name__)
 testing_route: Blueprint = Blueprint("testing", __name__)
 
+
 @main_route.route("/")
 @limiter.exempt
 def index():
@@ -23,16 +24,15 @@ def get_confession():
     return get_data_web.get_data()  # type: ignore
 
 
+@get_data.post("/submit-confession-form")
+@crfs.exempt
+def get_confession_form():
+    from app.controller.get_data import get_data_google
+
+    return get_data_google.get_data()  # type: ignore
+
+
 @ping.route("/ping")
 @limiter.exempt
 def ping_route():
-    return {"success": True}
-
-@testing_route.post("/testing")
-@crfs.exempt
-@limiter.exempt
-def test():
-    from flask import request
-
-    print(request.get_json(silent=True) or "fdsdfs", flush=True)
     return {"success": True}
