@@ -35,7 +35,7 @@
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
       <div class="form-group">
         <label for="confession">{{ _("Nội dung Confession *") }}</label>
-        <textarea id="confession" name="confession" placeholder="{{ _('Viết điều bạn muốn chia sẻ ở đây...') }}" required></textarea>
+        <textarea id="confession" name="confession" placeholder="{{ _('Viết điều bạn muốn chia sẻ ở đây...') }}" spellcheck="false" autocorrect="off" autocomplete="off" required></textarea>
       </div>
       {% if config.GET_EMAIL %}
           <div class="form-group">
