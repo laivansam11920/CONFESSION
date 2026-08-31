@@ -76,7 +76,7 @@ class GenAIModeration(AiServices):
     def update_confession_moderation(self, cfs: ConfessionSchema) -> ReturnSchema:
         try:
 
-            if not cfs.confession_id:
+            if not cfs or not cfs.confession_id:
                 return ReturnSchema()
 
             if not Config.MODERATION_CONFESSION or not cfs.confession:
