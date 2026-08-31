@@ -34,6 +34,7 @@ class Settings(BaseSettings):
     MAX_LEN_CONFESSION_ALLOW: int = Field(
         default=1000, alias="MAX_LEN_CONFESSION_ALLOW"
     )
+    MIN_LEN_CONFESSION_ALLOW: int = Field(default=1, alias="MIN_LEN_CONFESSION_ALLOW")
     TRACKING_USER: bool = Field(default=False, alias="TRACKING_USER")
     TOPIC_COLOR: str = Field(default="#000000", alias="TOPIC_COLOR")
     MAX_MODERATION_SCORE: float = Field(default=55, alias="MAX_MODERATION_SCORE")
