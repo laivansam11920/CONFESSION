@@ -2,7 +2,6 @@ from app.database import db
 from app.base import AiServices
 from app.prompts.moderation import convert_confession_to_prompts as moderation_prompts
 from app.utils.logger import console
-from app.extensions.threads import executor
 from app.schema.ResponeSchema import *
 from app.schema.confession import ConfessionSchema
 from app.schema.ReturnSchema import ReturnSchema
@@ -55,7 +54,7 @@ class GenAIModeration(AiServices):
             except PyMongoError as e:
                 console.error(e)
 
-        executor.submit(update)
+        update()
 
     def get_response(self, contents_input: str) -> ConfessionItemResult:
         try:
