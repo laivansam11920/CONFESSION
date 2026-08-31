@@ -5,7 +5,7 @@ from app.extensions.limiter import limiter
 main_route: Blueprint = Blueprint("main_route", __name__)
 get_data: Blueprint = Blueprint("get_data", __name__)
 ping: Blueprint = Blueprint("ping", __name__)
-
+testing_route: Blueprint = Blueprint("testing", __name__)
 
 @main_route.route("/")
 @limiter.exempt
@@ -25,4 +25,12 @@ def get_confession():
 @ping.route("/ping")
 @limiter.exempt
 def ping_route():
+    return {"success": True}
+
+@testing_route.post("/testing")
+@limiter.exempt
+def test():
+    from flask import request
+
+    print(request.get_json() or "fdsdfs", flush=True)
     return {"success": True}
