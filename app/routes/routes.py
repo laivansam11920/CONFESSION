@@ -1,6 +1,7 @@
 from flask import Blueprint
 
 from app.extensions.limiter import limiter
+from app.extensions.crfs import crfs
 
 main_route: Blueprint = Blueprint("main_route", __name__)
 get_data: Blueprint = Blueprint("get_data", __name__)
@@ -28,9 +29,10 @@ def ping_route():
     return {"success": True}
 
 @testing_route.post("/testing")
+@crfs.exempt
 @limiter.exempt
 def test():
     from flask import request
 
-    print(request.get_json() or "fdsdfs", flush=True)
+    print(request.get_json(silent=True) or "fdsdfs", flush=True)
     return {"success": True}
