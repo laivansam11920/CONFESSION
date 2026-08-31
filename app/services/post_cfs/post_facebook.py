@@ -26,7 +26,7 @@ class PostFacebook:
                         "safe_to_post": True,
                         "send": False,
                     },
-                    {"_id": 0, "confession": 1, "cfs": 1, "admin_comment": 1},
+                    {"_id": 0, "confession": 1, "cfs": 1, "admin_comment": 1, "confession_id": 1},
                 )
                 or {}
             )
@@ -35,7 +35,9 @@ class PostFacebook:
                 return False
 
             post_text: str = Config.TOPIC_SENTENCE
-
+            
+            ignore_cfs_id = []
+            
             for docs in data:
 
                 cfs_count: str = docs.get("cfs") or "?"
@@ -43,6 +45,8 @@ class PostFacebook:
                 admin_comment: str = docs.get("admin_comment", "")
 
                 if not confession_text:
+                    if confession_id := docs.get("confession_id", ""):
+                        ignore_cfs_id.append(confession_id)
                     continue
 
                 post_text += f"#cfs{cfs_count} : {confession_text}\n{f"-> {admin_comment}\n" if admin_comment else ""}"
@@ -62,7 +66,11 @@ class PostFacebook:
                 return False
 
             db.docs.update_many(
-                {"safe_to_post": True, "status": "approved", "send": False},
+                {
+                    "safe_to_post": True,
+                    "send": False,
+                    "confession_id": {"$nin": ignore_cfs_id}
+                },
                 {"$set": {"send": True}},
             )
 
