@@ -28,6 +28,7 @@ def get_confession():
         console.error(e)
         return {"msg": "this feature is not available"}
 
+
 @get_data.post("/submit-confession-form")
 @crfs.exempt
 def get_confession_form():

@@ -28,12 +28,16 @@ def check_input_data(func):
                 )
                 return home()
 
-            if len(confession) > Config.MAX_LEN_CONFESSION_ALLOW:
+            l = len(confession)
+
+            if l > Config.MAX_LEN_CONFESSION_ALLOW:
                 flash(_("Confession của bạn quá dài so với yêu cầu hệ thống!"), "error")
                 return home()
 
-            if len(confession) <= Config.MIN_LEN_CONFESSION_ALLOW:
-                flash(_("Confession của bạn quá ngắn so với yêu cầu hệ thống!"), "error")
+            if l <= Config.MIN_LEN_CONFESSION_ALLOW:
+                flash(
+                    _("Confession của bạn quá ngắn so với yêu cầu hệ thống!"), "error"
+                )
 
             return func(email=email, confession=confession, *args, **kwargs)
         except EmailNotValidError:
