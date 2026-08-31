@@ -60,10 +60,6 @@ class SaveConfession:
                             "Nội dung này có vẻ trùng với bài trước, hệ thống đã tự động cộng dồn lượt tương tự cho bạn rồi nhé!"
                         ),
                         status="success",
-                        data={
-                            "confession_id": matched_id,
-                            "matched": "is_matched",
-                        },
                     )
 
             confession_data_dict = asdict(confession_data)

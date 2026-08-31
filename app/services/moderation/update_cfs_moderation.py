@@ -18,7 +18,7 @@ class ConfessionModeration:
             try:
                 res: ReturnSchema = func(*args, **kwargs)
 
-                if res.success and res.data.get("matched") is None:
+                if res.success and res.data:
                     executor.submit(
                         lambda: moderation.update_confession_moderation(
                             Confession.get(res.data.get("confession_id")),
