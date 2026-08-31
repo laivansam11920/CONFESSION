@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     GET_EMAIL: bool = Field(False, alias="GET_EMAIL")
     NAME_GROUP_USE_PROJECT: str = Field(default="", alias="NAME_GROUP_USE_PROJECT")
     MODERATION_CONFESSION: bool = Field(False, alias="MODERATION_CONFESSION")
-    MAX_LEN_CONFESSION_ALLOW: int = Field(default=500, alias="MAX_LEN_CONFESSION_ALLOW")
+    MAX_LEN_CONFESSION_ALLOW: int = Field(default=1000, alias="MAX_LEN_CONFESSION_ALLOW")
     TRACKING_USER: bool = Field(False, alias="TRACKING_USER")
     TOPIC_COLOR: str = Field(default="#000000", alias="TOPIC_COLOR")
     MAX_MODERATION_SCORE: float = Field(default=55, alias="MAX_MODERATION_SCORE")
