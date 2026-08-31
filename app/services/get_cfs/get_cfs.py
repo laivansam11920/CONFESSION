@@ -21,5 +21,4 @@ class GetConfession:
             confession=str(confession.get("confession", "")),
             confession_id=str(confession.get("confession_id", "")),
             post_time=0,
-            email="",
         )
