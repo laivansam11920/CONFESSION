@@ -48,9 +48,9 @@ class GetDataGoogleForm(GetData):
             post_time=int(time.time()),
         )
 
-        Confession.save_cfs(data)
+        res: ReturnSchema = Confession.save_cfs(data)
 
-        return {"success": True}
+        return {"success": res.success, "msg": res.msg}
 
 
 if Config.CHANGE_GET_DATA_BY_WEB:
