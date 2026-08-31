@@ -37,8 +37,8 @@ class UpdateStatusModerationCfs:
             score = ai_data.get("score")
 
             if ai_data["uncertain"]:
-                # In process
                 ...
+                return res
 
             if score and score > Config.MAX_MODERATION_SCORE:
                 flag = True
