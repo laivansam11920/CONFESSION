@@ -11,7 +11,7 @@ from flask import flash, Response
 import uuid
 import time
 
-__all__ = ["get_data_web"]
+__all__ = ["get_data_web", "get_data_google"]
 
 
 class GetDataWeb(GetData):
@@ -33,8 +33,14 @@ class GetDataWeb(GetData):
         flash(res.msg, res.status)
         return home()
 
+class GetDataGoogleForm(GetData):
+
+    @check_input_data
+    def get_data(self, email: str = "", confession: str = "") -> Response: ...
+
 
 if Config.CHANGE_GET_DATA_BY_WEB:
-    get_data_web: GetDataWeb = GetDataWeb()
-else:
-    get_data_web: None = None  # CHƯA PHÁT TRIỂN GET DATA BY GOOGLE SHEET
+    get_data_web: GetData = GetDataWeb()
+
+if Config.CHANGE_GET_DATA_BY_GOOGLE_FORM:
+    get_data_google: GetData = GetDataGoogleForm()

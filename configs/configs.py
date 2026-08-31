@@ -14,24 +14,25 @@ class Settings(BaseSettings):
     GOOGLE_AI_API_KEY: str = Field(..., alias="GOOGLE_AI_API_KEY")
     MODEL_GOOGLE_AI: str = Field(default="gemma-4-31b-it", alias="MODEL_GOOGLE_AI")
 
-    CHECK_SAME_DOCS: bool = Field(True, alias="CHECK_SAME_DOCS")
-    TIME_OUT_CONFESSION: int = Field(86400, alias="TIME_OUT_CONFESSION")
+    CHECK_SAME_DOCS: bool = Field(default=True, alias="CHECK_SAME_DOCS")
+    TIME_OUT_CONFESSION: int = Field(default=86400, alias="TIME_OUT_CONFESSION")
     SIMILARITY_THRESHOLD: float = Field(default=64, alias="SIMILARITY_THRESHOLD")
 
     HOST: str = Field(default="0.0.0.0", alias="HOST")
     PORT: int = Field(default=2011, alias="PORT")
-    DEBUG: bool = Field(False, alias="DEBUG")
-    TEST: bool = Field(False, alias="TEST")
+    DEBUG: bool = Field(default=False, alias="DEBUG")
+    TEST: bool = Field(default=False, alias="TEST")
     SECRET_KEY: str = Field(..., alias="SECRET_KEY")
 
-    CHANGE_GET_DATA_BY_WEB: bool = Field(True, alias="CHANGE_GET_DATA_BY_WEB")
-    GET_EMAIL: bool = Field(False, alias="GET_EMAIL")
+    CHANGE_GET_DATA_BY_WEB: bool = Field(default=True, alias="CHANGE_GET_DATA_BY_WEB")
+    CHANGE_GET_DATA_BY_GOOGLE_FORM: bool = Field(default=False, alias="CHANGE_GET_DATA_BY_GOOGLE_FORM")
+    GET_EMAIL: bool = Field(default=False, alias="GET_EMAIL")
     NAME_GROUP_USE_PROJECT: str = Field(default="", alias="NAME_GROUP_USE_PROJECT")
-    MODERATION_CONFESSION: bool = Field(False, alias="MODERATION_CONFESSION")
+    MODERATION_CONFESSION: bool = Field(default=False, alias="MODERATION_CONFESSION")
     MAX_LEN_CONFESSION_ALLOW: int = Field(
         default=1000, alias="MAX_LEN_CONFESSION_ALLOW"
     )
-    TRACKING_USER: bool = Field(False, alias="TRACKING_USER")
+    TRACKING_USER: bool = Field(default=False, alias="TRACKING_USER")
     TOPIC_COLOR: str = Field(default="#000000", alias="TOPIC_COLOR")
     MAX_MODERATION_SCORE: float = Field(default=55, alias="MAX_MODERATION_SCORE")
     MAX_DOCS_GET: int = Field(default=100, alias="MAX_DOCS_GET")
