@@ -4,6 +4,7 @@ from app.utils.get_cfs_count import cfs_nums
 from configs import Config
 
 import functools
+from typing import Any
 
 
 class UpdateStatusModerationCfs:
@@ -43,15 +44,17 @@ class UpdateStatusModerationCfs:
             if score and score > Config.MAX_MODERATION_SCORE:
                 flag = True
 
+            update_data: dict[str, Any] = {
+                "safe_to_post": flag,
+                "set_status_moderation": True,
+            }
+
+            if flag:
+                update_data["cfs"] = cfs_nums()
+
             db.docs.update_one(
                 {"confession_id": res.data.get("confession_id")},
-                {
-                    "$set": {
-                        "safe_to_post": flag,
-                        "set_status_moderation": True,
-                        "cfs": cfs_nums(),
-                    }
-                },
+                {"$set": update_data},
             )
 
             return res
