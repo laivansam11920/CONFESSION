@@ -38,6 +38,7 @@ def check_input_data(func):
                 flash(
                     _("Confession của bạn quá ngắn so với yêu cầu hệ thống!"), "error"
                 )
+                return home()
 
             return func(email=email, confession=confession, *args, **kwargs)
         except EmailNotValidError:
