@@ -7,8 +7,11 @@ from threading import Thread
 
 app = create_app()
 
-if Config.RENDER_EXTERNAL_URL:
+
+if Config.ALWAYS_ON:
     Thread(target=self_ping, daemon=True).start()
+
+if Config.RENDER_EXTERNAL_URL and Config.ALWAYS_ON:
     scheduler.add_job(my_daily_task, "cron", hour=Config.HOUR, minute=Config.MINUTE)
     scheduler.start()
 

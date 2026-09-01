@@ -43,6 +43,7 @@ class Settings(BaseSettings):
         default=f"{_("Tổng hợp Confession ngày")} {datetime.now().strftime("%d/%m/%Y")}\n",
         alias="TOPIC_SENTENCE",
     )
+    ALWAYS_ON: bool = Field(default=True, alias="ALWAYS_ON")
 
     BABEL_DEFAULT_LOCALE: str = Field(default="en", alias="BABEL_DEFAULT_LOCALE")
     BABEL_TRANSLATION_DIRECTORIES: str = Field(
