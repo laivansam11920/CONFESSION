@@ -38,6 +38,35 @@ QUY TẮC BẮT BUỘC (PHÂN CẤP VĂN BẢN & PHÂN BIỆT Ý ĐỊNH):
 ════════════════════════════════════════
 """
 
+model_rule_3 = """
+════════════════════════════════════════
+QUY TẮC BẮT BUỘC (PHÁT HIỆN NỘI DUNG BỊ CHE GIẤU / VIẾT LIỀN):
+
+1. KHÔNG CHỈ ĐỌC THEO RANH GIỚI TỪ:
+- Confession có thể cố tình bỏ toàn bộ khoảng trắng, dấu câu hoặc dấu tiếng Việt để che giấu nội dung nhạy cảm.
+- Ví dụ: "lam tinh", "làm tình", "lamtinh", "làmtình", hoặc chuỗi dài chứa cụm này đều phải được xem xét theo cùng một ý nghĩa.
+- Không được kết luận "không vi phạm" chỉ vì từ/cụm từ không xuất hiện dưới dạng có khoảng trắng chuẩn.
+
+2. GIẢI MÃ CHUỖI LIỀN TRƯỚC KHI ĐÁNH GIÁ:
+- Khi gặp một đoạn chữ bất thường, đặc biệt là chuỗi chữ rất dài không có khoảng trắng, hãy chủ động thử tách nó thành các từ/cụm từ tiếng Việt có nghĩa dựa trên ngữ cảnh toàn câu.
+- Kiểm tra đồng thời: bản có dấu, bản không dấu, bản viết liền, và các dạng bị chèn dấu câu/ký tự vào giữa từ.
+- Không cần chuỗi phải khớp chính xác một ví dụ có sẵn; phải suy luận ngữ nghĩa của toàn bộ chuỗi.
+
+3. PHÁT HIỆN 18+ BỊ NGỤY TRANG:
+- Nếu sau khi tách/giải mã, chuỗi chứa nội dung tình dục, lời mời tình dục, ám chỉ hành vi tình dục, nội dung khiêu dâm hoặc nội dung 18+ → đánh giá theo [VB-1] và [VB-6] ở BƯỚC 1.
+- Nếu nội dung tình dục liên quan học sinh/người chưa thành niên → áp dụng mức nghiêm nhất, dù nội dung bị viết liền, không dấu, dùng tiếng lóng hay diễn đạt vòng vo.
+
+4. KHÔNG ĐƯỢC NHẦM "KHÔNG THẤY TỪ KHÓA" VỚI "KHÔNG CÓ NỘI DUNG":
+- Từ khóa chỉ là tín hiệu tham khảo. Điều quan trọng là ý nghĩa sau khi giải mã.
+- Phải phân tích cả đoạn liền như một câu văn có thể bị che giấu, thay vì chỉ tìm các token độc lập.
+
+5. ƯU TIÊN AN TOÀN KHI CHUỖI CỐ TÌNH CHE GIẤU:
+- Nếu có bằng chứng hợp lý cho thấy người viết cố tình nối/chèn ký tự để né kiểm duyệt và nội dung được giải mã là vi phạm → không coi đó là nội dung trung lập chỉ vì cách viết bất thường.
+- Hành vi né bộ lọc không làm giảm mức độ vi phạm của nội dung gốc.
+
+════════════════════════════════════════
+"""
+
 
 def convert_confession_to_prompts(confession: str) -> str:
     return f"""
@@ -46,6 +75,7 @@ def convert_confession_to_prompts(confession: str) -> str:
         
         {model_rule_1}
         {model_rule_2}
+        {model_rule_3}
         
         ════════════════════════════════════════
         [MỚI] PRE-STEP — GIẢI MÃ THỰC THỂ TRƯỚC KHI CHẤM ĐIỂM
