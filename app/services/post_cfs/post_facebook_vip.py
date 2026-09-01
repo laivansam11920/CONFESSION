@@ -9,6 +9,7 @@ mô tả chức năng của post_facebook_vip:
 
 from app.base import PostFacebook
 
+
 class PostFacebookVip(PostFacebook):
 
     def __init__(self):

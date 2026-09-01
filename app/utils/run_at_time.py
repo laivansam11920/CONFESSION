@@ -1,7 +1,13 @@
 from app.extensions.ap_scheduler import scheduler
+from app.utils.logger import console
 from typing import Callable
 
-def run_at_time(time: int, /, func: Callable, method: str,  *args, **kwargs) -> None:
-    scheduler.add_job(func, method, seconds=time, *args, **kwargs)
-    scheduler.start()
 
+def run_at_time(time: int, /, func: Callable, method: str, *args, **kwargs) -> bool:
+    try:
+        scheduler.add_job(func, method, seconds=time, *args, **kwargs)
+        scheduler.start()
+        return True
+    except Exception as e:
+        console.error(e)
+        return False

@@ -20,6 +20,7 @@ class GetData(ABC):
     def get_data(self, email: str = "", confession: str = ""):
         pass
 
+
 class PostFacebook(ABC):
 
     def __init__(self):
