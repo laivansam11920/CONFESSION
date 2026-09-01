@@ -3,7 +3,7 @@ from app.utils.logger import console
 from typing import Callable
 
 
-def run_at_time(time: int, /, func: Callable, method: str = "cron", *args, **kwargs) -> bool:
+def run_at_tim(time: int, /, func: Callable, method: str = "cron", *args, **kwargs) -> bool:
     try:
         scheduler.add_job(func, method, second=time, *args, **kwargs)
         scheduler.start()
