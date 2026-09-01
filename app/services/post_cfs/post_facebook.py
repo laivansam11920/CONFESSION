@@ -19,7 +19,7 @@ class PostFacebookCommon(PostFacebook):
         self.url = f"https://graph.facebook.com/v19.0/{self.page_id}/feed"
         self.long_line = "\n--------------------------------------\n"
 
-    def post(self):
+    def post(self) -> bool:
         try:
             data = (
                 db.docs.find(
