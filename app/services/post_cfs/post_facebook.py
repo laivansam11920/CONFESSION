@@ -10,8 +10,6 @@ __all__ = ["Facebook"]
 
 class PostFacebookCommon(PostFacebook):
 
-    page_id: str
-    page_access_token: str
     url: str
 
     def __init__(self):
