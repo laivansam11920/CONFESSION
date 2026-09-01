@@ -1,9 +1,10 @@
-from flask import Flask
+from flask import Flask, Blueprint
 from .routes import *
 
 
 def register_blueprints(app: Flask):
-    app.register_blueprint(main_route)
-    app.register_blueprint(get_data)
-    app.register_blueprint(ping)
-    app.register_blueprint(testing_route)
+
+    all_routes: list[Blueprint] = [main_route, get_data, ping, testing_route]
+
+    for route in all_routes:
+        app.register_blueprint(route)
