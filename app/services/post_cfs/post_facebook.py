@@ -55,12 +55,13 @@ class PostFacebookCommon(PostFacebook):
                         ignore_cfs_id.append(confession_id)
                     continue
 
-                post_text += f"\n#cfs{cfs_count} : {confession_text}{f"\n-> {admin_comment}" if admin_comment else ""}"
+                post_text += f"\n#cfs{cfs_count}\n{confession_text}{f"\n-> {admin_comment}" if admin_comment else ""}"
 
             if g_name := Config.NAME_GROUP_USE_PROJECT:
                 post_text += f"\nMaintain: {g_name}\n"
 
             if link_cfs_post := Config.RENDER_EXTERNAL_URL:
+                post_text += "\n--------------------------------------\n"
                 post_text += f"link gửi confession: {link_cfs_post}\n"
 
             payload = {"message": post_text, "access_token": self.page_access_token}
