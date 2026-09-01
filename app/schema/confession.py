@@ -12,7 +12,7 @@ class ConfessionSchema:
     post_time: int
     admin_comment: str = ""
 
-    email: list = field(default_factory=list)
+    email: list[str] = field(default_factory=list)
     same_post_count: int = 0
 
     safe_to_post: bool = False
