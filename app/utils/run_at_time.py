@@ -3,9 +3,9 @@ from app.utils.logger import console
 from typing import Callable
 
 
-def run_at_time(time: int, /, func: Callable, method: str, *args, **kwargs) -> bool:
+def run_at_time(time: int, /, func: Callable, method: str = "cron", *args, **kwargs) -> bool:
     try:
-        scheduler.add_job(func, method, seconds=time, *args, **kwargs)
+        scheduler.add_job(func, method, second=time, *args, **kwargs)
         scheduler.start()
         return True
     except Exception as e:
