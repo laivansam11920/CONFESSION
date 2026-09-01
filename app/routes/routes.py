@@ -4,6 +4,14 @@ from app.extensions.limiter import limiter
 from app.extensions.crfs import crfs
 from app.utils.logger import console
 
+__all__ = [
+    "main_route",
+    "get_data",
+    "ping",
+    "testing_route",
+]
+
+
 main_route: Blueprint = Blueprint("main_route", __name__)
 get_data: Blueprint = Blueprint("get_data", __name__)
 ping: Blueprint = Blueprint("ping", __name__)
