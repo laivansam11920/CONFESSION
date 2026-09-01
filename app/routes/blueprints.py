@@ -1,6 +1,8 @@
 from flask import Flask, Blueprint
 from .routes import *
 
+__all__ = ["register_blueprints"]
+
 
 def register_blueprints(app: Flask):
 
