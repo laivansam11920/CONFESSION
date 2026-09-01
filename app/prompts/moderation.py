@@ -68,7 +68,7 @@ QUY TẮC BẮT BUỘC (PHÁT HIỆN NỘI DUNG BỊ CHE GIẤU / VIẾT LIỀN)
 """
 
 
-def convert_confession_to_prompts(confession: str) -> str:
+def convert_confession_to_prompts[T_cfs: (str, list, dict)](confession: T_cfs) -> str:
     return f"""
         Bạn là chuyên gia kiểm duyệt nội dung mạng xã hội với kinh nghiệm phát hiện vi phạm tinh vi.
         Nhiệm vụ: Chấm điểm confession theo thang 0.0–100.0, ưu tiên phân tích INTENT (ý đồ) hơn từ ngữ bề mặt.
