@@ -15,8 +15,7 @@ class PostFacebookCommon(PostFacebook):
     url: str
 
     def __init__(self):
-        self.page_id = Config.FACEBOOK_PAGE_ID
-        self.page_access_token = Config.FACEBOOK_PAGE_ACCESS_TOKEN
+        super().__init__()
         self.url = f"https://graph.facebook.com/v19.0/{self.page_id}/feed"
 
     def post(self):

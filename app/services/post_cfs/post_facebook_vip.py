@@ -7,3 +7,11 @@ mô tả chức năng của post_facebook_vip:
 - được cấp 1 bài viết riêng trên facebook để thể hiện
 """
 
+from app.base import PostFacebook
+
+class PostFacebookVip(PostFacebook):
+
+    def __init__(self):
+        super().__init__()
+
+    def post(self): ...

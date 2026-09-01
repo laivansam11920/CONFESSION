@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
+from configs import Config
+
 
 class AiServices(ABC):
     def __init__(self, client: Any, model: str):
@@ -19,6 +21,10 @@ class GetData(ABC):
         pass
 
 class PostFacebook(ABC):
+
+    def __init__(self):
+        self.page_id = Config.FACEBOOK_PAGE_ID
+        self.page_access_token = Config.FACEBOOK_PAGE_ACCESS_TOKEN
 
     @abstractmethod
     def post(self):
