@@ -17,3 +17,9 @@ class GetData(ABC):
     @abstractmethod
     def get_data(self, email: str = "", confession: str = ""):
         pass
+
+class PostFacebook(ABC):
+
+    @abstractmethod
+    def post(self):
+        pass

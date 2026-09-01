@@ -1,13 +1,14 @@
 from configs import Config
 from app.database import db
 from app.utils.logger import console
+from app.base import PostFacebook
 
 from requests import post
 
 __all__ = ["Facebook"]
 
 
-class PostFacebook:
+class PostFacebookCommon(PostFacebook):
 
     page_id: str
     page_access_token: str
@@ -87,4 +88,4 @@ class PostFacebook:
             return False
 
 
-Facebook = PostFacebook()
+Facebook = PostFacebookCommon()

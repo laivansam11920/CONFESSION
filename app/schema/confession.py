@@ -18,6 +18,7 @@ class ConfessionSchema:
     safe_to_post: bool = False
     status: str = "pending"
     send: bool = False
+    is_spooned: bool = False
 
     ai_data: dict = field(default_factory=dict)
     user_tracking_data: list[str] = field(default_factory=list)
