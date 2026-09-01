@@ -17,6 +17,7 @@ class PostFacebookCommon(PostFacebook):
     def __init__(self):
         super().__init__()
         self.url = f"https://graph.facebook.com/v19.0/{self.page_id}/feed"
+        self.long_line = "\n--------------------------------------\n"
 
     def post(self):
         try:
@@ -61,7 +62,7 @@ class PostFacebookCommon(PostFacebook):
                 post_text += f"\nMaintain: {g_name}\n"
 
             if link_cfs_post := Config.RENDER_EXTERNAL_URL:
-                post_text += "\n--------------------------------------\n"
+                post_text += self.long_line
                 post_text += f"link gửi confession: {link_cfs_post}\n"
 
             payload = {"message": post_text, "access_token": self.page_access_token}
