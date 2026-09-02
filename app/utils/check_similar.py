@@ -10,9 +10,15 @@ def normalize_text(text: str, on: bool) -> str:
     return text
 
 
-def is_similar(text1: str, text2: str, **kwargs) -> bool:
+def is_similar(
+        text1: str,
+        text2: str,
+        /,
+        similarity_threshold: float,
+        on_normalize_text: bool,
+) -> bool:
     score = fuzz.ratio(
-        normalize_text(text1, kwargs["on_normalize_text"]),
-        normalize_text(text2, kwargs["on_normalize_text"]),
+        normalize_text(text1, on_normalize_text),
+        normalize_text(text2, on_normalize_text),
     )
-    return score >= kwargs["similarity_threshold"]
+    return score >= similarity_threshold
