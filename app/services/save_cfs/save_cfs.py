@@ -48,7 +48,8 @@ class SaveConfession:
                     if is_similar(
                         confession_data.confession,
                         doc.get("confession", ""),
-                        Config.SIMILARITY_THRESHOLD
+                        similarity_threshold=Config.SIMILARITY_THRESHOLD,
+                        on_normalize_text=True,
                     ):
                         matched_id = doc["confession_id"]
                         break
