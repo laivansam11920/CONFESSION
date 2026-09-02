@@ -46,7 +46,9 @@ class SaveConfession:
 
                 for doc in old_docs:
                     if is_similar(
-                        confession_data.confession, doc.get("confession", "")
+                        confession_data.confession,
+                        doc.get("confession", ""),
+                        Config.SIMILARITY_THRESHOLD
                     ):
                         matched_id = doc["confession_id"]
                         break
