@@ -54,8 +54,9 @@ class PostFacebookCommon(PostFacebook):
                         ignore_cfs_id.append(confession_id)
                     continue
 
-                post_text += f"\n#cfs{cfs_count}\n{confession_text}{f"\n-> {admin_comment}" if admin_comment else ""}"
-                # Nên tác phần += post text ra nhiều phần += riêng biệt thay vì gộp lại bằng f-string
+                post_text += f"\n#cfs{cfs_count}\n"
+                post_text += f"{confession_text}\n"
+                post_text += f"-> {admin_comment}\n" if admin_comment else "\n"
 
             if g_name := Config.NAME_GROUP_USE_PROJECT:
                 post_text += f"\nMaintain: {g_name}\n"
