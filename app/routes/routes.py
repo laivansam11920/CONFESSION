@@ -70,7 +70,7 @@ def get_comment_post():
         return "Invalid verification request", 400
 
     elif request.method == "POST":
-        data = request.json
+        data = request.json()
 
         print(data, flush=True)
 
