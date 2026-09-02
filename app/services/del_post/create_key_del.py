@@ -18,7 +18,7 @@ class CreateKeyDelPost:
                             "is_used": False,
                         }
                     },
-                    {"_id": 0, "id": 0, "key": 1, "is_used": 1},
+                    {"_id": 0, "key": 1, "is_used": 1},
                     upsert=True,
                 )
                 or {}

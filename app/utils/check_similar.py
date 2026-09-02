@@ -10,7 +10,7 @@ def normalize_text(text: str, on: bool) -> str:
     return text
 
 
-def is_similar(text1: str, text2: str, *args, **kwargs) -> bool:
+def is_similar(text1: str, text2: str, **kwargs) -> bool:
     score = fuzz.ratio(
         normalize_text(text1, kwargs["on_normalize_text"]),
         normalize_text(text2, kwargs["on_normalize_text"]),
