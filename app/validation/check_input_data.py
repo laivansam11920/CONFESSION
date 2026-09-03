@@ -31,8 +31,9 @@ def check_input_data(func):
                 )
                 return home()
 
-            max_len = Config.MAX_LEN_CONFESSION_ALLOW
-            min_len = Config.MIN_LEN_CONFESSION_ALLOW
+            max_len: int = Config.MAX_LEN_CONFESSION_ALLOW
+            min_len: int = Config.MIN_LEN_CONFESSION_ALLOW
+            vip: bool = False
 
             if key_vip and Config.VIP_CFS_ON:
                 data = (
@@ -54,6 +55,7 @@ def check_input_data(func):
                     or {}
                 )
                 if data.get("used", False):
+                    vip = True
                     max_len = Config.MAX_LEN_CONFESSION_VIP_ALLOW
                     min_len = Config.MIN_LEN_CONFESSION_VIP_ALLOW
 
@@ -69,7 +71,7 @@ def check_input_data(func):
                 )
                 return home()
 
-            return func(email=email, confession=confession, *args, **kwargs)
+            return func(email=email, confession=confession, vip=vip, *args, **kwargs)
         except EmailNotValidError:
             flash(_("Email của bạn không hợp lệ!"), "error")
             return home()
