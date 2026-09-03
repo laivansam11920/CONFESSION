@@ -17,7 +17,7 @@ __all__ = ["get_data_web", "get_data_google"]
 class GetDataWeb(GetData):
 
     @check_input_data
-    def get_data(self, email: str = "", confession: str = "", vip: bool = False) -> Response:
+    def get_data(self, email: str = "", confession: str = "", is_sponsor: bool = False) -> Response:
 
         data = ConfessionSchema(
             confession=confession,
@@ -26,7 +26,7 @@ class GetDataWeb(GetData):
             ],
             confession_id=str(uuid.uuid4()),
             post_time=int(time.time()),
-            is_sponsor=vip,
+            is_sponsor=is_sponsor,
         )
 
         res: ReturnSchema = Confession.save_cfs(data)
@@ -38,7 +38,7 @@ class GetDataWeb(GetData):
 class GetDataGoogleForm(GetData):
 
     @check_input_data
-    def get_data(self, email: str = "", confession: str = "", vip: bool = False) -> dict:
+    def get_data(self, email: str = "", confession: str = "", is_sponsor: bool = False) -> dict:
 
         data = ConfessionSchema(
             confession=confession,
@@ -47,7 +47,7 @@ class GetDataGoogleForm(GetData):
             ],
             confession_id=str(uuid.uuid4()),
             post_time=int(time.time()),
-            is_sponsor=vip,
+            is_sponsor=is_sponsor,
         )
 
         res: ReturnSchema = Confession.save_cfs(data)
