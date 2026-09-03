@@ -8,7 +8,7 @@ from .create_key_del import CreateKeyDelPost as KeyDelete
 from app.database import db
 from app.utils.check_similar import is_similar
 
+
 class DelPostFacebook:
 
-    def del_post_facebook(self):
-        ...
+    def del_post_facebook(self): ...

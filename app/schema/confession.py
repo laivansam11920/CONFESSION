@@ -3,6 +3,7 @@ from dataclasses import dataclass, field
 
 __all__ = ["ConfessionSchema"]
 
+
 @dataclass(frozen=True)
 class DataRequirements:
     post_time_reqs: int

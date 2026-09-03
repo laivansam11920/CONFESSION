@@ -34,9 +34,13 @@ class Settings(BaseSettings):
     MAX_LEN_CONFESSION_ALLOW: int = Field(
         default=1000, alias="MAX_LEN_CONFESSION_ALLOW"
     )
-    MAX_LEN_CONFESSION_VIP_ALLOW: int = Field(default=10*10^3, alias="MAX_LEN_CONFESSION_VIP_ALLOW")
+    MAX_LEN_CONFESSION_VIP_ALLOW: int = Field(
+        default=10 * 10 ^ 3, alias="MAX_LEN_CONFESSION_VIP_ALLOW"
+    )
     MIN_LEN_CONFESSION_ALLOW: int = Field(default=1, alias="MIN_LEN_CONFESSION_ALLOW")
-    MIN_LEN_CONFESSION_VIP_ALLOW: int = Field(default=0, alias="MIN_LEN_CONFESSION_VIP_ALLOW")
+    MIN_LEN_CONFESSION_VIP_ALLOW: int = Field(
+        default=0, alias="MIN_LEN_CONFESSION_VIP_ALLOW"
+    )
     TRACKING_USER: bool = Field(default=False, alias="TRACKING_USER")
     TOPIC_COLOR: str = Field(default="#000000", alias="TOPIC_COLOR")
     MAX_MODERATION_SCORE: float = Field(default=55, alias="MAX_MODERATION_SCORE")
@@ -46,6 +50,7 @@ class Settings(BaseSettings):
         alias="TOPIC_SENTENCE",
     )
     ALWAYS_ON: bool = Field(default=True, alias="ALWAYS_ON")
+    VIP_CFS_ON: bool = Field(default=True, alias="VIP_CFS_ON")
 
     BABEL_DEFAULT_LOCALE: str = Field(default="en", alias="BABEL_DEFAULT_LOCALE")
     BABEL_TRANSLATION_DIRECTORIES: str = Field(

@@ -1,6 +1,6 @@
 from app.utils.logger import console
 from app.services.moderation.core.moderation import moderation
-from app.services.get_cfs.get_cfs import GetConfession as Confession
+from app.services.get_data.get_cfs import GetConfession as Confession
 from app.extensions.threads import executor
 from app.schema.ReturnSchema import ReturnSchema
 
