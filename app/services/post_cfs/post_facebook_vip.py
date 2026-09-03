@@ -7,6 +7,8 @@ mô tả chức năng của post_facebook_vip:
 - được cấp 1 bài viết riêng trên facebook để thể hiện
 """
 
+#TODO: sự dụng key đi kèm để xác thực xem có phải vip
+
 from app.base import PostFacebook
 
 
