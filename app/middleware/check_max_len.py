@@ -2,6 +2,7 @@ from flask_babel import Babel, gettext as _
 from app.schema.ReturnSchema import ReturnSchema
 from app.utils.logger import console
 
+
 def check_max_len(text: str, max_len: int, min_len: int) -> ReturnSchema:
     try:
         l = len(text)

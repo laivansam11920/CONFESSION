@@ -64,6 +64,9 @@ class Settings(BaseSettings):
     SESSION_COOKIE_SECURE: bool = Field(default=True, alias="SESSION_COOKIE_SECURE")
     SESSION_COOKIE_SAMESITE: str = Field(default="Lax", alias="SESSION_COOKIE_SAMESITE")
     SESSION_COOKIE_HTTPONLY: bool = Field(default=True, alias="SESSION_COOKIE_HTTPONLY")
+    DEFAULT_RATE_LIMIT: str = Field(
+        default="10 per 10 minutes", alias="DEFAULT_RATE_LIMIT"
+    )
 
     @computed_field
     @property
@@ -82,7 +85,7 @@ class Settings(BaseSettings):
     HOUR: int = Field(default=11, alias="HOUR")
     MINUTE: int = Field(default=30, alias="MINUTE")
 
-    REDIS_URL: str = Field(default="", alias="REDIS_URL") #NOT USE
+    REDIS_URL: str = Field(default="", alias="REDIS_URL")  # NOT USE
 
     model_config = SettingsConfigDict(populate_by_name=True)
 

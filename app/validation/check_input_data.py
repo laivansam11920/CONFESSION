@@ -35,7 +35,7 @@ def check_input_data(func):
             min_len: int = Config.MIN_LEN_CONFESSION_ALLOW
             is_sponsor: bool = False
 
-            if key_vip and Config.VIP_ALLOW and is_vip_token(key_vip) :
+            if key_vip and Config.VIP_ALLOW and is_vip_token(key_vip):
                 is_sponsor = True
                 max_len = Config.MAX_LEN_CONFESSION_VIP_ALLOW
                 min_len = Config.MIN_LEN_CONFESSION_VIP_ALLOW

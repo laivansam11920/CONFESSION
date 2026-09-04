@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 
 from app.extensions.limiter import limiter
 from app.extensions.crfs import crfs
@@ -37,6 +37,10 @@ if Config.CHANGE_GET_DATA_BY_GOOGLE_FORM:
 
     @get_data.post("/submit-confession-form")
     @crfs.exempt
+    @limiter.limit(
+        Config.DEFAULT_RATE_LIMIT,
+        exempt_when=lambda: request.headers.get("X-App-Secret") == Config.SECRET_KEY,
+    )
     def get_confession_form():
         from app.controller.get_data import get_data_google
 
