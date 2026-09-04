@@ -82,6 +82,8 @@ class Settings(BaseSettings):
     HOUR: int = Field(default=11, alias="HOUR")
     MINUTE: int = Field(default=30, alias="MINUTE")
 
+    REDIS_API_KEY: str = Field(..., alias="REDIS_API_KEY")
+
     model_config = SettingsConfigDict(populate_by_name=True)
 
 
