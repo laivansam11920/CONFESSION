@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from flask import flash, request
 from email_validator import EmailNotValidError, validate_email
 from flask_babel import Babel, gettext as _
+from pymongo import ReturnDocument
 
 from app.utils.logger import console
 from app.utils.return_home import home
@@ -51,6 +52,7 @@ def check_input_data(func):
                             },
                         },
                         {"_id": 0, "used": 1},
+                        return_document=ReturnDocument.AFTER,
                     )
                     or {}
                 )
