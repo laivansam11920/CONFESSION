@@ -2,7 +2,7 @@ from flask import Blueprint
 
 from app.extensions.limiter import limiter
 from app.extensions.crfs import crfs
-from app.utils.logger import console
+from configs import Config
 
 __all__ = [
     "main_route",
@@ -17,40 +17,32 @@ get_data: Blueprint = Blueprint("get_data", __name__)
 ping: Blueprint = Blueprint("ping", __name__)
 testing_route: Blueprint = Blueprint("testing", __name__)
 
+if Config.CHANGE_GET_DATA_BY_WEB:
+    @main_route.route("/")
+    @limiter.exempt
+    def index():
+        from flask import render_template
 
-@main_route.route("/")
-@limiter.exempt
-def index():
-    from flask import render_template
-
-    return render_template("index.html")  # type: ignore
+        return render_template("index.html")  # type: ignore
 
 
-@get_data.post("/submit-confession")
-def get_confession():
-    """TODO
-    sự dụng redis để tạo 1 token có thời hạn trong vài phút, sau đó sẽ tính res/token để rate limit.
-    ví dụ: 1 token chỉ được chứa duy nhất 1 cfs được gửi đi trong giờ, trong ngày, trong tháng, ... có custom.
-    """
-    try:
+    @get_data.post("/submit-confession")
+    def get_confession():
+        """TODO
+        sự dụng redis để tạo 1 token có thời hạn trong vài phút, sau đó sẽ tính res/token để rate limit.
+        ví dụ: 1 token chỉ được chứa duy nhất 1 cfs được gửi đi trong giờ, trong ngày, trong tháng, ... có custom.
+        """
         from app.controller.get_data import get_data_web
 
         return get_data_web.get_data()
-    except Exception as e:
-        console.error(e)
-        return {"msg": "this feature is not available"}
 
-
-@get_data.post("/submit-confession-form")
-@crfs.exempt
-def get_confession_form():
-    try:
+if Config.CHANGE_GET_DATA_BY_GOOGLE_FORM:
+    @get_data.post("/submit-confession-form")
+    @crfs.exempt
+    def get_confession_form():
         from app.controller.get_data import get_data_google
 
         return get_data_google.get_data()
-    except Exception as e:
-        console.error(e)
-        return {"msg": "this feature is not available"}
 
 
 @testing_route.route("/get_comment_post")
