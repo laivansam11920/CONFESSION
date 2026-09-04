@@ -1,14 +1,13 @@
 import functools
-from datetime import datetime, timezone
 
 from flask import flash, request
 from email_validator import EmailNotValidError, validate_email
 from flask_babel import Babel, gettext as _
-from pymongo import ReturnDocument
 
 from app.utils.logger import console
 from app.utils.return_home import home
-from app.database import db
+from app.middleware.check_max_len import check_max_len
+from app.middleware.check_vip_token import is_vip_token
 from configs import Config
 
 
@@ -36,41 +35,15 @@ def check_input_data(func):
             min_len: int = Config.MIN_LEN_CONFESSION_ALLOW
             is_sponsor: bool = False
 
-            if key_vip and Config.VIP_CFS_ON:
-                data = (
-                    db.vip_key.find_one_and_update(
-                        {
-                            "key": key_vip,
-                            "used": False,
-                            "expires_at": {
-                                "$lte": datetime.now(timezone.utc),
-                            },
-                        },
-                        {
-                            "$set": {
-                                "used": True,
-                            },
-                        },
-                        {"_id": 0, "used": 1},
-                        return_document=ReturnDocument.AFTER,
-                    )
-                    or {}
-                )
-                if data.get("used", False):
-                    is_sponsor = True
-                    max_len = Config.MAX_LEN_CONFESSION_VIP_ALLOW
-                    min_len = Config.MIN_LEN_CONFESSION_VIP_ALLOW
+            if key_vip and is_vip_token(key_vip) and Config.VIP_ALLOW:
+                is_sponsor = True
+                max_len = Config.MAX_LEN_CONFESSION_VIP_ALLOW
+                min_len = Config.MIN_LEN_CONFESSION_VIP_ALLOW
 
-            l = len(confession)
+            res_check_len = check_max_len(confession, max_len, min_len)
 
-            if l > max_len:
-                flash(_("Confession của bạn quá dài so với yêu cầu hệ thống!"), "error")
-                return home()
-
-            if l <= min_len:
-                flash(
-                    _("Confession của bạn quá ngắn so với yêu cầu hệ thống!"), "error"
-                )
+            if not res_check_len.success:
+                flash(res_check_len.msg, "error")
                 return home()
 
             return func(
