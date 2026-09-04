@@ -82,7 +82,7 @@ class Settings(BaseSettings):
     HOUR: int = Field(default=11, alias="HOUR")
     MINUTE: int = Field(default=30, alias="MINUTE")
 
-    REDIS_URL_UPSTASH_TCP: str = Field(..., alias="REDIS_URL_UPSTASH_TCP")
+    REDIS_URL: str = Field(..., alias="REDIS_URL")
 
     model_config = SettingsConfigDict(populate_by_name=True)
 
