@@ -73,7 +73,13 @@ def check_input_data(func):
                 )
                 return home()
 
-            return func(email=email, confession=confession, is_sponsor=is_sponsor, *args, **kwargs)
+            return func(
+                email=email,
+                confession=confession,
+                is_sponsor=is_sponsor,
+                *args,
+                **kwargs
+            )
         except EmailNotValidError:
             flash(_("Email của bạn không hợp lệ!"), "error")
             return home()

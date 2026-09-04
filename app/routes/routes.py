@@ -18,13 +18,13 @@ ping: Blueprint = Blueprint("ping", __name__)
 testing_route: Blueprint = Blueprint("testing", __name__)
 
 if Config.CHANGE_GET_DATA_BY_WEB:
+
     @main_route.route("/")
     @limiter.exempt
     def index():
         from flask import render_template
 
         return render_template("index.html")  # type: ignore
-
 
     @get_data.post("/submit-confession")
     def get_confession():
@@ -36,7 +36,9 @@ if Config.CHANGE_GET_DATA_BY_WEB:
 
         return get_data_web.get_data()
 
+
 if Config.CHANGE_GET_DATA_BY_GOOGLE_FORM:
+
     @get_data.post("/submit-confession-form")
     @crfs.exempt
     def get_confession_form():

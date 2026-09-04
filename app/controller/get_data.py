@@ -17,7 +17,9 @@ __all__ = ["get_data_web", "get_data_google"]
 class GetDataWeb(GetData):
 
     @check_input_data
-    def get_data(self, email: str = "", confession: str = "", is_sponsor: bool = False) -> Response:
+    def get_data(
+        self, email: str = "", confession: str = "", is_sponsor: bool = False
+    ) -> Response:
 
         data = ConfessionSchema(
             confession=confession,
@@ -38,7 +40,9 @@ class GetDataWeb(GetData):
 class GetDataGoogleForm(GetData):
 
     @check_input_data
-    def get_data(self, email: str = "", confession: str = "", is_sponsor: bool = False) -> dict:
+    def get_data(
+        self, email: str = "", confession: str = "", is_sponsor: bool = False
+    ) -> dict:
 
         data = ConfessionSchema(
             confession=confession,
