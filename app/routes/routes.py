@@ -28,10 +28,6 @@ if Config.CHANGE_GET_DATA_BY_WEB:
 
     @get_data.post("/submit-confession")
     def get_confession():
-        """TODO:
-        sự dụng redis để tạo 1 token có thời hạn trong vài phút, sau đó sẽ tính res/token để rate limit.
-        ví dụ: 1 token chỉ được chứa duy nhất 1 cfs được gửi đi trong giờ, trong ngày, trong tháng, ... có custom.
-        """
         from app.controller.get_data import get_data_web
 
         return get_data_web.get_data()
