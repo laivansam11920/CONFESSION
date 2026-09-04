@@ -64,3 +64,4 @@ flask-talisman
 apscheduler
 questionary
 rapidfuzz
+redis
