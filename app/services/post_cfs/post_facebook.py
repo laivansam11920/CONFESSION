@@ -67,6 +67,7 @@ class PostFacebookCommon(PostFacebook):
 
             payload = {"message": post_text, "access_token": self.page_access_token}
 
+            #TODO: giải quyết vấn đề không có cfs mà vẫn post
             res = post(self.url, data=payload, timeout=5)
             fb_data = res.json()
 
