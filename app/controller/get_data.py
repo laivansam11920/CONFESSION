@@ -6,12 +6,14 @@ from app.validation.check_input_data import check_input_data
 from app.schema.ReturnSchema import ReturnSchema
 from configs import Config
 
-from flask import flash, Response
+from flask import flash, Response, request
 
 import uuid
 import time
 
 __all__ = ["get_data_web", "get_data_google"]
+
+
 
 
 class GetDataWeb(GetData):
@@ -21,6 +23,9 @@ class GetDataWeb(GetData):
         self, email: str = "", confession: str = "", is_sponsor: bool = False
     ) -> Response:
 
+        post_time_reqs = request.form.get("post_time_reqs") or ""
+        use_tag_cfs_reqs = request.form.get("use_tag_cfs_reqs") or ""
+
         data = ConfessionSchema(
             confession=confession,
             email=[
@@ -29,6 +34,10 @@ class GetDataWeb(GetData):
             confession_id=str(uuid.uuid4()),
             post_time=int(time.time()),
             is_sponsor=is_sponsor,
+            sponsor_requirements={
+                "post_time_reqs": post_time_reqs,
+                "use_tag_cfs_reqs": use_tag_cfs_reqs,
+            }
         )
 
         res: ReturnSchema = Confession.save_cfs(data)
@@ -44,6 +53,9 @@ class GetDataGoogleForm(GetData):
         self, email: str = "", confession: str = "", is_sponsor: bool = False
     ) -> dict:
 
+        post_time_reqs = request.form.get("post_time_reqs") or ""
+        use_tag_cfs_reqs = request.form.get("use_tag_cfs_reqs") or ""
+
         data = ConfessionSchema(
             confession=confession,
             email=[
@@ -52,6 +64,10 @@ class GetDataGoogleForm(GetData):
             confession_id=str(uuid.uuid4()),
             post_time=int(time.time()),
             is_sponsor=is_sponsor,
+            sponsor_requirements={
+                "post_time_reqs": post_time_reqs,
+                "use_tag_cfs_reqs": use_tag_cfs_reqs,
+            }
         )
 
         res: ReturnSchema = Confession.save_cfs(data)

@@ -10,11 +10,29 @@ mô tả chức năng của post_facebook_vip:
 # TODO: sự dụng key đi kèm để xác thực xem có phải vip
 
 from app.base import PostFacebook
-
+from app.database import db
+from app.schema.confession import ConfessionSchema
 
 class PostFacebookVip(PostFacebook):
 
     def __init__(self):
         super().__init__()
 
-    def post(self): ...
+    def check(self, confession: ConfessionSchema):
+
+        db.docs.find_one(
+            {
+                "confession_id": confession.confession_id,
+                "is_sponsor": True,
+                "safe_to_post": True,
+                "send": False,
+            },
+            {"_id": 0, "confession": 1},
+        )
+
+
+
+        return
+
+    def post(self):
+        ...
