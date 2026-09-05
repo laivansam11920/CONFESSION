@@ -2,7 +2,10 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 
-log_dir = "../../logs"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+log_dir = os.path.join(current_dir, "..", "..", "logs")
+
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 

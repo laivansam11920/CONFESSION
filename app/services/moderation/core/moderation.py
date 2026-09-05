@@ -101,7 +101,7 @@ class GenAIModeration(AiServices):
             self._save_confession_moderation(cfs, response)
 
             return ReturnSchema(success=True, data={"confession_id": cfs.confession_id})
-        except (Exception, PyMongoError) as e:
+        except Exception as e:
             console.error(e)
             return ReturnSchema()
 
