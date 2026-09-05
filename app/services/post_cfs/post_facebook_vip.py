@@ -13,26 +13,28 @@ from app.base import PostFacebook
 from app.database import db
 from app.schema.confession import ConfessionSchema
 
+
 class PostFacebookVip(PostFacebook):
 
     def __init__(self):
         super().__init__()
 
-    def check(self, confession: ConfessionSchema):
+    @staticmethod
+    def check(confession: ConfessionSchema):
 
-        db.docs.find_one(
-            {
-                "confession_id": confession.confession_id,
-                "is_sponsor": True,
-                "safe_to_post": True,
-                "send": False,
-            },
-            {"_id": 0, "confession": 1},
+        data = (
+            db.docs.find_one(
+                {
+                    "confession_id": confession.confession_id,
+                    "is_sponsor": True,
+                    "safe_to_post": True,
+                    "send": False,
+                },
+                {"_id": 0, "confession": 1, "sponsor_requirements": 1},
+            )
+            or {}
         )
 
+        return data.get("confession"), data.get("sponsor_requirements", {})
 
-
-        return
-
-    def post(self):
-        ...
+    def post(self): ...

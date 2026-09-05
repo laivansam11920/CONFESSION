@@ -26,7 +26,7 @@ class SaveConfession:
     def save_cfs(confession_data: ConfessionSchema) -> ReturnSchema:
         try:
 
-            if Config.CHECK_SAME_DOCS:
+            if Config.CHECK_SAME_DOCS and not confession_data.is_sponsor:
 
                 old_docs = (
                     db.docs.find(
@@ -73,7 +73,7 @@ class SaveConfession:
 
             confession_data_dict = asdict(confession_data)
 
-            if not Config.MODERATION_CONFESSION:
+            if not Config.MODERATION_CONFESSION and not confession_data.is_sponsor:
                 confession_data_dict["cfs"] = cfs_nums()
 
             db.docs.insert_one(confession_data_dict)

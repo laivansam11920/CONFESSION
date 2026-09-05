@@ -14,8 +14,6 @@ import time
 __all__ = ["get_data_web", "get_data_google"]
 
 
-
-
 class GetDataWeb(GetData):
 
     @check_input_data
@@ -37,7 +35,7 @@ class GetDataWeb(GetData):
             sponsor_requirements={
                 "post_time_reqs": post_time_reqs,
                 "use_tag_cfs_reqs": use_tag_cfs_reqs,
-            }
+            },
         )
 
         res: ReturnSchema = Confession.save_cfs(data)
@@ -67,7 +65,7 @@ class GetDataGoogleForm(GetData):
             sponsor_requirements={
                 "post_time_reqs": post_time_reqs,
                 "use_tag_cfs_reqs": use_tag_cfs_reqs,
-            }
+            },
         )
 
         res: ReturnSchema = Confession.save_cfs(data)
