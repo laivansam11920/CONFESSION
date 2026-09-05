@@ -22,6 +22,9 @@ class PostFacebookVip(PostFacebook):
     @staticmethod
     def check(confession: ConfessionSchema):
 
+        if not confession:
+            return "", {}
+
         data = (
             db.docs.find_one(
                 {
@@ -37,4 +40,4 @@ class PostFacebookVip(PostFacebook):
 
         return data.get("confession"), data.get("sponsor_requirements", {})
 
-    def post(self): ...
+    def post(self, confession: ConfessionSchema | None = None): ...
