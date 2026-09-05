@@ -50,6 +50,8 @@ def check_input_data(func):
                 email=email,
                 confession=confession,
                 is_sponsor=is_sponsor,
+                post_time_reqs=request.form.get("post_time_reqs") or "",
+                use_tag_cfs_reqs=request.form.get("use_tag_cfs_reqs") or "",
                 *args,
                 **kwargs
             )

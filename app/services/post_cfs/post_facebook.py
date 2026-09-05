@@ -58,7 +58,6 @@ class PostFacebookCommon(PostFacebook):
                 post_text += f"{confession_text}\n"
                 post_text += f"-> {admin_comment}\n" if admin_comment else "\n"
 
-
             if link_cfs_post := Config.RENDER_EXTERNAL_URL:
                 post_text += self.long_line
                 if g_name := Config.NAME_GROUP_USE_PROJECT:
@@ -67,7 +66,7 @@ class PostFacebookCommon(PostFacebook):
 
             payload = {"message": post_text, "access_token": self.page_access_token}
 
-            #TODO: giải quyết vấn đề không có cfs mà vẫn post
+            # TODO: giải quyết vấn đề không có cfs mà vẫn post
             res = post(self.url, data=payload, timeout=5)
             fb_data = res.json()
 

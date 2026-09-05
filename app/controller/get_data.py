@@ -18,11 +18,13 @@ class GetDataWeb(GetData):
 
     @check_input_data
     def get_data(
-        self, email: str = "", confession: str = "", is_sponsor: bool = False
+        self,
+        email: str = "",
+        confession: str = "",
+        is_sponsor: bool = False,
+        post_time_reqs: str = "",
+        use_tag_cfs_reqs: str = "",
     ) -> Response:
-
-        post_time_reqs = request.form.get("post_time_reqs") or ""
-        use_tag_cfs_reqs = request.form.get("use_tag_cfs_reqs") or ""
 
         data = ConfessionSchema(
             confession=confession,
@@ -48,11 +50,13 @@ class GetDataGoogleForm(GetData):
 
     @check_input_data
     def get_data(
-        self, email: str = "", confession: str = "", is_sponsor: bool = False
+        self,
+        email: str = "",
+        confession: str = "",
+        is_sponsor: bool = False,
+        post_time_reqs: str = "",
+        use_tag_cfs_reqs: str = "",
     ) -> tuple[dict, int]:
-
-        post_time_reqs = request.form.get("post_time_reqs") or ""
-        use_tag_cfs_reqs = request.form.get("use_tag_cfs_reqs") or ""
 
         data = ConfessionSchema(
             confession=confession,
