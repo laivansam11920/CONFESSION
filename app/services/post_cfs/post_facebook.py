@@ -58,11 +58,11 @@ class PostFacebookCommon(PostFacebook):
                 post_text += f"{confession_text}\n"
                 post_text += f"-> {admin_comment}\n" if admin_comment else "\n"
 
-            if g_name := Config.NAME_GROUP_USE_PROJECT:
-                post_text += f"\nMaintain: {g_name}\n"
 
             if link_cfs_post := Config.RENDER_EXTERNAL_URL:
                 post_text += self.long_line
+                if g_name := Config.NAME_GROUP_USE_PROJECT:
+                    post_text += f"Maintain: {g_name}\n"
                 post_text += f"link gửi confession: {link_cfs_post}\n"
 
             payload = {"message": post_text, "access_token": self.page_access_token}
