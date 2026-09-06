@@ -32,7 +32,7 @@ class PostFacebookCommon(PostFacebook):
                         "admin_comment": 1,
                         "confession_id": 1,
                     },
-                )
+                ).sort("cfs", -1)
                 or {}
             )
 
