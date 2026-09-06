@@ -39,6 +39,7 @@ class UpdateStatusModerationCfs:
                 ...
                 return res
 
+            #TODO: phát triển cơ chế thông báo nếu cfs vi phạm bằng session
             if score and score > Config.MAX_MODERATION_SCORE:
                 db.docs.update_one(
                     {"confession_id": res.data.get("confession_id")},
