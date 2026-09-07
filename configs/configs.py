@@ -84,7 +84,6 @@ class Settings(BaseSettings):
 
     # TODO: thay đổi toàn bộ link từ RENDER_EXTERNAL_URL sang SERVER_URL để có thể mở rộng được chứ chỉ không rieegn môi trường render.com
     RENDER_EXTERNAL_URL: str = Field(default="", alias="RENDER_EXTERNAL_URL")
-    SERVER_URL: str = Field(default=request.host_url, alias="SERVER_URL")
 
     HOUR: int = Field(default=11, alias="HOUR")
     MINUTE: int = Field(default=30, alias="MINUTE")
