@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ _("Xác thực confession") }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/moderation/action.css') }}">
+</head>
+<body>
+
+  <div class="container">
+    <h1>{{ _("XÁC THỰC CONFESSION") }}</h1>
+    <p class="desc">{{ _("Vui lòng kiểm tra kỹ thông tin bên dưới trước khi đưa ra quyết định.") }}</p>
+
+    <div class="info-card">
+      <div class="info-item">
+        <strong>{{ _("Nội dung:") }}</strong> {{ confession }}
+      </div>
+      <div class="info-item">
+        <strong>{{ _("Thời gian đăng:") }}</strong> {{ post_ }}
+      </div>
+      <div class="info-item">
+        <strong>{{ _("Điểm số:") }}</strong> {{ score }}
+      </div>
+      <div class="info-item">
+        <strong>{{ _("Lý do (tại sao có điểm số đó):") }}</strong> {{ reason }}
+      </div>
+        <div class="info-item">
+        <strong>{{ _("Trạng thái:") }}</strong> {{ _("Đang chờ duyệt.") }}
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn-accept" type="button">Accept</button>
+      <button class="btn-remove" type="button">Remove</button>
+    </div>
+
+  </div>
+
+</body>
+</html>

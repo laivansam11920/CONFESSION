@@ -1,0 +1,114 @@
+    :root {
+      --main-color: #000000;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: var(--main-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+      border: 3px solid var(--main-color);
+      padding: 30px;
+      background-color: #ffffff;
+      box-shadow: 8px 8px 0px #dddddd;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+      border-bottom: 3px solid var(--main-color);
+      padding-bottom: 12px;
+    }
+
+    p.desc {
+      font-size: 0.85rem;
+      color: #555555;
+      margin-bottom: 24px;
+    }
+
+    /* Styles cho Thẻ thông tin */
+    .info-card {
+      border: 2px dashed var(--main-color);
+      padding: 18px;
+      margin-bottom: 25px;
+      background-color: #fcfcfc;
+    }
+
+    .info-card .info-item {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .info-card .info-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-card strong {
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      display: inline-block;
+      min-width: 100px;
+    }
+
+    /* Styles cho Nút bấm */
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    button {
+      flex: 1;
+      background-color: var(--main-color);
+      color: #ffffff;
+      border: 2px solid var(--main-color);
+      padding: 14px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      border-radius: 0px;
+      transition: all 0.15s ease;
+    }
+
+    button:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px #000000 !important;
+    }
+
+    .btn-accept:hover {
+      background-color: #ffffff;
+      color: var(--main-color);
+      box-shadow: 4px 4px 0px var(--main-color);
+    }
+
+    .btn-remove {
+      background-color: #ffffff;
+      color: var(--main-color);
+    }
+
+    .btn-remove:hover {
+      background-color: #ff3333;
+      border-color: #ff3333;
+      color: #ffffff;
+      box-shadow: 4px 4px 0px #ff3333;
+    }
