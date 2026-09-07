@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
+from app.schema.confession import ConfessionSchema
 from configs import Config
 
 
@@ -33,3 +34,8 @@ class PostFacebook(ABC):
     @abstractmethod
     def post(self):
         pass
+
+class MailService(ABC):
+
+    @abstractmethod
+    def send_mail(self, email: str, confession: ConfessionSchema): ...

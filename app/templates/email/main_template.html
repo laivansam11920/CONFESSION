@@ -1,0 +1,35 @@
+<div
+  style="
+    font-family: system-ui, sans-serif, Arial;
+    font-size: 14px;
+    color: #333;
+    padding: 20px 14px;
+    background-color: #f5f5f5;
+  "
+>
+    <div style="padding: 14px">
+      <h1 style="font-size: 22px; margin-bottom: 26px">Có 1 confession không xác định được mức độ vi phạm</h1>
+      <p>
+        Hệ thống đã nhận được một confession như sau:
+      </p>
+        <p>
+            nội dung: {{ confession }}
+        </p>
+        <p>
+            thời gian đăng: {{ post_time }}
+        </p>
+        <p>
+            điểm số do hệ thống chấm: {{ score }}
+        </p>
+        <p>
+            lý do vi phạm: {{ reason }}
+        </p>
+        <p>
+            Hệ thống không xác nhận được confession này vi phạm hay không, hãy bấm vào link sau để thực hiện xác nhận.
+        </p>
+      <p>
+        <a href="{{link}}">{{link}}</a>
+      </p>
+      <p>Lưu ý: link này sẽ mất hiệu lực trong 24 giờ, nếu bạn không xác nhận, hệ thống sẽ tự gi nhận là confession vi phạm và loại bỏ.</p>
+    </div>
+  </div>

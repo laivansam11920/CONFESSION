@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     MONGO_URI: str = Field(..., alias="MONGO_URI")
     MONGO_MAIN_DB: str = Field(default="Confession", alias="MONGO_MAIN_DB")
 
-    GOOGLE_AI_API_KEY: str = Field(..., alias="GOOGLE_AI_API_KEY")
+    GOOGLE_AI_API_KEY: str = Field(default="", alias="GOOGLE_AI_API_KEY")
     MODEL_GOOGLE_AI: str = Field(default="gemma-4-31b-it", alias="MODEL_GOOGLE_AI")
 
     CHECK_SAME_DOCS: bool = Field(default=True, alias="CHECK_SAME_DOCS")
@@ -51,6 +51,7 @@ class Settings(BaseSettings):
     )
     ALWAYS_ON: bool = Field(default=True, alias="ALWAYS_ON")
     VIP_CFS_ON: bool = Field(default=True, alias="VIP_CFS_ON")
+    SEND_MAIL: bool = Field(default=False, alias="SEND_MAIL")
 
     BABEL_DEFAULT_LOCALE: str = Field(default="en", alias="BABEL_DEFAULT_LOCALE")
     BABEL_TRANSLATION_DIRECTORIES: str = Field(
@@ -86,6 +87,11 @@ class Settings(BaseSettings):
     MINUTE: int = Field(default=30, alias="MINUTE")
 
     REDIS_URL: str = Field(default="", alias="REDIS_URL")  # NOT USE
+
+    SERVICE_ID_EMAIL_JS: str = Field(default="", alias="SERVICE_ID_EMAILJS")
+    TEMPLATE_ID_EMAIL_JS: str = Field(default="", alias="TEMPLATE_ID_EMAILJS")
+    PUBLIC_KEY_EMAIL_JS: str = Field(default="", alias="PUBLIC_KEY_EMAILJS")
+    PRIVATE_KEY_EMAIL_JS: str = Field(default="", alias="PRIVATE_KEY_EMAILJS")
 
     model_config = SettingsConfigDict(populate_by_name=True)
 
