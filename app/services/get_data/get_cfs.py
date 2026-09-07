@@ -1,10 +1,11 @@
 from app.schema.confession import ConfessionSchema
 from app.database import db
+from app.base import GetCfs
 
 __all__ = ["GetConfession"]
 
 
-class GetConfession:
+class GetConfession(GetCfs):
 
     @staticmethod
     def get(cfs_id: str | None) -> ConfessionSchema:

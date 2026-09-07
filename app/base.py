@@ -39,3 +39,10 @@ class MailService(ABC):
 
     @abstractmethod
     def send_mail(self, email: str, confession: ConfessionSchema): ...
+
+class GetCfs(ABC):
+
+    @staticmethod
+    @abstractmethod
+    def get(cfs_id: str | None):
+        pass

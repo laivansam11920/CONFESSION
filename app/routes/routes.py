@@ -9,12 +9,14 @@ __all__ = [
     "get_data",
     "ping",
     "testing_route",
+    "moderation",
 ]
 
 
 main_route: Blueprint = Blueprint("main_route", __name__)
 get_data: Blueprint = Blueprint("get_data", __name__)
 ping: Blueprint = Blueprint("ping", __name__)
+moderation: Blueprint = Blueprint("moderation", __name__)
 testing_route: Blueprint = Blueprint("testing", __name__)
 
 if Config.CHANGE_GET_DATA_BY_WEB:
@@ -95,3 +97,9 @@ def get_comment_post():
 @limiter.exempt
 def ping_route():
     return {"success": True}
+
+@testing_route.get("/web_action")
+def web_action():
+    from flask import render_template
+
+    return render_template("moderation/action.html")
