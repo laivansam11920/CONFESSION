@@ -3,6 +3,7 @@ from flask import Blueprint, request
 from app.extensions.limiter import limiter
 from app.extensions.crfs import crfs
 from configs import Config
+from app.services.moderation.check_key import CheckKeyModerationService
 
 __all__ = [
     "main_route",
@@ -100,9 +101,6 @@ def ping_route():
 
 
 @moderation.route("/moderation", methods=["POST", "GET"])
-def moderation_route():
-    from flask import render_template
-
-    if request.method == "GET":
-        return render_template("moderation/action.html")  # type: ignore
-    return {"success": True}
+@CheckKeyModerationService.check
+def moderation_route(key_success: bool, cfs_id: str):
+    ...

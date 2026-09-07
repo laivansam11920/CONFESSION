@@ -40,6 +40,8 @@ class UpdateStatusModerationCfs:
             email = data.get("email")
 
             if ai_data.get("uncertain") and email:
+                if not Config.SEND_MAIL:
+                    return res
                 Email.send_mail(email=email, confession_id=cfs_id)
                 return res
 
