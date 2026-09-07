@@ -35,10 +35,12 @@ class PostFacebook(ABC):
     def post(self):
         pass
 
+
 class MailService(ABC):
 
     @abstractmethod
-    def send_mail(self, email: str, confession: ConfessionSchema): ...
+    def send_mail(self, email: str, confession_id: str): ...
+
 
 class GetCfs(ABC):
 

@@ -2,6 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field, computed_field
 from datetime import datetime
 from flask_babel import gettext as _
+from flask import request
 
 from app.utils.fb_page_id import get_facebook_page_info as get_id
 
@@ -81,7 +82,9 @@ class Settings(BaseSettings):
     def FACEBOOK_PAGE_ID(self) -> str:
         return get_id(self.FACEBOOK_PAGE_ACCESS_TOKEN)
 
+    # TODO: thay đổi toàn bộ link từ RENDER_EXTERNAL_URL sang SERVER_URL để có thể mở rộng được chứ chỉ không rieegn môi trường render.com
     RENDER_EXTERNAL_URL: str = Field(default="", alias="RENDER_EXTERNAL_URL")
+    SERVER_URL: str = Field(default=request.host_url, alias="SERVER_URL")
 
     HOUR: int = Field(default=11, alias="HOUR")
     MINUTE: int = Field(default=30, alias="MINUTE")

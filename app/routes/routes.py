@@ -98,8 +98,11 @@ def get_comment_post():
 def ping_route():
     return {"success": True}
 
-@testing_route.get("/web_action")
-def web_action():
+
+@moderation.route("/moderation", methods=["POST", "GET"])
+def moderation_route():
     from flask import render_template
 
-    return render_template("moderation/action.html")
+    if request.method == "GET":
+        return render_template("moderation/action.html")  # type: ignore
+    return {"success": True}
