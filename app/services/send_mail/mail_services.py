@@ -46,7 +46,7 @@ class EmailJS(MailService):
 
 
             res = post(self.url, json=data, timeout=20)
-
+            #TODO: làm 1 trang html lựa chọn có/không nhằm mục đích xác thực kèm link
             if res.status_code != 200:
                 console.error(res.text)
                 return False
