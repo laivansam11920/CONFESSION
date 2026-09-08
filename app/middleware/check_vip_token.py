@@ -14,7 +14,7 @@ def is_vip_token(token) -> bool:
                     "key": token,
                     "used": False,
                     "expires_at": {
-                        "$lte": datetime.now(timezone.utc),
+                        "$gte": datetime.now(timezone.utc),
                     },
                 },
                 {
