@@ -22,7 +22,7 @@ class CheckKeyModerationService:
                 token = request.args.get("token")
 
                 if not token:
-                    return func(key_success=False, *args, **kwargs)
+                    return func(key_success=False, cfs_id=0, *args, **kwargs)
 
                 res = (
                     db.docs.find_one_and_update(
@@ -35,10 +35,16 @@ class CheckKeyModerationService:
                 )
 
                 if not res:
-                    return func(key_success=False, *args, **kwargs)
-                return func(key_success=True, cfs_id=res.get("confession_id", ""), *args, **kwargs)
+                    return func(key_success=False, cfs_id=0, *args, **kwargs)
+                return func(
+                    key_success=True,
+                    cfs_id=res.get("confession_id", ""),
+                    *args,
+                    **kwargs
+                )
 
             except Exception as e:
                 console.error(e)
-                return func(key_success=False, *args, **kwargs)
+                return func(key_success=False,cfs_id=0, *args, **kwargs)
+
         return wrapper

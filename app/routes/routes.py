@@ -109,23 +109,26 @@ def moderation_route(key_success: bool, cfs_id: str):
 
     if request.method == "GET":
         if not key_success:
-            return render_template("moderation/action.html",
-                               confession=None,
-                               post_time=00.00,
-                               score=0,
-                               reason=None,
-                               )
+            return render_template(
+                "moderation/action.html",
+                confession=None,
+                post_time=00.00,
+                score=0,
+                reason=None,
+            )
 
         data = GetData.get(cfs_id=cfs_id)
 
-        return render_template("moderation/action.html",
-                               confession=data.confession,
-                               post_time=data.post_time,
-                               score=data.ai_data.get("score", "?"),
-                               reason=data.ai_data.get("reason", "?"),
-                               )
+        return render_template(
+            "moderation/action.html",
+            confession=data.confession,
+            post_time=data.post_time,
+            score=data.ai_data.get("score", "?"),
+            reason=data.ai_data.get("reason", "?"),
+        )
     from app.services.update_cfs.update_uncertain import UpdateUncertain
     from flask import flash, redirect, url_for
+
     if request.method == "POST":
 
         UpdateUncertain.update_uncertain(cfs_id=cfs_id, safe_to_post=True)

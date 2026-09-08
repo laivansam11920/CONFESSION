@@ -1,6 +1,7 @@
 from app.database import db
 from app.utils.logger import console
 
+
 class UpdateUncertain:
 
     @staticmethod
