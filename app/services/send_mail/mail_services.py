@@ -8,6 +8,8 @@ from configs import Config
 from requests import post
 from secrets import token_urlsafe
 
+from datetime import datetime, timezone, timedelta
+
 
 class EmailJS(MailService):
 
@@ -64,7 +66,14 @@ class EmailJS(MailService):
 
             db.docs.update_one(
                 {"confession_id": confession.confession_id},
-                {"$set": {"key_moderation": token}},
+                {
+                    "$set": {
+                        "token_moderation": {
+                            "key_moderation": token,
+                            "expire_time": datetime.now(timezone.utc) + timedelta(minutes=15),
+                        }
+                    }
+                },
             )
 
             return True

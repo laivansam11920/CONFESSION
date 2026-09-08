@@ -3,6 +3,7 @@ from app.utils.logger import console
 from configs import Config
 
 import functools
+from datetime import datetime, timezone
 
 from flask import request, render_template
 from pymongo import ReturnDocument
@@ -38,8 +39,13 @@ class CheckKeyModerationService:
 
                 res = (
                     db.docs.find_one_and_update(
-                        {"key_moderation": token},
-                        {"$set": {"key_moderation": "used"}},
+                        {
+                            "token_moderation.key_moderation": token,
+                            "token_moderation.expire_time": {
+                                "$gte": datetime.now(timezone.utc),
+                            }
+                        },
+                        {"$set": {"token_moderation.key_moderation": "used"}},
                         {"_id": 0, "confession_id": 1},
                         return_document=ReturnDocument.AFTER,
                     )
