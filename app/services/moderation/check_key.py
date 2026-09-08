@@ -4,7 +4,7 @@ from configs import Config
 
 import functools
 
-from flask import request
+from flask import request, render_template
 from pymongo import ReturnDocument
 
 
@@ -17,12 +17,24 @@ class CheckKeyModerationService:
             try:
 
                 if not Config.SEND_MAIL:
-                    return func(key_success=False, cfs_id=0, *args, **kwargs)
+                    return render_template(
+                        "moderation/action.html",
+                        confession=None,
+                        post_time=00.00,
+                        score=0,
+                        reason=None,
+                    )
 
                 token = request.args.get("token")
 
                 if not token:
-                    return func(key_success=False, cfs_id=0, *args, **kwargs)
+                    return render_template(
+                        "moderation/action.html",
+                        confession=None,
+                        post_time=00.00,
+                        score=0,
+                        reason=None,
+                    )
 
                 res = (
                     db.docs.find_one_and_update(
@@ -35,16 +47,17 @@ class CheckKeyModerationService:
                 )
 
                 if not res:
-                    return func(key_success=False, cfs_id=0, *args, **kwargs)
-                return func(
-                    key_success=True,
-                    cfs_id=res.get("confession_id", ""),
-                    *args,
-                    **kwargs
-                )
+                    return render_template(
+                        "moderation/action.html",
+                        confession=None,
+                        post_time=00.00,
+                        score=0,
+                        reason=None,
+                    )
+                return func(cfs_id=res.get("confession_id", ""), *args, **kwargs)
 
             except Exception as e:
                 console.error(e)
-                return func(key_success=False,cfs_id=0, *args, **kwargs)
+                return func(key_success=False, cfs_id=0, *args, **kwargs)
 
         return wrapper
