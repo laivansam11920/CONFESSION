@@ -66,7 +66,7 @@ class EmailJS(MailService):
                 return False
 
             db.token_moderation.update_one(
-                {"confession_id": confession.confession_id},
+                {"confession_id": confession_id},
                 {
                     "$set": {
                         "token_moderation": {
