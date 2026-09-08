@@ -17,7 +17,7 @@ class CheckKeyModerationService:
             try:
 
                 if not Config.SEND_MAIL:
-                    return func(key_success=False, *args, **kwargs)
+                    return func(key_success=False, cfs_id=0, *args, **kwargs)
 
                 token = request.args.get("token")
 
