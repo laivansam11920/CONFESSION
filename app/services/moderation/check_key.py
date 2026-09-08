@@ -1,11 +1,12 @@
 from app.database import db
 from app.utils.logger import console
+from app.utils.return_home import home_moderation
 from configs import Config
 
 import functools
 from datetime import datetime, timezone
 
-from flask import request, render_template
+from flask import request
 from pymongo import ReturnDocument
 
 
@@ -18,24 +19,12 @@ class CheckKeyModerationService:
             try:
 
                 if not Config.SEND_MAIL:
-                    return render_template(
-                        "moderation/action.html",
-                        confession=None,
-                        post_time=00.00,
-                        score=0,
-                        reason=None,
-                    )
+                    return home_moderation()
 
                 token = request.args.get("token")
 
                 if not token:
-                    return render_template(
-                        "moderation/action.html",
-                        confession=None,
-                        post_time=00.00,
-                        score=0,
-                        reason=None,
-                    )
+                    return home_moderation()
 
                 res = (
                     db.docs.find_one_and_update(
@@ -43,7 +32,7 @@ class CheckKeyModerationService:
                             "token_moderation.key_moderation": token,
                             "token_moderation.expire_time": {
                                 "$gte": datetime.now(timezone.utc),
-                            }
+                            },
                         },
                         {"$set": {"token_moderation.key_moderation": "used"}},
                         {"_id": 0, "confession_id": 1},
@@ -53,17 +42,12 @@ class CheckKeyModerationService:
                 )
 
                 if not res:
-                    return render_template(
-                        "moderation/action.html",
-                        confession=None,
-                        post_time=00.00,
-                        score=0,
-                        reason=None,
-                    )
+                    return home_moderation()
+
                 return func(cfs_id=res.get("confession_id", ""), *args, **kwargs)
 
             except Exception as e:
                 console.error(e)
-                return func(key_success=False, cfs_id=0, *args, **kwargs)
+                return home_moderation()
 
         return wrapper

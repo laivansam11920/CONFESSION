@@ -70,7 +70,8 @@ class EmailJS(MailService):
                     "$set": {
                         "token_moderation": {
                             "key_moderation": token,
-                            "expire_time": datetime.now(timezone.utc) + timedelta(minutes=15),
+                            "expire_time": datetime.now(timezone.utc)
+                            + timedelta(minutes=15),
                         }
                     }
                 },
