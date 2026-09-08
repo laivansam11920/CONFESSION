@@ -128,11 +128,9 @@ def moderation_route(key_success: bool, cfs_id: str):
     from flask import flash, redirect, url_for
     if request.method == "POST":
 
-
         UpdateUncertain.update_uncertain(cfs_id=cfs_id, safe_to_post=True)
         flash("thành công chấp thuận confession")
         return redirect(url_for("moderation.moderation_route"))
 
-    UpdateUncertain.update_uncertain(cfs_id=cfs_id, safe_to_post=False)
     flash("Đã xóa thành công confession")
     return redirect(url_for("moderation.moderation_route"))

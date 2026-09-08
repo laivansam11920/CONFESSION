@@ -11,6 +11,7 @@ def register_blueprints(app: Flask):
         get_data,
         ping,
         testing_route,
+        moderation,
     ]
 
     for route in all_routes:
