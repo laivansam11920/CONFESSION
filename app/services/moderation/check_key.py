@@ -27,7 +27,7 @@ class CheckKeyModerationService:
                     return home_moderation()
 
                 res = (
-                    db.docs.find_one_and_update(
+                    db.token_moderation.find_one_and_update(
                         {
                             "token_moderation.key_moderation": token,
                             "token_moderation.expire_time": {

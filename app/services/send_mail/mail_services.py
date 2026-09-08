@@ -31,8 +31,9 @@ class EmailJS(MailService):
             if not Config.SEND_MAIL:
                 return False
 
-            if not email:
+            if not (email and confession_id):
                 return False
+
 
             confession: ConfessionSchema = GetData(confession_id)
 
@@ -64,7 +65,7 @@ class EmailJS(MailService):
                 console.error(res.text)
                 return False
 
-            db.docs.update_one(
+            db.token_moderation.update_one(
                 {"confession_id": confession.confession_id},
                 {
                     "$set": {
@@ -75,6 +76,7 @@ class EmailJS(MailService):
                         }
                     }
                 },
+                upsert=True,
             )
 
             return True
