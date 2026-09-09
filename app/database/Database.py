@@ -16,6 +16,7 @@ try:
         timeoutMS=5000,
         serverSelectionTimeoutMS=5000,
         maxIdleTimeMS=45000,
+        tz_aware = True
     )
     client.admin.command("ping")
     db: Database[Any] = client[Config.MONGO_MAIN_DB]

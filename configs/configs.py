@@ -83,7 +83,7 @@ class Settings(BaseSettings):
         return get_id(self.FACEBOOK_PAGE_ACCESS_TOKEN)
 
     # TODO: thay đổi toàn bộ link từ RENDER_EXTERNAL_URL sang SERVER_URL để có thể mở rộng được chứ chỉ không rieegn môi trường render.com
-    RENDER_EXTERNAL_URL: str = Field(default="", alias="RENDER_EXTERNAL_URL")
+    RENDER_EXTERNAL_URL: str = Field(default="http://127.0.0.1:5000", alias="RENDER_EXTERNAL_URL")
 
     HOUR: int = Field(default=11, alias="HOUR")
     MINUTE: int = Field(default=30, alias="MINUTE")
