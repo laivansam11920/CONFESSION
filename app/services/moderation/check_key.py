@@ -29,16 +29,22 @@ class CheckKeyModerationService:
                     db.token_moderation.find_one_and_delete(
                         {
                             "token_moderation.key_moderation": token,
-                            "token_moderation.expire_time": {
-                                "$gte": datetime.now(timezone.utc),
-                            },
                         },
-                        {"_id": 0, "confession_id": 1},
+                        {
+                            "_id": 0,
+                            "confession_id": 1,
+                            "token_moderation.expire_time": 1,
+                        },
                     )
                     or {}
                 )
 
                 if not res:
+                    return home_moderation()
+
+                expire_time = res.get("token_moderation", {}).get("expire_time")
+
+                if not expire_time or expire_time < datetime.now(timezone.utc):
                     return home_moderation()
 
                 return func(cfs_id=res.get("confession_id", ""), *args, **kwargs)
