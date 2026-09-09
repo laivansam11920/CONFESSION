@@ -34,9 +34,14 @@ class CheckKeyModerationService:
                                 "$gte": datetime.now(timezone.utc),
                             },
                         },
-                        {"$set": {"token_moderation.key_moderation": "used"}},
+                        {
+                            "$set": {
+                                "token_moderation.key_moderation": "",
+                                "confession_id": "",
+                            }
+                        },
                         {"_id": 0, "confession_id": 1},
-                        return_document=ReturnDocument.AFTER,
+                        return_document=ReturnDocument.BEFORE,
                     )
                     or {}
                 )

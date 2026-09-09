@@ -34,8 +34,7 @@ class EmailJS(MailService):
             if not (email and confession_id):
                 return False
 
-
-            confession: ConfessionSchema = GetData(confession_id)
+            confession: ConfessionSchema = GetData.get(confession_id)
 
             if not (
                 confession.confession and confession.post_time and confession.ai_data
