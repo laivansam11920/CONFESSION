@@ -100,10 +100,10 @@ def ping_route():
     return {"success": True}
 
 
-@moderation.route("/moderation", methods=["POST", "GET", "DELETE"])
+@moderation.route("/moderation", methods=["POST", "GET"])
 @CheckKeyModerationService.check
 def moderation_route(cfs_id: str):
-    from flask import render_template, flash, redirect, url_for
+    from flask import render_template, flash, redirect, url_for, request
 
     from app.services.get_data.get_uncertain_cfs import GetData
     from app.services.update_cfs.update_uncertain import UpdateUncertain
@@ -122,10 +122,12 @@ def moderation_route(cfs_id: str):
 
     msg = ""
 
-    if request.method == "POST":
+    action = request.form.get("action")
+
+    if action == "accept":
 
         UpdateUncertain.update_uncertain(cfs_id=cfs_id, safe_to_post=True)
-        msg = "thành công chấp thuận confession"
+        msg = "Thành công chấp thuận confession"
 
     flash(msg or "Đã xóa thành công confession")
     return redirect(url_for("moderation.moderation_route"))

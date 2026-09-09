@@ -31,9 +31,12 @@
     </div>
 
     <div class="action-buttons">
-      <button class="btn-accept" type="button">Accept</button>
-      <button class="btn-remove" type="button">Remove</button>
-    </div>
+    <form action="/moderation" method="POST">
+        <!-- TODO: fix lỗi nút hiện sai -->
+        <button class="btn-accept" type="submit" name="action" value="accept">Accept</button>
+        <button class="btn-remove" type="submit" name="action" value="remove">Remove</button>
+    </form>
+</div>
 
   </div>
 
