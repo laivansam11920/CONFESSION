@@ -7,7 +7,6 @@ import functools
 from datetime import datetime, timezone
 
 from flask import request
-from pymongo import ReturnDocument
 
 
 class CheckKeyModerationService:
@@ -27,21 +26,14 @@ class CheckKeyModerationService:
                     return home_moderation()
 
                 res = (
-                    db.token_moderation.find_one_and_update(
+                    db.token_moderation.find_one_and_delete(
                         {
                             "token_moderation.key_moderation": token,
                             "token_moderation.expire_time": {
                                 "$gte": datetime.now(timezone.utc),
                             },
                         },
-                        {
-                            "$set": {
-                                "token_moderation.key_moderation": "",
-                                "confession_id": "",
-                            }
-                        },
                         {"_id": 0, "confession_id": 1},
-                        return_document=ReturnDocument.BEFORE,
                     )
                     or {}
                 )
