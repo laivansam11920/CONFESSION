@@ -13,9 +13,13 @@ def home() -> Response:
     )
 
 
-def home_moderation() -> str:
+def home_moderation():
+    from flask import request
 
     text: str = _("Không được hiện thị")
+
+    if request.method == "POST":
+        return redirect(url_for("moderation.moderation_route"))
 
     return render_template(
         "moderation/action.html",

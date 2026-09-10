@@ -25,6 +25,23 @@ class CheckKeyModerationService:
                 if not token:
                     return home_moderation()
 
+                if request.method == "GET":
+
+                    res = db.token_moderation.find_one(
+                        {
+                            "token_moderation.key_moderation": token,
+                            "token_moderation.expire_time": {
+                                "$gte": datetime.now(timezone.utc),
+                            },
+                        },
+                        {"_id": 0, "confession_id": 1},
+                    )
+
+                    if not res:
+                        return home_moderation()
+
+                    return func(cfs_id=res.get("confession_id", ""), *args, **kwargs)
+
                 res = (
                     db.token_moderation.find_one_and_delete(
                         {
