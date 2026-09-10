@@ -3,7 +3,6 @@ from flask import Blueprint, request
 from app.extensions.limiter import limiter
 from app.extensions.crfs import crfs
 from configs import Config
-from app.services.moderation.check_key import CheckKeyModerationService
 
 __all__ = [
     "main_route",
