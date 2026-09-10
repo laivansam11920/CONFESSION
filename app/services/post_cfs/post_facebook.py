@@ -40,6 +40,7 @@ class PostFacebookCommon(PostFacebook):
                 return False
 
             post_text: str = Config.TOPIC_SENTENCE
+            _count_post: int = 0
 
             ignore_cfs_id = []
 
@@ -57,6 +58,7 @@ class PostFacebookCommon(PostFacebook):
                 post_text += f"\n#cfs{cfs_count}\n"
                 post_text += f"{confession_text}\n"
                 post_text += f"-> {admin_comment}\n" if admin_comment else "\n"
+                _count_post += 1
 
             if link_cfs_post := Config.RENDER_EXTERNAL_URL:
                 post_text += self.long_line
@@ -66,7 +68,9 @@ class PostFacebookCommon(PostFacebook):
 
             payload = {"message": post_text, "access_token": self.page_access_token}
 
-            # TODO: giải quyết vấn đề không có cfs mà vẫn post
+            if not _count_post:
+                return False
+
             res = post(self.url, data=payload, timeout=5)
             fb_data = res.json()
 
