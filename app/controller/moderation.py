@@ -25,9 +25,8 @@ def moderation_api_ctl(cfs_id: str | None = None):
 
     msg = ""
     _accept = False
-    action = request.form.get("action", "?")
 
-    if action == "accept":
+    if request.form.get("action", "?") == "accept":
         _accept = True
         msg = _("Thành công chấp thuận confession")
 
