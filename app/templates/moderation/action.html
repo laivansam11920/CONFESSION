@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ _("Xác thực confession") }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/moderation/action.css') }}">
+    <style>
+        :root {
+            --main-color: {{ config.TOPIC_COLOR }};
+        }
+    </style>
 </head>
 <body>
 
