@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     DEBUG: bool = Field(default=False, alias="DEBUG")
     TEST: bool = Field(default=False, alias="TEST")
     SECRET_KEY: str = Field(..., alias="SECRET_KEY")
+    PROXY_SETTING: dict = Field(default={"x_for": 2, "x_proto": 1, "x_host": 1}, alias="PROXY_SETTING")
 
     CHANGE_GET_DATA_BY_WEB: bool = Field(default=True, alias="CHANGE_GET_DATA_BY_WEB")
     CHANGE_GET_DATA_BY_GOOGLE_FORM: bool = Field(

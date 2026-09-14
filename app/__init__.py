@@ -12,7 +12,7 @@ from configs import Config
 def create_app() -> Flask:
 
     app = Flask(__name__)
-    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=2, x_proto=1, x_host=1)
+    app.wsgi_app = ProxyFix(app.wsgi_app, **Config.PROXY_SETTING)
     app.config.from_object(Config)
     limiter.init_app(app)
     crfs.init_app(app)
