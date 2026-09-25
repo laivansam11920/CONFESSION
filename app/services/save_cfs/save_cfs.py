@@ -42,8 +42,6 @@ class SaveConfession:
                     .limit(Config.MAX_DOCS_GET)
                 )
 
-                matched_id = None
-
                 for doc in old_docs:
                     if is_similar(
                         confession_data.confession,
@@ -51,25 +49,21 @@ class SaveConfession:
                         similarity_threshold=Config.SIMILARITY_THRESHOLD,
                         on_normalize_text=True,
                     ):
-                        matched_id = doc["confession_id"]
-                        break
+                        db.docs.update_one(
+                            {"confession_id": doc["confession_id"]},
+                            {
+                                "$inc": {"same_post_count": 1},
+                                "$addToSet": {"email": confession_data.email[0]},
+                            },
+                        )
 
-                if matched_id is not None:
-                    db.docs.update_one(
-                        {"confession_id": matched_id},
-                        {
-                            "$inc": {"same_post_count": 1},
-                            "$addToSet": {"email": confession_data.email[0]},
-                        },
-                    )
-
-                    return ReturnSchema(
-                        success=True,
-                        msg=_(
-                            "Nội dung này có vẻ trùng với bài trước, hệ thống đã tự động cộng dồn lượt tương tự cho bạn rồi nhé!"
-                        ),
-                        status="success",
-                    )
+                        return ReturnSchema(
+                            success=True,
+                            msg=_(
+                                "Nội dung này có vẻ trùng với bài trước, hệ thống đã tự động cộng dồn lượt tương tự cho bạn rồi nhé!"
+                            ),
+                            status="success",
+                        )
 
             confession_data_dict = asdict(confession_data)
 

@@ -38,6 +38,11 @@ class PostFacebookVip(PostFacebook):
             or {}
         )
 
-        return data.get("confession"), data.get("sponsor_requirements", {})
+        return ConfessionSchema(
+            confession=data.get("confession", ""),
+            sponsor_requirements=data.get("sponsor_requirements", {}),
+            confession_id=confession.confession_id,
+            post_time=0,
+        )
 
     def post(self, confession: ConfessionSchema | None = None): ...
