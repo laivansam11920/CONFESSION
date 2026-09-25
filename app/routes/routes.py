@@ -49,7 +49,7 @@ if Config.CHANGE_GET_DATA_BY_GOOGLE_FORM:
         return get_data_google.get_data()
 
 
-#@testing_route.route("/get_comment_post")
+# @testing_route.route("/get_comment_post")
 def get_comment_post():
     """from flask import request, jsonify
     from configs import Config

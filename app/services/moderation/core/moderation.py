@@ -6,11 +6,10 @@ from app.schema.ResponeSchema import *
 from app.schema.confession import ConfessionSchema
 from app.schema.ReturnSchema import ReturnSchema
 from app.services.moderation.set_cfs_status import UpdateStatusModerationCfs as Cfs
+from app.extensions.gemini_connect import client
 from configs import Config
 
-from google import genai
 from google.genai.errors import ClientError, APIError
-from google.genai import types
 from pymongo.errors import PyMongoError
 
 from json import loads
@@ -23,10 +22,7 @@ class GenAIModeration(AiServices):
     def __init__(self):
         AiServices.__init__(
             self,
-            client=genai.Client(
-                api_key=Config.GOOGLE_AI_API_KEY,
-                http_options=types.HttpOptions(timeout=30000),
-            ),
+            client=client,
             model=Config.MODEL_GOOGLE_AI,
         )
         self.default_res = ConfessionItemResult()
