@@ -31,26 +31,23 @@ class GenAIModeration(AiServices):
     def _save_confession_moderation(
         cfs: ConfessionSchema, response: ConfessionItemResult
     ) -> None:
-        def update():
-            try:
-                db.docs.update_one(
-                    {"confession_id": cfs.confession_id},
-                    {
-                        "$set": {
-                            "ai_data": {
-                                "score": response.score,
-                                "reason": response.reason,
-                                "propose": response.propose,
-                                "uncertain": response.uncertain,
-                            },
-                            "status": "approved",
+        try:
+            db.docs.update_one(
+                {"confession_id": cfs.confession_id},
+                {
+                    "$set": {
+                        "ai_data": {
+                            "score": response.score,
+                            "reason": response.reason,
+                            "propose": response.propose,
+                            "uncertain": response.uncertain,
                         },
+                        "status": "approved",
                     },
-                )
-            except PyMongoError as e:
-                console.error(e)
-
-        update()
+                },
+            )
+        except PyMongoError as e:
+            console.error(e)
 
     def get_response(self, contents_input: str) -> ConfessionItemResult:
         try:

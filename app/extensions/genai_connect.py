@@ -4,9 +4,7 @@ from configs import Config
 
 __all__ = ["client"]
 
-client: Client = (
-    Client(
-        api_key=Config.GOOGLE_AI_API_KEY,
-        http_options=types.HttpOptions(timeout=50000),
-    )
+client: Client = Client(
+    api_key=Config.GOOGLE_AI_API_KEY,
+    http_options=types.HttpOptions(timeout=50000),
 )
