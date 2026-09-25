@@ -25,6 +25,8 @@ class GetDataWeb(GetData):
         is_sponsor: bool = False,
         post_time_reqs: str = "",
         use_tag_cfs_reqs: str = "",
+        *args,
+        **kwargs,
     ) -> Response:
         try:
 
@@ -62,6 +64,8 @@ class GetDataGoogleForm(GetData):
         is_sponsor: bool = False,
         post_time_reqs: str = "",
         use_tag_cfs_reqs: str = "",
+        *args,
+        **kwargs
     ) -> tuple[dict, int]:
         try:
 
