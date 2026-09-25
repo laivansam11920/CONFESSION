@@ -6,7 +6,7 @@ from app.schema.ResponeSchema import *
 from app.schema.confession import ConfessionSchema
 from app.schema.ReturnSchema import ReturnSchema
 from app.services.moderation.set_cfs_status import UpdateStatusModerationCfs as Cfs
-from app.extensions.gemini_connect import client
+from app.extensions.genai_connect import client
 from configs import Config
 
 from google.genai.errors import ClientError, APIError
