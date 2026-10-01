@@ -65,7 +65,7 @@ class GetDataGoogleForm(GetData):
         post_time_reqs: str = "",
         use_tag_cfs_reqs: str = "",
         *args,
-        **kwargs
+        **kwargs,
     ) -> tuple[dict, int]:
         try:
 

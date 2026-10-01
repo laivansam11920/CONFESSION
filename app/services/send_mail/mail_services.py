@@ -43,19 +43,21 @@ class EmailJS(MailService):
 
             token: str = token_urlsafe(32)
 
+            template_params = {
+                "email": email,
+                "link": f"{Config.RENDER_EXTERNAL_URL}/moderation?token={token}",
+                "confession": confession.confession,
+                "post_time": confession.post_time,
+                "score": confession.ai_data.get("score", "?"),
+                "reason": confession.ai_data.get("reason", "?"),
+            }
+
             data: dict = {
                 "service_id": self.service_id,
                 "template_id": self.template_id,
                 "user_id": self.public_key,
                 "accessToken": self.private_key,
-                "template_params": {
-                    "email": email,
-                    "link": f"{Config.RENDER_EXTERNAL_URL}/moderation?token={token}",
-                    "confession": confession.confession,
-                    "post_time": confession.post_time,
-                    "score": confession.ai_data.get("score", "?"),
-                    "reason": confession.ai_data.get("reason", "?"),
-                },
+                "template_params": template_params,
             }
 
             res = post(self.url, json=data, timeout=20)
