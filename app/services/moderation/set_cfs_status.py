@@ -39,7 +39,7 @@ class UpdateStatusModerationCfs:
             score = ai_data.get("score")
             email = data.get("email")
 
-            if ai_data.get("uncertain") and email:
+            if ai_data.get("uncertain", True) and email:
                 if not Config.SEND_MAIL:
                     ...
                     return res

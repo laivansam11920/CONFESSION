@@ -1,4 +1,4 @@
-from google.genai import types, Client
+from google.genai import Client
 
 from configs import Config
 from app.utils.logger import console

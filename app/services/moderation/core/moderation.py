@@ -88,6 +88,7 @@ class GenAIModeration(AiServices):
                 or response.score is None
                 or not (response.reason and response.propose)
             ):
+                console.error("Nothing AI response")
                 self._save_confession_moderation(cfs, self.default_res)
                 return ReturnSchema()
 
