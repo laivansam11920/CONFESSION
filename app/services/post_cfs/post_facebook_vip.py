@@ -12,18 +12,22 @@ mô tả chức năng của post_facebook_vip:
 from app.base import PostFacebook
 from app.database import db
 from app.schema.confession import ConfessionSchema
+from app.utils.logger import console
+
+from requests import post
 
 
 class PostFacebookVip(PostFacebook):
 
     def __init__(self):
         super().__init__()
+        self.url = f"https://graph.facebook.com/v19.0/{self.page_id}/feed"
 
     @staticmethod
-    def check(confession: ConfessionSchema):
+    def check(confession: ConfessionSchema | None = None) -> ConfessionSchema:
 
         if not confession:
-            return "", {}
+            return ConfessionSchema(confession="", confession_id="", post_time=0)
 
         data = (
             db.docs.find_one(
@@ -45,4 +49,27 @@ class PostFacebookVip(PostFacebook):
             post_time=0,
         )
 
-    def post(self, confession: ConfessionSchema | None = None): ...
+    def post(self, confession: ConfessionSchema | None = None):
+
+        data: ConfessionSchema = self.check(confession)
+
+        if not data.confession:
+            return False
+
+        payload = {"message": data.confession, "access_token": self.page_access_token}
+
+        res = post(self.url, data=payload, timeout=5)
+        fb_data = res.json()
+
+        if res.status_code != 200:
+            console.warning(
+                f"Facebook post failed: {fb_data.get('error', {}).get('message')}"
+            )
+            return False
+
+        db.docs.update_one(
+            {"confession_id": data.confession_id},
+            {"$set": {"send": True}},
+        )
+
+        return True
