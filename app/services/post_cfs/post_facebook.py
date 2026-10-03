@@ -5,6 +5,8 @@ from app.base import PostFacebook
 
 from requests import post
 
+from flask_babel import gettext as _
+
 __all__ = ["Facebook"]
 
 
@@ -63,8 +65,8 @@ class PostFacebookCommon(PostFacebook):
             if link_cfs_post := Config.RENDER_EXTERNAL_URL:
                 post_text += self.long_line
                 if g_name := Config.NAME_GROUP_USE_PROJECT:
-                    post_text += f"Maintain: {g_name}\n"
-                post_text += f"link gửi confession: {link_cfs_post}\n"
+                    post_text += _(f"Maintain: ") + f"{g_name}\n"
+                post_text += _("link gửi confession: ") + f"{link_cfs_post}\n"
 
             payload = {"message": post_text, "access_token": self.page_access_token}
 
