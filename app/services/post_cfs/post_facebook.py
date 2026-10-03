@@ -16,7 +16,6 @@ class PostFacebookCommon(PostFacebook):
 
     def __init__(self):
         super().__init__()
-        self.url = f"https://graph.facebook.com/v19.0/{self.page_id}/feed"
         self.long_line = "\n--------------------------------------\n"
 
     def post(self) -> bool:

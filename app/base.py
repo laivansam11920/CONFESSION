@@ -26,10 +26,12 @@ class PostFacebook(ABC):
 
     page_id: str
     access_token: str
+    url: str
 
     def __init__(self):
         self.page_id = Config.FACEBOOK_PAGE_ID
         self.page_access_token = Config.FACEBOOK_PAGE_ACCESS_TOKEN
+        self.url = f"https://graph.facebook.com/v19.0/{self.page_id}/feed"
 
     @abstractmethod
     def post(self):
