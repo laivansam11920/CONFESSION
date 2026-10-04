@@ -47,6 +47,7 @@ class UpdateStatusModerationCfs:
                 return res
 
             # TODO: phát triển cơ chế thông báo nếu cfs vi phạm bằng session
+            # TODO: xây dựng tính năng tự chọn cfs của vip ở đây
             if score and score > Config.MAX_MODERATION_SCORE:
                 db.docs.update_one(
                     {"confession_id": res.data.get("confession_id")},

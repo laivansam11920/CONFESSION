@@ -55,6 +55,11 @@ class PostFacebookVip(PostFacebook):
         if not data.confession:
             return False
 
+        cfs = data.confession
+
+        if data.sponsor_requirements.get("use_tag_cfs_reqs", False):
+            cfs = ""
+
         payload = {"message": data.confession, "access_token": self.page_access_token}
 
         res = post(self.url, data=payload, timeout=5)
