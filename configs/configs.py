@@ -56,6 +56,7 @@ class Settings(BaseSettings):
     ALWAYS_ON: bool = Field(default=True, alias="ALWAYS_ON")
     VIP_CFS_ON: bool = Field(default=True, alias="VIP_CFS_ON")
     SEND_MAIL: bool = Field(default=False, alias="SEND_MAIL")
+    TIME_ZONE: str = Field(default="Asia/Ho_Chi_Minh", alias="TIME_ZONE")
 
     BABEL_DEFAULT_LOCALE: str = Field(default="en", alias="BABEL_DEFAULT_LOCALE")
     BABEL_TRANSLATION_DIRECTORIES: str = Field(

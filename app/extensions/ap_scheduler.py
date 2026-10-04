@@ -1,5 +1,7 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 import pytz
 
-tz = pytz.timezone("Asia/Ho_Chi_Minh")
+from configs import Config
+
+tz = pytz.timezone(Config.TIME_ZONE)
 scheduler = BackgroundScheduler(timezone=tz)
