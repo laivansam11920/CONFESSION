@@ -67,7 +67,7 @@ class SaveConfession:
 
             confession_data_dict = asdict(confession_data)
 
-            if not Config.MODERATION_CONFESSION and not confession_data.is_sponsor:
+            if not Config.MODERATION_CONFESSION:
                 confession_data_dict["cfs"] = cfs_nums()
 
             db.docs.insert_one(confession_data_dict)
