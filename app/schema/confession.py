@@ -10,7 +10,7 @@ class DataRequirements:
     use_tag_cfs_reqs: bool = False
 
 
-@dataclass(frozen=True)
+@dataclass
 class ConfessionSchema:
     confession: str
     confession_id: str
@@ -29,3 +29,5 @@ class ConfessionSchema:
 
     ai_data: dict[str, int | bool] = field(default_factory=dict)
     user_tracking_data: list[str] = field(default_factory=list)
+
+    cfs: int = 0

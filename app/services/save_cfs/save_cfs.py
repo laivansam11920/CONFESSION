@@ -65,20 +65,18 @@ class SaveConfession:
                             status="success",
                         )
 
-            confession_data_dict = asdict(confession_data)
-
             if not Config.MODERATION_CONFESSION:
                 # TODO: giả sử nếu admin tắt kiểm duyệt và tự kiểm tay, nếu gắn bất chấp như này thì lỡ may bị phát hiện 1 cfs độc thì sẽ đứt chuỗi cfs-nums
-                confession_data_dict["cfs"] = cfs_nums()
+                confession_data.cfs = cfs_nums()
 
-            db.docs.insert_one(confession_data_dict)
+            db.docs.insert_one(asdict(confession_data))
 
             return ReturnSchema(
                 success=True,
                 msg=_("Lưu confession thành công rồi nhé!"),
                 status="success",
                 data={
-                    "confession_id": confession_data_dict["confession_id"],
+                    "confession_id": confession_data.confession_id,
                 },
             )
 
