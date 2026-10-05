@@ -62,6 +62,7 @@ class PostFacebookVip(PostFacebook):
 
         payload = {"message": data.confession, "access_token": self.page_access_token}
 
+        #TODO: xây dựng tính năng tự chọn thời gian post ở đây
         res = post(self.url, data=payload, timeout=5)
         fb_data = res.json()
 
