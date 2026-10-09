@@ -35,10 +35,16 @@ def check_input_data(func):
             min_len: int = Config.MIN_LEN_CONFESSION_ALLOW
             is_sponsor: bool = False
 
+            post_time_reqs: str = ""
+            use_tag_cfs_reqs: str = ""
+
             if key_vip and Config.VIP_ALLOW and is_vip_token(key_vip):
                 is_sponsor = True
                 max_len = Config.MAX_LEN_CONFESSION_VIP_ALLOW
                 min_len = Config.MIN_LEN_CONFESSION_VIP_ALLOW
+
+                post_time_reqs = request.form.get("post_time_reqs", "")
+                use_tag_cfs_reqs = request.form.get("use_tag_cfs_reqs", "")
 
             res_check_len = check_max_len(confession, max_len, min_len)
 
@@ -50,8 +56,8 @@ def check_input_data(func):
                 email=email,
                 confession=confession,
                 is_sponsor=is_sponsor,
-                post_time_reqs=request.form.get("post_time_reqs") or "",
-                use_tag_cfs_reqs=request.form.get("use_tag_cfs_reqs") or "",
+                post_time_reqs=post_time_reqs,
+                use_tag_cfs_reqs=use_tag_cfs_reqs,
                 *args,
                 **kwargs
             )

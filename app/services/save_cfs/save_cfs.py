@@ -50,7 +50,7 @@ class SaveConfession:
                         on_normalize_text=True,
                     ):
                         db.docs.update_one(
-                            {"confession_id": doc["confession_id"]},
+                            {"confession_id": doc.get("confession_id", 0)},
                             {
                                 "$inc": {"same_post_count": 1},
                                 "$addToSet": {"email": confession_data.email[0]},
