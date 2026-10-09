@@ -36,7 +36,7 @@ def check_input_data(func):
             is_sponsor: bool = False
 
             post_time_reqs: str = ""
-            use_tag_cfs_reqs: str = ""
+            use_tag_cfs_reqs: bool | str = True
 
             if key_vip and Config.VIP_ALLOW and is_vip_token(key_vip):
                 is_sponsor = True
@@ -44,7 +44,7 @@ def check_input_data(func):
                 min_len = Config.MIN_LEN_CONFESSION_VIP_ALLOW
 
                 post_time_reqs = request.form.get("post_time_reqs", "")
-                use_tag_cfs_reqs = request.form.get("use_tag_cfs_reqs", "")
+                use_tag_cfs_reqs = request.form.get("use_tag_cfs_reqs", False)
 
             res_check_len = check_max_len(confession, max_len, min_len)
 

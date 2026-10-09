@@ -24,7 +24,7 @@ class GetDataWeb(GetData):
         confession: str = "",
         is_sponsor: bool = False,
         post_time_reqs: str = "",
-        use_tag_cfs_reqs: str = "",
+        use_tag_cfs_reqs: bool = True,
         *args,
         **kwargs,
     ) -> Response:
@@ -63,7 +63,7 @@ class GetDataGoogleForm(GetData):
         confession: str = "",
         is_sponsor: bool = False,
         post_time_reqs: str = "",
-        use_tag_cfs_reqs: str = "",
+        use_tag_cfs_reqs: bool = True,
         *args,
         **kwargs,
     ) -> tuple[dict, int]:
