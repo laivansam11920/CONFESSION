@@ -10,6 +10,8 @@ class ConfessionSchema:
     post_time: int
     email: str
     same_post_count: int = 0
+    safe_to_post: bool = False
+    humans_check_safe: bool = False
     status: str = "pending"
     send: bool = False
 ```
@@ -43,6 +45,18 @@ email: str
 same_post_count: int = 0
 ```
 **same_post_count**: gi lại những bài đăng có cùng nội dung(ký tự) với bài đăng hiện tại.
+
+---
+```python
+safe_to_post: bool = False
+```
+**safe_to_post**: xác nhận confession đã đủ điều kiện đăng lên Facebook.
+
+---
+```python
+humans_check_safe: bool = False
+```
+**humans_check_safe**: dùng cho kiểm duyệt thủ công; khi admin đặt `True`, service quét sẽ cấp số `cfs` và chuyển confession sang trạng thái sẵn sàng đăng.
 
 ---
 ```python
