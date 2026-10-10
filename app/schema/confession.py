@@ -29,5 +29,6 @@ class ConfessionSchema:
 
     ai_data: dict[str, int | bool] = field(default_factory=dict)
     user_tracking_data: list[str] = field(default_factory=list)
+    humans_check_safe: bool = False
 
     cfs: int = 0
