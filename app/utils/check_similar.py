@@ -22,3 +22,6 @@ def is_similar(
         normalize_text(text2, on_normalize_text),
     )
     return score >= similarity_threshold
+
+
+# TODO: Nếu 1 confession không có nghĩa rõ ràng hoặc không có nghĩa thì nên kiểm tra như thế nào để giảm thiểu tối đa chi phí(ít hoặc không dùng đến AI hoặc con người)

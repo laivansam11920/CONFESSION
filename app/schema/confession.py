@@ -23,6 +23,9 @@ class ConfessionSchema:
 
     safe_to_post: bool = False
     status: str = "pending"
+    humans_check_safe: bool = (
+        False  # New: cái này là biến để admin tự kiểm duyệt khi tắt kiểm duyệt hệ thống.
+    )
     send: bool = False
     is_sponsor: bool = False
     sponsor_requirements: dict = field(default_factory=dict)
