@@ -1,6 +1,7 @@
 from configs import Config
 from app.utils.logger import console
 from app.services.post_cfs.post_facebook import Facebook
+from app.services.moderation.scan_pending_confessions import ModerationQueueScanner
 
 from time import sleep
 from requests import get
@@ -19,6 +20,7 @@ def self_ping():
 
 def my_daily_task():
     try:
+        ModerationQueueScanner.scan()
         Facebook.post()
     except Exception as e:
         console.error(e)

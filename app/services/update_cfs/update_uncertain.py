@@ -1,4 +1,4 @@
-from app.database import db
+from app.services.moderation.scan_pending_confessions import ModerationQueueScanner
 from app.utils.logger import console
 
 
@@ -11,12 +11,10 @@ class UpdateUncertain:
             if not cfs_id:
                 return False
 
-            db.docs.update_one(
-                {"confession_id": cfs_id},
-                {"$set": {"safe_to_post": safe_to_post}},
-            )
+            if safe_to_post:
+                return ModerationQueueScanner.approve_by_human(cfs_id)
 
-            return True
+            return ModerationQueueScanner.reject_by_human(cfs_id)
 
         except Exception as e:
             console.error(e)
