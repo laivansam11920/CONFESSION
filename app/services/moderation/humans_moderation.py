@@ -27,8 +27,10 @@ class HumansModeration:
     def check(self, func):
         @wraps(func)
         def wrapper(*args, **kwargs):
+
             res: ReturnSchema = func(*args, **kwargs)
             Thread(target=lambda: self._update_confession(res), daemon=True).start()
+
             return res
 
         return wrapper
