@@ -4,6 +4,7 @@ from app.utils.logger import console
 
 from functools import wraps
 from threading import Thread
+from typing import Callable
 
 
 class HumansModeration:
@@ -24,7 +25,7 @@ class HumansModeration:
             console.error(e)
             return False
 
-    def check(self, func):
+    def check(self, func) -> Callable:
         @wraps(func)
         def wrapper(*args, **kwargs):
 
