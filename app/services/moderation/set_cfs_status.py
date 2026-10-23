@@ -1,6 +1,6 @@
 from app.database import db
 from app.schema.ReturnSchema import ReturnSchema
-from app.utils.get_cfs_count import cfs_nums
+from app.services.moderation.scan_pending_confessions import ModerationQueueScanner
 from app.services.send_mail.mail_services import Email
 from configs import Config
 
@@ -22,13 +22,11 @@ class UpdateStatusModerationCfs:
                 return res
 
             cfs_id = res.data.get("confession_id")
-
             data = (
                 db.docs.find_one(
                     {
                         "confession_id": cfs_id,
                         "send": False,
-                        "status": "approved",
                     },
                     {"_id": 0, "ai_data": 1, "email": 1},
                 )
@@ -36,23 +34,12 @@ class UpdateStatusModerationCfs:
             )
 
             ai_data = data.get("ai_data", {})
-            score = ai_data.get("score")
             email = data.get("email")
 
-            if ai_data.get("uncertain", True) and email:
-                if not Config.SEND_MAIL:
-                    ...
-                    return res
+            if ai_data.get("uncertain", True) and email and Config.SEND_MAIL:
                 Email.send_mail(email=email, confession_id=cfs_id)
-                return res
 
-            # TODO: phát triển cơ chế thông báo nếu cfs vi phạm bằng session
-            # TODO: xây dựng tính năng tự chọn cfs của vip ở đây
-            if score and score > Config.MAX_MODERATION_SCORE:
-                db.docs.update_one(
-                    {"confession_id": res.data.get("confession_id")},
-                    {"$set": {"safe_to_post": True, "cfs": cfs_nums()}},
-                )
+            ModerationQueueScanner.scan(cfs_id)
 
             return res
 

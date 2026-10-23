@@ -77,7 +77,7 @@ class GenAIModeration(AiServices):
 
             if not Config.MODERATION_CONFESSION or not cfs.confession:
                 self._save_confession_moderation(cfs, self.default_res)
-                return ReturnSchema()
+                return ReturnSchema(success=True, data={"confession_id": cfs.confession_id})
 
             response: ConfessionItemResult = self.get_response(
                 moderation_prompts(cfs.confession)
@@ -90,7 +90,7 @@ class GenAIModeration(AiServices):
             ):
                 console.error("Nothing AI response")
                 self._save_confession_moderation(cfs, self.default_res)
-                return ReturnSchema()
+                return ReturnSchema(success=True, data={"confession_id": cfs.confession_id})
 
             self._save_confession_moderation(cfs, response)
 
