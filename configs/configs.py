@@ -2,7 +2,6 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field, computed_field
 from datetime import datetime
 from flask_babel import gettext as _
-from flask import request
 
 from app.utils.fb_page_id import get_facebook_page_info as get_id
 
