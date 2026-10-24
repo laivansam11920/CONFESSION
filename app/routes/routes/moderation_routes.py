@@ -5,6 +5,7 @@ __all__ = ["moderation"]
 
 moderation: Blueprint = Blueprint("moderation", __name__)
 
+
 @moderation.get("/moderation")
 @limiter.exempt
 def moderation_route():

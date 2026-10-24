@@ -4,6 +4,7 @@ __all__ = ["testing_route"]
 
 testing_route: Blueprint = Blueprint("testing", __name__)
 
+
 # @testing_route.route("/get_comment_post")
 def get_comment_post():
     """from flask import request, jsonify
