@@ -19,8 +19,11 @@ def check_input_data(func):
             email: str = request.form.get("email", "anonymous")
             key_vip: str = request.form.get("key_vip", "")
 
-            if email != "anonymous":
-                validate_email(email, check_deliverability=False)
+            try: #TDOD: Xây dựng tính năng thông báo khi sai email
+                if email != "anonymous":
+                    validate_email(email, check_deliverability=False)
+            except EmailNotValidError:
+                email = "anonymous"
 
             if not confession or not confession.strip():
                 flash(
@@ -61,9 +64,6 @@ def check_input_data(func):
                 *args,
                 **kwargs
             )
-        except EmailNotValidError:
-            flash(_("Email của bạn không hợp lệ!"), "error")
-            return home()
         except Exception as e:
             console.error(e)
             flash(
