@@ -19,7 +19,7 @@ def check_input_data(func):
             email: str = request.form.get("email", "anonymous")
             key_vip: str = request.form.get("key_vip", "")
 
-            try: #TDOD: Xây dựng tính năng thông báo khi sai email
+            try:  # TDOD: Xây dựng tính năng thông báo khi sai email
                 if email != "anonymous":
                     validate_email(email, check_deliverability=False)
             except EmailNotValidError:
