@@ -6,12 +6,12 @@ from app.utils.return_home import home
 from app.utils.logger import console
 from app.validation.check_input_data import check_input_data
 
-from flask import flash
+from flask import flash, Response
 
 import uuid
 import time
-from typing import Any
 
+__all__ = ["get_data_main"]
 
 class GetDataMain(GetData):
 
@@ -26,7 +26,7 @@ class GetDataMain(GetData):
         get_data_by_web: bool = True,
         *args,
         **kwargs,
-    ) -> Any:
+    ) -> tuple[dict, int] | Response:
         try:
 
             data = ConfessionSchema(

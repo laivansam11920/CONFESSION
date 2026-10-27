@@ -4,7 +4,7 @@ from .routes import *
 __all__ = ["register_blueprints"]
 
 
-def register_blueprints(app: Flask):
+def register_blueprints(app: Flask) -> None:
 
     all_routes: list[Blueprint] = [
         main_route,
