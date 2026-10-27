@@ -1,12 +1,12 @@
 from app.services.moderation.check_key import CheckKeyModerationService
-
+from app.schema.confession import ConfessionSchema
 
 @CheckKeyModerationService.check
 def moderation_ctl(cfs_id: str | None = None):
     from flask import render_template
     from app.services.get_data.get_uncertain_cfs import GetData
 
-    data = GetData.get(cfs_id)
+    data: ConfessionSchema = GetData.get(cfs_id)
 
     return render_template(
         "moderation/action.html",
