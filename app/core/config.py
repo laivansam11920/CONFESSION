@@ -6,7 +6,7 @@ __all__ = ["Config"]
 
 class Configs(BaseSettings):
     MONGO_URI: str = Field(..., alias="mongo_uri")
-    NAME_DATABASE_MONGO: str = Field(..., alias="NAME_DATABASE")
+    NAME_DATABASE_MONGO: str = Field(default="Confession", alias="NAME_DATABASE")
 
     model_config = SettingsConfigDict(populate_by_name=True)
 
