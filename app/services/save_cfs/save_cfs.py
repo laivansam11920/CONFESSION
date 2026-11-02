@@ -2,7 +2,6 @@ from app.schema.confession import ConfessionSchema
 from app.schema.ReturnSchema import ReturnSchema
 from app.utils.logger import console
 from app.utils.check_similar import is_similar
-from app.utils.get_cfs_count import cfs_nums
 from app.utils.del_docs import del_docs
 from app.database import db
 from app.services.moderation.update_cfs_moderation import ConfessionModeration
@@ -64,10 +63,6 @@ class SaveConfession:
                             ),
                             status="success",
                         )
-
-            if not Config.MODERATION_CONFESSION:
-                # TODO: giả sử nếu admin tắt kiểm duyệt và tự kiểm tay, nếu gắn bất chấp như này thì lỡ may bị phát hiện 1 cfs độc thì sẽ đứt chuỗi cfs-nums
-                confession_data.cfs = cfs_nums()
 
             db.docs.insert_one(asdict(confession_data))
 
