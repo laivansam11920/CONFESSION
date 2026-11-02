@@ -1,7 +1,15 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from uuid import UUID, uuid4
+
+__all__ = ["ConfessionDataSchema"]
 
 
-@dataclass
+@dataclass(kw_only=True, slots=True)
 class ConfessionDataSchema:
-    confession_id: int
-    confession_content: str
+
+    cfs_id: UUID = field(default_factory=uuid4)
+    cfs_content: str
+
+    @property
+    def get_id_str(self) -> str:
+        return str(self.cfs_id)

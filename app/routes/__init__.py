@@ -1,15 +1,14 @@
 from flask import Flask, Blueprint
 
-from .main import main_bp
+from .home import home_bp
 
-__all__ = ['register_blueprints']
+__all__ = ["register_blueprints"]
+
 
 def register_blueprints(app: Flask) -> None:
     try:
 
-        blueprints: tuple[Blueprint] = (
-            main_bp,
-        )
+        blueprints: tuple[Blueprint] = (home_bp,)
 
         for bp in blueprints:
             app.register_blueprint(bp)
