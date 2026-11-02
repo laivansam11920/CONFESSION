@@ -27,7 +27,7 @@ class MongoDB(DatabaseBase):
 
         try:
 
-            self._client = MongoClient(
+            client = MongoClient(
                 Config.MONGO_URI,
                 timeoutMS=5000,
                 serverSelectionTimeoutMS=5000,
@@ -35,8 +35,12 @@ class MongoDB(DatabaseBase):
                 tz_aware=True,
             )
 
-            self._client.admin.command("ping")
-            self._db = self._client[Config.NAME_DATABASE_MONGO]
+            client.admin.command("ping")
+            db: Database[Any] = client[Config.NAME_DATABASE_MONGO]
+
+            self._client = client
+            self._db = db
+
             return self._db  # type: ignore
 
         except PyMongoError as e:
