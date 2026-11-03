@@ -1,22 +1,13 @@
 from flask import Flask
-from werkzeug.middleware.proxy_fix import ProxyFix
 
-from app.extensions.limiter import limiter
-from app.extensions.crfs import crfs
-from app.extensions.babel import babel
+from app.core.config import Config
 from app.routes import register_blueprints
-from .utils.change_lang import get_locale
-from configs import Config
+
+__all__ = ["create_confession_app"]
 
 
-def create_app() -> Flask:
-
+def create_confession_app() -> Flask:
     app = Flask(__name__)
-    app.wsgi_app = ProxyFix(app.wsgi_app, **Config.PROXY_SETTING)
     app.config.from_object(Config)
-    limiter.init_app(app)
-    crfs.init_app(app)
-    babel.init_app(app, locale_selector=get_locale)
     register_blueprints(app)
-
     return app
