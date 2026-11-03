@@ -2,7 +2,15 @@ from typing import Any, Optional
 
 from app.schemas.ErrorResponse import ErrorResponse
 
+__all__ = ["BaseAppException"]
+
+
 class BaseAppException(Exception):
+
+    message: str
+    status_code: int
+    error_code: str
+    payload: Optional[dict[str, Any]]
 
     def __init__(
         self,
@@ -16,7 +24,7 @@ class BaseAppException(Exception):
         self.error_code = error_code
         self.payload = payload or {}
 
-    def to_dict(self) -> ErrorResponse:
+    def to_response(self) -> ErrorResponse:
         return ErrorResponse(
             msg=self.message,
             status_code=self.status_code,

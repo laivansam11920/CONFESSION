@@ -3,7 +3,8 @@ from .BaseResponse import BaseResponse
 from dataclasses import dataclass
 from typing import Any
 
-__all__ = ['ErrorResponse']
+__all__ = ["ErrorResponse"]
+
 
 @dataclass(kw_only=True, slots=True)
 class ErrorResponse(BaseResponse):

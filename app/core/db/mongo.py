@@ -59,6 +59,12 @@ class MongoDB(DatabaseBase):
             return self.connect()
         return self._db
 
+    def create_index(self):
+        try:
+            self._db.docs.create_index("cfs_id", unique=True, background=True)
+        except PyMongoError:
+            ...
+
 
 mongo_db = MongoDB()
 
