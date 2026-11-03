@@ -5,6 +5,7 @@ from pymongo.errors import PyMongoError
 from pymongo.database import Database
 
 from app.core.config import Config
+from app.core.constants import *
 from .base import DatabaseBase
 
 __all__ = ["mongo_db", "get_database"]
@@ -29,9 +30,9 @@ class MongoDB(DatabaseBase):
 
             client = MongoClient(
                 Config.MONGO_URI,
-                timeoutMS=5000,
-                serverSelectionTimeoutMS=5000,
-                maxIdleTimeMS=45000,
+                timeoutMS=MongoClient_timeoutMS,
+                serverSelectionTimeoutMS=MongoClient_serverSelectionTimeoutMS,
+                maxIdleTimeMS=MongoClient_maxIdleTimeMS,
                 tz_aware=True,
             )
 
